@@ -55,15 +55,13 @@ model metadata as well as messages between the WebApp and the WebJob.
 
 TODO TODO
 
-Insert a high level architecture diagram here.
+Insert a high-level architecture diagram here.
 
 TODO TODO
 
 ## Getting Started Guide
-Check out the getting started guide (TODO Insert link here). It explain how to deploy the service, and train your
+Check out the getting started guide (TODO Insert link here). It explains how to deploy the service, and train your
 first model.
-
-
 
 
 
