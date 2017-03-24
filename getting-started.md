@@ -137,7 +137,8 @@ This is what a sample request will look like:
 
 ```
 POST http://www.myrecommendations.net/api/models HTTP/1.1
-Authorization: Basic YWxscmVjaXBlcy5yZWNvQG91dGxvb2suY29tOlJTYUI4aVNsTFBnaGtoUjN2M2RBMSArIFk0eWlBWllCa25CMERNMTh1ZDRrMA==
+Authorization: Basic modelKeyGoesHere
+Host: localhost:1742
 Content-Length: 658
 Content-Type: application/json
 Accept: application/json
@@ -166,6 +167,22 @@ The response of this request will look like this:
 
 ## Step 5: Score the Model!
 
+This is what a sample request will look like: 
+
+```
+GET http://localhost:1742/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend?itemId=6480764 HTTP/1.1
+Authorization: Basic YWxscmVjaXBlcy5yZWNvQG91dGxvb2suY29tOlJTYUI4aVNsTFBnaGtoUjN2M2RBMSArIFk0eWlBWllCa25CMERNMTh1ZDRrMA==
+Host: localhost:1742
+Content-Length: 0
+Content-Type: application/json
+Accept: application/json
+```
+
+The request will look like this:
+
+
+
+[{"recommendedItemId":"971880107","score":0.0},{"recommendedItemId":"316666343","score":0.0},{"recommendedItemId":"385504209","score":0.0},{"recommendedItemId":"60928336","score":0.0},{"recommendedItemId":"312195516","score":0.0},{"recommendedItemId":"44023722","score":0.0},{"recommendedItemId":"679781587","score":0.0},{"recommendedItemId":"142001740","score":0.0},{"recommendedItemId":"67976402","score":0.0},{"recommendedItemId":"671027360","score":0.0}]
 
 
 ## Step 6: A few things to consider before you go to production...
