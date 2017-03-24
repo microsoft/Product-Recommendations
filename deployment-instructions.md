@@ -18,7 +18,7 @@ deploys a fully functioning recommendations-service to your subscription.
 
 4. Click **Create**
 
-![Deployment Step 1](images/deployStep1.png)
+![Deployment Step 1](images/deploy-step1.png)
 
 ## Provide configuration parameters.
 
@@ -40,7 +40,7 @@ single tenant use cases.
     If you want to increase the size of the scale up or scale out after deployment, you can do that from 
     the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).
 
-![Deployment Step 2](images/deployStep2.png)
+![Deployment Step 2](images/deploy-step1.png)
 
 3. Click **Next**
 
