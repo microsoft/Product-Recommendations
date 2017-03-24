@@ -3,10 +3,9 @@
 
 ## Overview
 
-This solution enables a product recommendations predictive model. It uses previous customer transactions
-and information on the product catalog to train models that can later on be queried for product recommendations.
+This solution enables you to create product recommendations predictive models based on historical transaction data and information on the product catalog.
 
-At a high level, The solution exposes a mechanisms to:
+At a high level, The solution exposes mechanisms to:
 1. Build models using a SAR (Smart Adaptive Recommendations) algorithm. 
 2. Request a previously created model for recommendations.
 
@@ -19,7 +18,7 @@ Increase the discoverability of items in your catalog by showing relevant produc
 
 2. User-to-Item recommendations.
 
-By providing the recent transactions for a given user, the SAR algorithm can return personalize recommendations for that user. 
+By providing the recent transactions for a given user, the SAR algorithm can return personalized recommendations for that user. 
 
 
 ## Deployment Instructions
