@@ -1,6 +1,5 @@
 # Product Recommendations Preconfigured Solution
 
-
 ## Overview
 
 This solution enables you to create product recommendations predictive models based on historical transaction data and information on the product catalog.
@@ -50,21 +49,7 @@ delegates training jobs  to an [Azure WebJob](https://docs.microsoft.com/en-us/a
 2. An [Azure Storage](https://azure.microsoft.com/en-us/services/storage) subscription that is used for storing models, 
 model metadata as well as messages between the WebApp and the WebJob.
 
-3. An app service plan
-  // TODO : Do we need to say this?
-
-TODO TODO
-
-Insert a high-level architecture diagram here.
-
-TODO TODO
-
-## Getting Started Guide
-Check out the getting started guide (TODO Insert link here). It explains how to deploy the service, and train your
-first model.
-
-
-
+![Architecture Diagram](images/architecture-diagram.png)
 
 ## Contributing
 
