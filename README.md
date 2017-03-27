@@ -6,10 +6,6 @@
 
 This solution enables you to create product recommendations predictive models based on historical transaction data and information on the product catalog.
 
-At a high level, The solution exposes mechanisms to:
-1. Build models using a SAR (Smart Adaptive Recommendations) algorithm. 
-2. Request a previously created model for recommendations.
-
 The following scenarios are supported by a SAR algorithm:
 
 1. **Item-to-Item Recommendations.**
@@ -17,6 +13,12 @@ This is the "Customers who liked this product also liked these other products" s
 Increase the discoverability of items in your catalog by showing relevant products to your customers.
 
 2. **Personalized Recommendations.** By providing the recent history of transactions for a given user, the SAR algorithm can return personalized recommendations for that user. 
+
+
+At a high level, The solution exposes mechanisms to:
+1. Build models using a SAR (Smart Adaptive Recommendations) algorithm. 
+2. Request a previously created model for recommendations.
+
 
 ## Deployment Instructions
 

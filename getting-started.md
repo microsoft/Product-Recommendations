@@ -3,7 +3,7 @@
 ## Step 1: Deploy the recommendations pre-configured solution
 
 If you have not done so already, please deploy the solution to your Azure subscription
-by following the (Deployment Instructions)[deployment-instructions.md]
+by following the [Deployment Instructions](deployment-instructions.md).
 
 ## Step 2: Collect Data to Train your Model
 The preconfigured solution allow you to create recommendations models by learning 
@@ -163,11 +163,40 @@ Accept: application/json
 
 The response of this request will look like this:
 
+```
+HTTP/1.1 201 Created
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Location: http://www.myrecommendations.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?Qzpcc3JjXFJlY29tbWVuZGF0aW9uQ29yZVxzb3VyY2VcUmVjb21tZW5kYXRpb25zLldlYkFwcFxhcGlcbW9kZWxz?=
+X-Powered-By: ASP.NET
+Date: Fri, 24 Mar 2017 20:00:34 GMT
+Content-Length: 64
 
+{"id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb","status":"Created"}
+```
 
-## Step 5: Score the Model!
+For more information on training a recommendations model, and to understand all build parameters available to you, please check the [API Reference](api-reference.md).
 
-This is what a sample request will look like: 
+## Step 4: Wait for your build to complete
+
+Note that the model Id is provided to you when you train a new model.
+You can the status of that model by calling the reference that is provided to you in the Location Header, in the example above:
+```
+GET http://www.myrecommendations.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb
+```
+One the status is completed as in the response below, you will be ready to use the trained model.
+```
+{"id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb","status":"Completed"}
+```
+
+## Step 5: Now let's get some recommendations!
+
+If you want to get item-to-item recommendations, you can perform a simple GET request like the one below. 
 
 ```
 GET http://localhost:1742/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend?itemId=6480764 HTTP/1.1
@@ -178,11 +207,65 @@ Content-Type: application/json
 Accept: application/json
 ```
 
-The request will look like this:
+The response will look something like this:
 
+```
+[
+    {
+        "recommendedItemId": "971880107",
+        "score": 0
+    },
+    {
+        "recommendedItemId": "316666343",
+        "score": 0
+    },
+    {
+        "recommendedItemId": "385504209",
+        "score": 0
+    },
+  ...
+    {
+        "recommendedItemId": "142001740",
+        "score": 0
+    },
+    {
+        "recommendedItemId": "671027360",
+        "score": 0
+    }
+]
+```
 
+If you want to get personalized recommendations you will need to pass the list of recent transactions for a particular user as part of the body. For instance, the RAW request below
+is requesting for recommendations for a customer that purchased item 316569321 in Febrary, and then clicked item 6480764 in March.
 
-[{"recommendedItemId":"971880107","score":0.0},{"recommendedItemId":"316666343","score":0.0},{"recommendedItemId":"385504209","score":0.0},{"recommendedItemId":"60928336","score":0.0},{"recommendedItemId":"312195516","score":0.0},{"recommendedItemId":"44023722","score":0.0},{"recommendedItemId":"679781587","score":0.0},{"recommendedItemId":"142001740","score":0.0},{"recommendedItemId":"67976402","score":0.0},{"recommendedItemId":"671027360","score":0.0}]
+```
+POST http://www.myrecommendations.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend HTTP/1.1
+Authorization: Basic YWxscmVjaXBlcy5yZWNvQG91dGxvb2suY29tOlJTYUI4aVNsTFBnaGtoUjN2M2RBMSArIFk0eWlBWllCa25CMERNMTh1ZDRrMA==
+Host: www.myrecommendations.net
+Content-Length: 330
+Content-Type: application/json
+Accept: application/json
 
+ [ 
+         {          
+             "itemId": "6480764",
+             "type" : "click",    
+             "timestamp" : "2014/03/15T10:50:00"
+         } ,
+         {          
+             "itemId": "316569321",
+             "type" : "purchase",
+             "timestamp" : "2014/02/15T12:30:00"      
+         }
+
+ ]
+
+```
+
+For more information on getting recommendations, and to understand all options available to you, please check the [API Reference](api-reference.md).
 
 ## Step 6: A few things to consider before you go to production...
+
+Before you go, these are a few additional thing you may want to know.
+
+1. Lorem ipsum... add so more content here.
