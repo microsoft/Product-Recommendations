@@ -1,3 +1,5 @@
+<img src="Images/logo.png" align="right" height="200px">
+
 # Product Recommendations Preconfigured Solution
 
 ## Overview
