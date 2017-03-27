@@ -1,4 +1,4 @@
-<img src="Images/logo.png" align="right" height="200px">
+<img  src="images/logo.png" align="right" height="200px">
 
 # Product Recommendations Preconfigured Solution
 
