@@ -12,27 +12,23 @@ At a high level, The solution exposes mechanisms to:
 
 The following scenarios are supported by a SAR algorithm:
 
-1. Item-to-Item recommendations.
-
+1. **Item-to-Item Recommendations.**
 This is the "Customers who liked this product also liked these other products" scenario.
 Increase the discoverability of items in your catalog by showing relevant products to your customers.
 
-2. User-to-Item recommendations.
-
-By providing the recent transactions for a given user, the SAR algorithm can return personalized recommendations for that user. 
-
+2. **Personalized Recommendations.** By providing the recent history of transactions for a given user, the SAR algorithm can return personalized recommendations for that user. 
 
 ## Deployment Instructions
 
-Read the [Deployment Instructions](deployment-instructions.md) document that explains the steps to follow to deploy the solution to your own Azure subscription. 
+Before you can use the solution, you need to deploy it. 
+
+The [Deployment Instructions](deployment-instructions.md) document explains the steps to follow to deploy the solution to your own Azure subscription. 
 
 ## Training your first model
 
-Once you have deployed the solution, check out the [API Reference](api-reference.md).
+Once you have deployed your solution, you will be ready to follow step-by-step instructions on how to create your first model using the [Getting Started Guide](getting-started.md).
 
-Then you will be ready to follow step-by-step instructions on how to create your first model
-using the [Getting Started Guide](getting-started.md).
-
+The [API Reference](api-reference.md) explains in more detail each of the APIs exposed by your newly created solution.
 
 ## High level architecture
 
@@ -48,6 +44,11 @@ model metadata as well as messages between the WebApp and the WebJob.
 
 ![Architecture Diagram](images/architecture-diagram.png)
 
+## Questions?
+
+Contact [mlapi@microsoft.com](mailto:mlapi@microsoft.com) with any additional questions or comments you may have on the usage of the Recommendations preconfigured solution.
+
 ## Contributing
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
