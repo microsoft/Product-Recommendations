@@ -24,19 +24,14 @@ By providing the recent transactions for a given user, the SAR algorithm can ret
 
 ## Deployment Instructions
 
-The preconfigured solution can be easily set up following a Wizard.
-
-
-The [Deployment Instructions](deployment-instructions.md) explain the set of steps 
-to follow to deploy the solution to your Azure subscription.
+Read the [Deployment Instructions](deployment-instructions.md) document that explains the steps to follow to deploy the solution to your own Azure subscription. 
 
 ## Training your first model
 
-Once you have deployed the solution, you may want to check out the [API Reference](api-reference.md).
+Once you have deployed the solution, check out the [API Reference](api-reference.md).
 
-
-You may also want to follow step-by-step instruction on how to create your first model
-using the [Getting Started Guide](getting-started.md)
+Then you will be ready to follow step-by-step instructions on how to create your first model
+using the [Getting Started Guide](getting-started.md).
 
 
 ## High level architecture
