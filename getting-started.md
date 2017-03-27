@@ -6,8 +6,8 @@ If you have not done so already, please deploy the solution to your Azure subscr
 by following the [Deployment Instructions](deployment-instructions.md).
 
 ## Step 2: Collect Data to Train your Model
-The preconfigured solution allow you to create recommendations models by learning 
-from your past transactions. To train a mode you will need to provide two pieces
+The preconfigured solution allows you to create recommendations models by learning 
+from your past transactions. To train a model you will need to provide two pieces
 of information: a catalog file, and usage data.
 
 > If you just want to use [sample data](http://aka.ms/RecoSampleData) to create your model, 
@@ -50,13 +50,13 @@ The recommendations engine creates a statistical model that tells you what items
 
 That said, if the engine knows information about that violin (i.e. It's a musical instrument, it is for children ages 7-10, it is not an expensive violin, etc.), then the engine can learn from other products with similar features. For instance, you have sold violin's in the past and usually people that buy violins tend to buy classical music CDs and sheet music stands.  The system can find these connections between the features and provide recommendations based on the features while your new violin has little usage.
 
-Features are imported as part of the catalog data, and then their rank (or the importance of the feature in the model) is associated when a rank build is done. Feature rank can change according to the pattern of usage data and type of items. But for consistent usage/items, the rank should have only small fluctuations. The rank of features is a non-negative number. The number 0 means that the feature was not ranked (happens if you invoke this API prior to the completion of the first rank build). The date at which the rank was attributed is called the score freshness.
+Features are imported as part of the catalog data. The SAR algorithm that is used to train the model will automatically detect the strength of each of the features based on the transaction data.
 
 #### Features are Categorical
-This means that you should create features that resemble a category. For instance, price=9.34 is not a categorical feature. On the other hand, a feature like priceRange=Under5Dollars is a categorical feature. Another common mistake is to use the name of the item as a feature. This would cause the name of an item to be unique so it would not describe a category. Make sure the features represent categories of items.
+You should create features that resemble a category. For instance, price=9.34 is not a categorical feature. On the other hand, a feature like priceRange=Under5Dollars is a categorical feature. Another common mistake is to use the name of the item as a feature. This would cause the name of an item to be unique so it would not describe a category. Make sure the features represent categories of items.
 
 #### How many/which features should I use?
-Ultimately the Recommendations build supports building a model with up to 20 features. You could assign more than 20 features to the items in your catalog, but you are expected to do a ranking build and pick only the features that rank high. (A feature with a rank of 2.0 or more is a really good feature to use!). 
+You should use less than 20 features.
 
 #### When are features actually used?
 Features are used by the model when there is not enough transaction data to provide recommendations on transaction information alone. So features will have the greatest impact on “cold items” – items with few transactions. If all your items have sufficient transaction information you may not need to enrich your model with features.
