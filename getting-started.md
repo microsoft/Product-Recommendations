@@ -95,8 +95,8 @@ A usage file is a CSV (comma separated value) file where each row in a usage fil
 When you train a model (step 4 in this document), you need to provide the azure storage 
 location of the catalog and usage files needed for training.
 
-### 3.1: Create a Storage Container
-If you don't have one already, please [create a new Azure Storage account](https://docs.microsoft.com/en-us/azure/storage/storage-create-storage-account#create-a-storage-account).
+### 3.1: Create a Storage Container (if you don't have one already)
+If you don't have one already, please [create an Azure Storage account](https://docs.microsoft.com/en-us/azure/storage/storage-create-storage-account#create-a-storage-account).
 You can do this from the Azure portal.
 
 Once you have an account you will need to create a new Blob Container if you don't have one already. 
