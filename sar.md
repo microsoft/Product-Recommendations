@@ -4,7 +4,7 @@
 
 The overall architecture of SAR is shown in the following diagram:
 
-![alt text](SARv2_Arch.png)
+![SAR Diagram](images/sar.png)
 
 ## Input
 
