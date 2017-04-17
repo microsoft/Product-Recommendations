@@ -16,7 +16,7 @@ The input to SAR consists of:
 
 ``<User Id>,<Item Id>,<Time>,[<Event>]``
 
-Each row represents a single interaction between a user and an item, which we call a transaction. *Event* field represents the type of transaction and is optional. Here is an example of usage data:
+Each row represents a single interaction between a user and an item, which we call a transaction. *Event* field represents the type of transaction and is optional. Here is an example of usage data (displayed as a table for readability, but note that it must be provided in the comma-separated format above):
 
 |User ID | Item ID | Time | Event |
 |-|-|-|-|
@@ -34,7 +34,11 @@ Note that SAR does not require explicit user ratings, which are often noisy and 
 * with features  
 ``<Item Id>,<Item Name>,<Item Category>,[<Description>],<Features list>``
 
-The only difference is that the second form assumes that item features are provided, in which case cold items recommendation is supported. Features are given in the "name=value" format and must be categorical. Note that any numerical feature can be converted to categorical by [binning](http://en.wikipedia.org/wiki/Data_binning). The *Description* field is a textual (free form) item description and is optional. Here is an example of catalog data:
+The only difference is that the second form assumes that item features are provided, in which case cold items recommendation is 
+supported. Features are given in the "name=value" format and must be categorical. Note that any numerical feature can be converted to 
+categorical by [binning](http://en.wikipedia.org/wiki/Data_binning). The *Description* field is a textual (free form) item description 
+and is optional. Here is an example of catalog data (displayed as a table for readability):
+
 
 |Item ID | Name | Category | Description | Features |
 |-|-|-|-| - |
@@ -125,12 +129,10 @@ By pre-multiplying this vector with the Item-to-Item similarity matrix, User 1 r
 | **Item 4** | **28.5** |
 | **Item 5** | **15.5** | 
 
-Note that recommendation scores are computed even for items 4 and 5 (highlighted), with which the user have not interacted before. These scores are based on similarity of these items to other items that the user has affinity to. Since Item-to-Item similarity is computed from transactions of all users, this is indeed a collaborative filtering approach. <!---(Well, except for cold items, for which similarity is computed based on item features.)--->
+Note that the recommendation score of an item is purely based on its similarity to Item 5 in this case. Assuming that a same item is 
+not recommended again, items 1 and 4 have the highest score and would be recommended before items 2 and 3. 
 
-Depending on the scenario, only items new to the user or all items can be recommended. For example, in movie recommendation, users are less likely to watch the same movie again, and it makes sense to recommend only from unseen items. In that case, Item 4 would be the highest recommended item in our example. On the other hand, in product recommendation, users may want to buy the same item again, and it makes more sense to recommend from all items. In that case, Item 1 would be the highest recommended item to User 1.
-
-Recommendation scores can be computed for new users as soon as they have one transaction logged, even if their transactions have not yet been used in training (semi-cold users). The scores will adapt as they keep making transactions.
-For example, if a new user clicks on Item 5, her/his affinity vector (assuming weight 1) will be
+Now, if this user adds Item 2 to the shopping cart, affinity vector (assuming weight 2 for this transaction) will be
 
 || New User aff |
 |-|:-:|
@@ -193,10 +195,8 @@ Clearly, the first term (highlighted) has the highest contribution to the score 
 
 Frequently-Occurring-Together (FOT) recommendations (also called  similar-item recommendations) are based purely on the Item-to-Item similarity matrix. For a given item in the shopping cart, items most similar to it will be recommended. SAR can also provide FOT recommendations conditioned on multiple already-selected (seed) items. This is done simply by constructing an affinity vector based on the selected items (as if there was a user with such transactions), and pre-multiplying it by the Item-to-Item similarity matrix (as with user recommendations).
 
-Note that using item features is optional. If item features are not provided or not used by election, then if all seed items are cold, item similarity cannot be used for FOT recommendations. In that case, SAR resorts to recommending the most popular items overall. The same holds for user recommendations when all items in the user affinity vector are cold items.
+Note that using item features is optional. If item features are not provided or not used by election, then if all seed items are cold, item similarity cannot be used for FOT recommendations. In that case, SAR resorts to recommending the most popular items overall if the "backfilling" option is on, or returns an empty list otherwise (which can then be populated with some pre-specified list of items in a post-processing step). The same holds for user recommendations when all items in the user affinity vector are cold items.
 
-<!---
-## Architecture
+Note also that Frequently-Bought-Together (FBT) scenario is simply a special case of FOT when the event type is Purchase.
 
-![alt text](SARv2_Arch.png)
---->
+
