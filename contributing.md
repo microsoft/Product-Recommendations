@@ -1,7 +1,9 @@
 Contributing to the Product Recommendations pre-configured Solution
 ======================
 
-This document describes contribution guidelines that are specific to the recommendations pre-configured solution.
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+Please follow the contribution guidelines below:
 
 Coding Style Changes
 --------------------
