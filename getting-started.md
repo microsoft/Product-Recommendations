@@ -117,9 +117,9 @@ It should looks something like this:
 ### 3.3 Upload catalog file and usage files.
 To upload your files to Azure Blob Storage, you may do it programmatically, or use a tool 
 like [Microsoft Azure Storage Explorer](http://storageexplorer.com/).
- 
-Make sure that the usage files are all in the same virtual folder. 
-For instance, the could be under a folder named *usage*.
+
+**Place all usage files in the same virtual folder.** For instance, they could be under a folder named *usage*. 
+No other files should be in that folder. The catalog file can be placed anywhere else (including directly in the container).
 
 
 ## Step 4: Train a new Recommendations Model
