@@ -94,7 +94,8 @@ Will return basic properties for each of the existing models.
 
 Deletes the model specified.
 
-You cannot delete an active build, you will get an error. The model should be updated to a different active build before you delete it. 
+You cannot delete the default build. If you try to delete the default build you will get an error.
+The model should be updated to a different default build before you delete it. 
 
 ## Get item-to-item recommendations from a model
 *GET /api/models/{modelId}/recommendations*
