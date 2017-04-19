@@ -1,6 +1,11 @@
 # API Reference
+
+## Swagger UI
 Once you deploy the service, you will be able to navigate to the API Reference (Swagger definition) for your 
 newly created service by going to http://\<root url\>/swagger/ . You will get the root url upon deploying your service.
+
+The swagger UI is the authoritative definition of the API interface -- but we have duplicated a description of the API reference here so you can understand what the service will look like before you actually deploy it.
+
 
 ## Authentication
 When calling the service, you will need to set authentication headers to pass the API key you are provided 
@@ -64,14 +69,14 @@ Sample body:
 ```
 {
     "description": "Simple recommendations model",
-    "baseContainerSasUri": "https://myreco.blob.core.windows.net/input-files?st=2017-03-14T11%3A07%3A00Z&se=2018-03-16T11%3A07%3A00Z&sp=rwdl&sv=2015-12-11&sr=c&sig=ztvAyzQqCPLQ7gDGGz9x0pNnfu8TKD9HSG5EDp9C0w%3D",
-    "trainCatalogFileRelativeLocation": "books.csv",
-    "trainUsageFolderRelativeLocation": "booksTrainUsage",
+    "blobContainerName": "input-files",
+    "catalogFileRelativeLocation": "books.csv",
+    "usageFolderRelativeLocation": "booksTrainUsage",
     "evaluationUsageFolderRelativeLocation": "booksTestUsage",
     "supportThreshold": 6,
     "cooccurrenceUnit": "User",
     "similarityFunction": "Jaccard",
-    "enableColdItemPlacement": false,
+    "enableColdItemPlacement": true,
     "enableColdToColdRecommendations": false,
     "enableUserAffinity": true,
     "allowSeedItemsInRecommendations": true,
@@ -81,16 +86,15 @@ Sample body:
 ```
 
 ## Get model information
-*GET /api/models*
+*GET /api/models/{modelId}*
 
 Returns metadata about the model, including the training status,  parameters used to 
 build the model, the time of creation, statistics about the model and evaluation results.
 
-
 ## List models
 *GET /api/models*
 
-Will return basic properties for each of the existing models.
+Will return model information for each of the existing models.
 
 ## Delete a model
 *DELETE /api/models/{modelId}*
@@ -101,7 +105,7 @@ You cannot delete the default build. If you try to delete the default build you 
 The model should be updated to a different default build before you delete it. 
 
 ## Get item-to-item recommendations from a model
-*GET /api/models/{modelId}/recommendations*
+*GET /api/models/{modelId}/recommend*
 
 Gets item-to-item recommendations for the model specified. 
 
@@ -116,7 +120,7 @@ did not have sufficient data to provide recommendations for the items.
 | numberOfResults | Number of recommended items to return | Integer, 2 to 100
 
 ## Get personalized recommendations from a model 
-*POST /api/models/{modelId}/recommendations*
+*POST /api/models/{modelId}/recommend*
 
 Gets personalized recommendations for the model specified, given a set of recent events for a particular user.
 The *recent events* -- or recent history -- should be passed in the body of the request in the following format:
@@ -135,17 +139,17 @@ The *recent events* -- or recent history -- should be passed in the body of the 
 ```
 
 ## Set default model
-*PUT /api/models/default* 
+*POST /api/models/default* 
 
 ## Get default model
 *GET /api/models/default* 
 
 ## Get item-to-item recommendations from the default model
-*GET /api/models/default/recommendations*
+*GET /api/models/default/recommend*
 
 Once a default build is set, similar to getting item-to-item recommendations, but using the default model.
 
 ## Get personalized recommendations from default model
-*POST /api/models/default/recommendations*
+*POST /api/models/default/recommend*
 
 Once a default build is set, similar to getting personalized recommendations, but using the default model.
