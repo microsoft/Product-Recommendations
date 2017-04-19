@@ -19,7 +19,7 @@ get recommendations, so this is the key you would use on the client or website r
 Sample authentication header:
 
 ```
-Authentication: Basic <yourKeyGoesHere>
+x-api-key: <yourKeyGoesHere>
 ```
 
 
@@ -43,18 +43,21 @@ The body of the message should contain the following parameters:
 |  Parameter  | Description | Valid values (default)    
 |-------------|-------------|------------------------------
 | description | Textual description | String 
-| baseContainerSasUri| SAS Uri to the container that will contain the catalog and transaction data | String 
-| trainCatalogFileRelativeLocation |  Relative path to the catalog file | String
-| trainUsageFolderRelativeLocation |  Relative path to the virtual directory that contains the usage file(s) | String
+| blobContainerName| Name of the container where the catalog and usage data is stored. Note that this container should be in the storage subscription created by the preconfigured solution  | String 
+| catalogFileRelativeLocation |  Relative path to the catalog file | String
+| usageFolderRelativeLocation |  Relative path to the virtual directory that contains the usage file(s) to be used for training | String
+| evaluationUsageFolderRelativeLocation |  Relative path to the virtual directory that contains the usage file(s) to be used for evaluation | String
 | supportThreshold | How conservative the model is. Number of co-occurrences of items to be considered for modeling. | 3-50 (6)
 | cooccurrenceUnit | Indicates how to group usage events before counting co-occurrences. A 'User' cooccurrence unit will consider all items purchased by the same user as occurring together in the same session. A 'Timestamp' cooccurrence unit will consider all items purchased by the same user in the same time as occurring together in the same session. | *User*, *Timestamp* (Default: User)
 | similarityFunction| Defines the similarity function to be used by the build. Lift favors serendipity, Co-occurrence favors predictability, and Jaccard is a nice compromise between the two. | *Cooccurrence*, *Lift*, *Jaccard* (Lift)
 | enableColdItemPlacement |  Indicates if the recommendation should also push cold items via feature similarity.  | True, False (False)
 |enableColdToColdRecommendations | Indicates whether the similarity between pairs of cold items (catalog items without usage) should be computed. If set to false, only similarity between cold and warm item will be computed, using catalog item features. Note that this configuration is only relevant when enableColdItemPlacement is set to true. | True, False (False)
+| popularItemBenchmarkWindow | The period of time that should be used to compute most popular items (for evaluation purposes). In days. | Integer 
 | enableUserAffinity | For personalized recommendations, it defines whether the event type and the time of the event should be considered as input into the scoring. | True, False (False)
 | enableBackfilling | Backfill with popular items when the system does not find sufficient recommendations. | True, False (True)
 | allowSeedItemsInRecommendations |  Allow seed items (items in the input or in the user history) to be returned as recommendation results. | True, False (False)
 | decayPeriodInDays | The decay period in days. The strength of the signal for events that are that many days old will be half that of the most recent events. | 30
+
 
 
 Sample body:
