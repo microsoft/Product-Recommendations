@@ -51,6 +51,7 @@ model metadata as well as messages between the WebApp and the WebJob.
 Contact [mlapi@microsoft.com](mailto:mlapi@microsoft.com) with any additional questions or comments you may have on the usage of the Recommendations preconfigured solution.
 
 ## Contributing
+See the [Contributing Document](contributing.md) to understand contribution guidelines and code of conduct.
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
+## License
+.NET Core (including the corefx repo) is licensed under the MIT license.
