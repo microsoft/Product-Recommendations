@@ -1,6 +1,6 @@
 # Recommendations Service Architecture
 
-<img src="images/architecture/appservice-diagram.png" align="left" height="500px">
+<img src="images/architecture/appservice-diagram.png" align="inline" height="500px">
 
 ## Recommendations Web App
 
