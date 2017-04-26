@@ -4,7 +4,7 @@
 
 ## Recommendations Web App
 
-<img src="images/architecture/app-service-web.png" align="left" height="80px">
+<img src="images/architecture/app-service-web.png" align="left" height="100px">
 
 The recommendation web app is an [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/web/) web application that exposes a 
 RESTful API for creating (training) and managing models as well as getting recommendation using trained models (see [API Reference](api-reference.md)). 
@@ -37,9 +37,27 @@ The web job also listens to the *[Delete Model](#delete-model-queue)* for model 
 Once a new message is found, the [Model Provider](#model-provider) is used to deleted the trained model blob (if exists) from Azure Storage.
 
 ## Model Registry
+
+<img src="images/architecture/azure-storage-table.png" align="left" height="100px">
+
+The Model Registry is an [Azure Storage Table](https://docs.microsoft.com/en-us/azure/storage/storage-introduction) that stores models information.
+Every model is defined by a single row (or "table entity") which mainly holds the model id, creation time, status, training parameters and training statistics. 
+The model registry is managed by the [Recommendations Web App](#recommendations-web-app), meaning only the web app should create\delete model entities from the table. 
+Updating a model entity could be done by any component.
+ 
 ## Model Provider
+
+<img src="images/architecture/azure-blob-storage.png" align="left" height="100px">
+
+The Model Provider is a logical entity responsible for storing and retrieving trained models from a designated container in 
+[Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/storage-introduction). Trained models are serialized and stored as blobs 
+under a relative location that corresponds to the model id under the '*models*' blob container.
+
+The Model Provider also exposes a code api for training and getting recommendations, wrapping the internal training\recommender classes - see [Code Structure](#code-structure).
+
 ## Train Model Queue
 ## Delete Model Queue
 ## Model Training Flow
+## Code Structure
  
 
