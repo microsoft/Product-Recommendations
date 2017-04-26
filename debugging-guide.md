@@ -2,7 +2,7 @@
 
 ---
 
-### Enabling logging
+### Enabling Logging
 
 To make the debugging process easier, necessary telemetry has been added throughout the source code. By default, diagnostics is disabled in azure web apps and can be enabled by following the steps here - [Enable diagnostics logging for web apps in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-enable-diagnostic-log).
 
