@@ -20,7 +20,8 @@ To make the debugging process easier, necessary telemetry has been added through
 > In most cases, a clear error message indicating the issue is returned. 
  ![400Withmessage](images/400withmessage.png)
  In some cases, error message might not point to exact point of error. This happens mainly if the body is not properly composed. Eg: a boolean parameter has a value other than true/false.
- ![400Withoutmessage](images/400withoutmessage.png)
+ 
+ >![400Withoutmessage](images/400withoutmessage.png)
 
 3. ##### Model takes forever to train. Eventually fails with status "aborted after n attempts"
 >The recommendations algorithm is a memory based algorithm. Based on the [App Service Plan](https://azure.microsoft.com/en-us/pricing/details/app-service) you choose for the web app, your instance is allocated certain amout of RAM. If you data size is much bigger than the published benchmarks **"TODO: Add link when ready"**, web-jobs infrastructure gives up on the task after a certain time. This is due to an [open issue](https://github.com/Azure/azure-webjobs-sdk/issues/899) in azure web job infrastructure.
@@ -54,4 +55,4 @@ To make the debugging process easier, necessary telemetry has been added through
 7. ##### Scoring latency is degraded
 > There are two possible scenarios where scoring latency could be degraded.
 > 1. Model training is in progress - Since training happens on the same machine, cpu and memory resources are shared thus resulting in more processing time of a request.
-> 2. Degradation on first call - When a model is not in cache **"TODO: add link to arch"**, on a scoring call, it is downloaded from blob storage and loaded in memory. This results in a longer latency (we have seen 0.5-2 seconds), however once this is in the cache, subsequent scoring calls are much faster (<500 msec).
+> 2. Degradation on first call - When a model is not in cache (see [Architecture](architecture.md)), on a scoring call, it is downloaded from blob storage and loaded in memory. This results in a longer latency (we have seen 0.5-2 seconds), however once this is in the cache, subsequent scoring calls are much faster (<500 msec).
