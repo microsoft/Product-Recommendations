@@ -39,8 +39,7 @@ single tenant use cases.
 
     If you want to increase the size of the scale up or scale out after deployment, you can do that from 
     the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).
-
-![Deployment Step 2](images/deploy-step1.png)
+![Deployment Step 2](images/deploy-step2.png)
 
 3. Click **Next**
 
