@@ -1,3 +1,0 @@
-Q. My model takes forever to build. Eventually fails with status "aborted after n attempts"
-A. The recommendations algorithm is a memory based algorithm. Based on the [App Service Plan](https://azure.microsoft.com/en-us/pricing/details/app-service) you choose for the web app, your instance is allocated certain amout of RAM. If you data size is much bigger than the published benchmarks **"TODO: Add link when ready"**, web-jobs infrastructure gives up on the task after a certain time. This is due to an [open issue](https://github.com/Azure/azure-webjobs-sdk/issues/899) in azure web job infrastructure.
-Solution is to either move to a higher tiered app service plan from your web app in Azure Portal, or to reduce your usage and catalog size.

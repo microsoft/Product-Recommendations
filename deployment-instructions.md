@@ -46,11 +46,11 @@ single tenant use cases.
 
 ## Using your newly created solution
 
-Once all the resources have been deployed, you will be provided two keys (*modelKey* and *recommenderKey*) 
+Once all the resources have been deployed, you will be provided two keys (*adminKey* and *recommendKey*) 
 that can be used to access a newly create RESTful endpoint that you can use to train models, and get product recommendations from
 those models.  Take note of those keys, as you will need them later on.
 
-The *modelKey* is the key that can be used for all API operations, the *recommenderKey* can only be used to 
+The *adminKey* is the key that can be used for all API operations and gives full error stack on any internal errors, the *recommendKey* can only be used to 
 get recommendations, so this is the key you would use on the client or website requesting recommendations.
 
 Those keys can also be found in the  [Azure Portal](portal.azure.com/), as **Application Settings** for the newly create AppService.
