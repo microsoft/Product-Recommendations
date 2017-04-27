@@ -76,6 +76,24 @@ to signal the [Web Job](#recommendations-web-job) to stop model training (if in 
 
 ## Model Training Flow
 
+### Background
+
+Recommendations model training is the process of processing an input of usage events, catalog (optional) and configuration settings ("training parameters") and yielding a binary that could be used to get item recommendations. 
+
+If provided, a **catalog** is basically a list of items, where every item has an item id (string) and a set of *features* (key-value pairs) that describes the item. One example is a books catalog, where every boon is an item with features such as published year and\or genre. 
+
+**Usage events** are a record of how the items were used. At its basic form, a usage event is comprised out of a user id (string) and an item id (string). In addition, usage event may also provide a timestamp value. Usage events are essential for the recommendation algorithm which looks for correlations between the different users usage patterns (see [SAR algorithm](sar.md)).
+
+The **training parameters** are the configuration that enables one to fine tune the recommendation algorithm. 
+The quality of a trained model could be evaluated by using [Model Evaluation](model-evaluation.md).
+
+### Training Flow
+
+1. Download the catalog file (if available) and the usage file(s) from Azure blob storage. 
+2. Parse the catalog file into in memory objects
+3. Parse the usage file and sort it according to the training parameters. 
+
+
 ## Code Structure
  
  <img src="images/architecture/code-diagram.png" align="inline" height="500px">
