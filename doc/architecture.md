@@ -74,6 +74,7 @@ as *Failed* in [Model Registry](#model-registry).
 The Delete Model Queue is an [Azure Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues) used by the [Web App](#recommendations-web-app) 
 to signal the [Web Job](#recommendations-web-job) to stop model training (if in progress) and delete the trained model resources from Azure Blob Storage (is exists).
 
+
 ## Model Training Flow
 
 ### Background
@@ -118,7 +119,7 @@ The quality of a trained model could be evaluated by using [Model Evaluation](mo
  and [Model Registry](#model-registry) to keep record, train and get recommendation from models. 
  
  ## Caching
-In memory caching is used to improve get recommendation API performance. 
+In-memory caching is used to improve get recommendation API performance. 
 
 There are two levels of caching:
 At the top level, the [Model Provider](#model-provider) caches **Recommender** objects. 

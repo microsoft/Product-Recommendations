@@ -2,7 +2,7 @@
 
 ## Swagger UI
 Once you deploy the service, you will be able to navigate to the API Reference (Swagger definition)
-of your newly created service by going to http://\<root url\>/swagger/ . You will get the root url
+of your newly created service by going to https://<root url\>/swagger/ . You will get the root url
 upon deploying your service.
 
 The swagger UI is the authoritative definition of the API interface -- but we have duplicated a

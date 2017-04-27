@@ -18,7 +18,7 @@ deploys a fully functioning recommendations-service to your subscription.
 
 4. Click **Create**
 
-![Deployment Step 1](images/deploy-step1.png)
+![Deployment Step 1](../images/deploy-step1.png)
 
 ## Provide configuration parameters.
 
@@ -40,7 +40,7 @@ single tenant use cases.
     If you want to increase the size of the scale up or scale out after deployment, you can do that from 
     the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).
 
-![Deployment Step 2](images/deploy-step2.png)
+![Deployment Step 2](../images/deploy-step2.png)
 
 3. Click **Next**
 
@@ -53,7 +53,7 @@ those models.  Take note of those keys, as you will need them later on.
 The *adminKey* is the key that can be used for all API operations and gives full error stack on any internal errors, the *recommendKey* can only be used to 
 get recommendations, so this is the key you would use on the client or website requesting recommendations.
 
-Those keys can also be found in the  [Azure Portal](portal.azure.com/), as **Application Settings** for the newly create AppService.
+Those keys can also be found in the  [Azure Portal](http://portal.azure.com/), as **Application Settings** for the newly create AppService.
 
 Congratulations! You now have a recommendations service you can use to train models.
-Take a look at the [Getting Started Guide](getting-started.md) to learn how to create your first model.  If you want to learn abut the APIs exposed you can also take a look at the [API Reference](api-reference.md).
+Take a look at the [Getting Started Guide](../getting-started.md) to learn how to create your first model.  If you want to learn abut the APIs exposed you can also take a look at the [API Reference](api-reference.md).
