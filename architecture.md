@@ -92,8 +92,13 @@ The quality of a trained model could be evaluated by using [Model Evaluation](mo
 
 1. Download the catalog file (if available) and the usage file(s) from Azure blob storage. 
 2. Parse the catalog file into in memory objects
-3. Parse the usage file and sort it according to the training parameters. 
-
+3. Create an index that maps user ids (string) to numeric values
+4. Parse the usage file and sort it according to the training parameters. 
+5. Create an index that maps item ids (string) to numeric values
+6. Core train using the underlying TLC library
+7. Run model evaluation if evaluation usage files were provided. For more info, see [Model Evaluation](model-evaluation.md).
+8. Get recommendations for a sample of usage events to get a normalization factor for score values
+9. Serialize and persists the trained model along with the item id index and additional properties to Azure blob storage
 
 ## Code Structure
  
