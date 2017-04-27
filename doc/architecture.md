@@ -1,10 +1,10 @@
 # Recommendations Service Architecture
 
-<img src="images/architecture/appservice-diagram.png" align="inline" height="500px">
+<img src="../images/architecture/appservice-diagram.png" align="inline" height="500px">
 
 ## Recommendations Web App
 
-<img src="images/architecture/app-service-web.png" align="left" height="90px">
+<img src="../images/architecture/app-service-web.png" align="left" height="90px">
 
 The recommendation web app is an [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/web/) web application that exposes a 
 RESTful API for creating (training) and managing models as well as getting recommendation using trained models (see [API Reference](doc/api-reference.md)). 
@@ -21,7 +21,7 @@ and use it to produce recommendations. For more information about the recommenda
 
 ## Recommendations Web Job
 
-<img src="images/architecture/app-service-webjob.jpg" align="left" height="110px">
+<img src="../images/architecture/app-service-webjob.jpg" align="left" height="110px">
 
 The recommendations web job is an [Azure Web Job](https://docs.microsoft.com/en-us/azure/app-service-web/websites-webjobs-resources) process is 
 defined on every instance of the Web App.
@@ -38,7 +38,7 @@ Once a new message is found, the [Model Provider](#model-provider) is used to de
 
 ## Model Registry
 
-<img src="images/architecture/azure-table-storage.png" align="left" height="90px">
+<img src="../images/architecture/azure-table-storage.png" align="left" height="90px">
 
 The Model Registry is an [Azure Table Storage](https://azure.microsoft.com/en-us/services/storage/tables) that stores models information.
 Every model is defined by a single row (or "table entity") which mainly holds the model id, creation time, status, training parameters and training statistics. 
@@ -47,7 +47,7 @@ Updating a model entity could be done by any component.
  
 ## Model Provider
 
-<img src="images/architecture/azure-blob-storage.png" align="left" height="90px">
+<img src="../images/architecture/azure-blob-storage.png" align="left" height="90px">
 
 The Model Provider is a logical entity responsible for storing and retrieving trained models from a designated container in 
 [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/storage-introduction). Trained models are serialized and stored as blobs 
@@ -60,7 +60,7 @@ see [Code Structure](#code-structure).
 
 ## Train Model Queue
 
-<img src="images/architecture/azure-queue-storage.png" align="left" height="85px">
+<img src="../images/architecture/azure-queue-storage.png" align="left" height="85px">
 
 The Train Model Queue is an [Azure Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues) used by the [Web App](#recommendations-web-app) 
 to signal the [Web Job](#recommendations-web-job) to start then process of training a new model (see [Model Training Flow](#model-training-flow)).
@@ -69,7 +69,7 @@ as *Failed* in [Model Registry](#model-registry).
 
 ## Delete Model Queue
 
-<img src="images/architecture/azure-queue-storage.png" align="left" height="85px">
+<img src="../images/architecture/azure-queue-storage.png" align="left" height="85px">
 
 The Delete Model Queue is an [Azure Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues) used by the [Web App](#recommendations-web-app) 
 to signal the [Web Job](#recommendations-web-job) to stop model training (if in progress) and delete the trained model resources from Azure Blob Storage (is exists).
@@ -101,7 +101,7 @@ The quality of a trained model could be evaluated by using [Model Evaluation](mo
 
 ## Code Structure
  
- <img src="images/architecture/code-diagram.png" align="inline" height="500px">
+ <img src="../images/architecture/code-diagram.png" align="inline" height="500px">
 
  The Recommendation service code is divided into layers, where the bottom most layer is the *TLC library* which is a set of machine learning algorithms that 
  the service use for both training and scoring (i.e. getting recommendations). The library gets in-memory representation of the catalog & usage events as input for training\scoring.
@@ -126,6 +126,3 @@ Every Recommender object is associated with a specific model. Recommender object
 
 At a lower lever, Recommender objects keep an internal cache of an even lower level *Scoring Engine* objects. 
 Scoring Engine is the underlying TLC's object that is used to "score" (get recommendation) items. A Scoring Engine object is a combination of a trained model and scoring-time arguments (e.g. the number of requested recommendations, the latest usage event's timestamp). For that reason, it is likely for a single model to have multiple Scoring Engines, and that is why Recommender objects keep a cache. Similarly to the top level cache, Scoring Engine objects leave the cache is not used after one day. 
-
- 
-  
