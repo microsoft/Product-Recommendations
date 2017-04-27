@@ -1,4 +1,4 @@
-[Debugging](../images/debugging.gif)
+![Debugging](../images/debugging.gif)
 
 ---
 
