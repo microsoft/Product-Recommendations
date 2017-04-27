@@ -36,7 +36,7 @@ To make the debugging process easier, necessary telemetry has been added through
 >To ensure performance, only one model training is allowed per App Service instance at a given time. However the number of instances can be increased by scaling up the app service. See [Scale instance count manually or automatically](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/insights-how-to-scale?toc=%2fazure%2fapp-service-web%2ftoc.json)
 
 7. ##### Storage exceptions in logs
->As explained in the *High Level Architecture section* of [README](../README.MD), the solution uses azure storage queues, tables and blobs for various operations. To handle any networking glitches, the storage sdk client has been configured with retries.
+>As explained in the *High Level Architecture section* of [README](../README.md), the solution uses azure storage queues, tables and blobs for various operations. To handle any networking glitches, the storage sdk client has been configured with retries.
  Blobs and Queues are configured with exponential retry policy while Storage is configured with linear retry policy. More details here - [Azure Storage retry guidelines](https://docs.microsoft.com/en-us/azure/architecture/best-practices/retry-service-specific#azure-storage-retry-guidelines).
 
  | Parameter | Default value | Description |
