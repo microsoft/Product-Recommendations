@@ -78,7 +78,7 @@ to signal the [Web Job](#recommendations-web-job) to stop model training (if in 
 
 ## Code Structure
  
- <img src="images/architecture/code-diagram.png" align="left" height="500px">
+ <img src="images/architecture/code-diagram.png" align="inline" height="500px">
 
  The Recommendation service code is divided into layers, where the bottom most layer is the *TLC library* which is a set of machine learning algorithms that 
  the service use for both training and scoring (i.e. getting recommendations). The library gets in-memory representation of the catalog & usage events as input for training\scoring.
