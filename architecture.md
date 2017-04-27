@@ -75,6 +75,26 @@ The Delete Model Queue is an [Azure Queue Storage](https://azure.microsoft.com/e
 to signal the [Web Job](#recommendations-web-job) to stop model training (if in progress) and delete the trained model resources from Azure Blob Storage (is exists).
 
 ## Model Training Flow
+
 ## Code Structure
  
+ <img src="images/architecture/code-diagram.png" align="left" height="500px">
 
+ The Recommendation service code is divided into layers, where the bottom most layer is the *TLC library* which is a set of machine learning algorithms that 
+ the service use for both training and scoring (i.e. getting recommendations). The library gets in-memory representation of the catalog & usage events as input for training\scoring.
+
+ Above the TLC layer, the *Model Trainer* and *Recommender* resides. Those classes are abstraction over the TLC layer, consuming catalog & usage events as local disk files.
+ The Model Trainer parses and transforms the input files to the format accepted by the TLC layer. Model training result at this layer is an in-memory instance, holding the underling 
+ TLC-trained model and additional required contracts (e.g. a map between 'external' string catalog items ids and the 'internal' numeric ids).
+ The Recommender class can use that in-memory trainer model class and some parameters to compute recommendations.
+ 
+ Above this layer, we find the [Model Provider](#model-provider), which can downloads catalog & usage events Azure blob files to local disk, to be used by the Model Trainer.
+ In addition, the [Model Provider](#model-provider) is responsible for [caching](#caching) Recommender objects for better performance.
+
+ At the top most layer we find the [Web App](#recommendations-web-app) and the [Recommendations Web Job](#recommendations-web-job) that utilize the [Model Provider](#model-provider)
+ and [Model Registry](#model-registry) to keep record, train and get recommendation from models. 
+ 
+ ### Caching
+
+ 
+  
