@@ -9,12 +9,12 @@
 The recommendation web app is an [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/web/) web application that exposes a 
 RESTful API for creating (training) and managing models as well as getting recommendation using trained models (see [API Reference](api-reference.md)). 
 When a new model creation (training) request is received, the web app creates an entry for the new model in the [Model Registry](#model-registry) Azure 
-Storage Table, with a status of *Created*, and enqueues a new message the *[Train Model](#train-model-queue)* Azure Storage Queue, to be processed by 
+Table Storage, with a status of *Created*, and enqueues a new message the *[Train Model](#train-model-queue)* Azure Queue Storage, to be processed by 
 the [Recommendations Web Job](#recommendations-web-job). The new model id (GUID) is returned in the HTTP response.
 
 The web app also exposes APIS for listing, retrieving models by querying\updating the [Model Registry](#model-registry).
 When a delete model request is received, the model record is removed from the [Model Registry](#model-registry) and a new message is enqueued 
-to the *[Delete Model](#delete-model-queue)* Azure Storage Queue, to be processed by the [Recommendations Web Job](#recommendations-web-job).
+to the *[Delete Model](#delete-model-queue)* Azure Queue Storage, to be processed by the [Recommendations Web Job](#recommendations-web-job).
 
 When handling a get recommendations request, the [Model Provider](#model-provider) loading the trained model into memory (if not already cached) 
 and use it to produce recommendations. For more information about the recommendation algorithm, see [SAR](sar.md).
@@ -38,11 +38,11 @@ Once a new message is found, the [Model Provider](#model-provider) is used to de
 
 ## Model Registry
 
-<img src="images/architecture/azure-storage-table.png" align="left" height="100px">
+<img src="images/architecture/azure-table-storage.png" align="left" height="100px">
 
-The Model Registry is an [Azure Storage Table](https://docs.microsoft.com/en-us/azure/storage/storage-introduction) that stores models information.
+The Model Registry is an [Azure Table Storage](https://azure.microsoft.com/en-us/services/storage/tables) that stores models information.
 Every model is defined by a single row (or "table entity") which mainly holds the model id, creation time, status, training parameters and training statistics. 
-The model registry is managed by the [Recommendations Web App](#recommendations-web-app), meaning only the web app should create\delete model entities from the table. 
+The model registry is managed by the [Web App](#recommendations-web-app), meaning only the web app should create\delete model entities from the table. 
 Updating a model entity could be done by any component.
  
 ## Model Provider
@@ -52,11 +52,28 @@ Updating a model entity could be done by any component.
 The Model Provider is a logical entity responsible for storing and retrieving trained models from a designated container in 
 [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/storage-introduction). Trained models are serialized and stored as blobs 
 under a relative location that corresponds to the model id under the '*models*' blob container.
+The models storage container and blobs are managed by the [Web Job](#recommendations-web-job), meaning only the web job should create\delete trained model blobs. 
+Reading\using a trained model blob could be done by any component.
 
-The Model Provider also exposes a code api for training and getting recommendations, wrapping the internal training\recommender classes - see [Code Structure](#code-structure).
+The Model Provider also exposes a code api for training and getting recommendations, wrapping the internal training\recommender classes - 
+see [Code Structure](#code-structure).
 
 ## Train Model Queue
+
+<img src="images/architecture/azure-queue-storage.png" align="left" height="100px">
+
+The Train Model Queue is an [Azure Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues) used by the [Web App](#recommendations-web-app) 
+to signal the [Web Job](#recommendations-web-job) to start then process of training a new model (see [Model Training Flow](#model-training-flow)).
+If handling of a queue message (i.e. training a model) fails a few times, the message is moved to a *poison* queue, which when handled marks the model status 
+as *Failed* in [Model Registry](#model-registry).
+
 ## Delete Model Queue
+
+<img src="images/architecture/azure-queue-storage.png" align="left" height="100px">
+
+The Delete Model Queue is an [Azure Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues) used by the [Web App](#recommendations-web-app) 
+to signal the [Web Job](#recommendations-web-job) to stop model training (if in progress) and delete the trained model resources from Azure Blob Storage (is exists).
+
 ## Model Training Flow
 ## Code Structure
  
