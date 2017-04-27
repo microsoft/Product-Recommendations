@@ -49,7 +49,9 @@ To make the debugging process easier, necessary telemetry has been added through
  | tableClientLinearRetryDeltaBackoffSeconds | 0.5 seconds | Back-off interval between retries.  |
  | tableClientLinearRetryMaxAttempts | 5 | Maximum retry attempts. |
 
+
    >If desired, these values can be over-written by adding the above parameter in *Application Settings* of the *App Service.*
+   
 ![App Settings Configuration](../images/app-settings-configuration.png)
 
 8. ##### Scoring latency is degraded
