@@ -7,7 +7,7 @@
 <img src="images/architecture/app-service-web.png" align="left" height="90px">
 
 The recommendation web app is an [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/web/) web application that exposes a 
-RESTful API for creating (training) and managing models as well as getting recommendation using trained models (see [API Reference](api-reference.md)). 
+RESTful API for creating (training) and managing models as well as getting recommendation using trained models (see [API Reference](doc/api-reference.md)). 
 When a new model creation (training) request is received, the web app creates an entry for the new model in the [Model Registry](#model-registry) Azure 
 Table Storage, with a status of *Created*, and enqueues a new message the *[Train Model](#train-model-queue)* Azure Queue Storage, to be processed by 
 the [Recommendations Web Job](#recommendations-web-job). The new model id (GUID) is returned in the HTTP response.
@@ -17,7 +17,7 @@ When a delete model request is received, the model record is removed from the [M
 to the *[Delete Model](#delete-model-queue)* Azure Queue Storage, to be processed by the [Recommendations Web Job](#recommendations-web-job).
 
 When handling a get recommendations request, the [Model Provider](#model-provider) loading the trained model into memory (if not already cached) 
-and use it to produce recommendations. For more information about the recommendation algorithm, see [SAR](sar.md).
+and use it to produce recommendations. For more information about the recommendation algorithm, see [SAR](doc/sar.md).
 
 ## Recommendations Web Job
 
@@ -82,7 +82,7 @@ Recommendations model training is the process of processing an input of usage ev
 
 If provided, a **catalog** is basically a list of items, where every item has an item id (string) and a set of *features* (key-value pairs) that describes the item. One example is a books catalog, where every boon is an item with features such as published year and\or genre. 
 
-**Usage events** are a record of how the items were used. At its basic form, a usage event is comprised out of a user id (string) and an item id (string). In addition, usage event may also provide a timestamp value. Usage events are essential for the recommendation algorithm which looks for correlations between the different users usage patterns (see [SAR algorithm](sar.md)).
+**Usage events** are a record of how the items were used. At its basic form, a usage event is comprised out of a user id (string) and an item id (string). In addition, usage event may also provide a timestamp value. Usage events are essential for the recommendation algorithm which looks for correlations between the different users usage patterns (see [SAR algorithm](doc/sar.md)).
 
 The **training parameters** are the configuration that enables one to fine tune the recommendation algorithm. 
 The quality of a trained model could be evaluated by using [Model Evaluation](model-evaluation.md).

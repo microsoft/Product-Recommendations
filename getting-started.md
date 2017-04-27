@@ -3,7 +3,7 @@
 ## Step 1: Deploy the recommendations pre-configured solution
 
 If you have not done so already, please deploy the solution to your Azure subscription
-by following the [Deployment Instructions](deployment-instructions.md).
+by following the [Deployment Instructions](doc/deployment-instructions.md).
 
 ## Step 2: Collect Data to Train your Model
 The preconfigured solution allows you to create recommendations models by learning 
@@ -131,7 +131,7 @@ Now that you have your data in Azure, we can train the model!
 >  Note that you will get the root url upon deploying your service.
 
 We are going to use the POST /api/models call to create a new model.  
-You can learn more about this API call and others in the [API Reference](api-reference.md).
+You can learn more about this API call and others in the [API Reference](doc/api-reference.md).
 
 This is what a sample request will look like: 
 
@@ -180,7 +180,7 @@ Content-Length: 64
 {"id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb","status":"Created"}
 ```
 
-For more information on training a recommendations model, and to understand all build parameters available to you, please check the [API Reference](api-reference.md).
+For more information on training a recommendations model, and to understand all build parameters available to you, please check the [API Reference](doc/api-reference.md).
 
 ## Step 4: Wait for your build to complete
 
@@ -262,7 +262,7 @@ Accept: application/json
 
 ```
 
-For more information on getting recommendations, and to understand all options available to you, please check the [API Reference](api-reference.md).
+For more information on getting recommendations, and to understand all options available to you, please check the [API Reference](doc/api-reference.md).
 
 ## Step 6: A few things to consider before you go to production...
 

@@ -24,13 +24,13 @@ At a high level, The solution exposes mechanisms to:
 
 Before you can use the solution, you need to deploy it. 
 
-The [Deployment Instructions](deployment-instructions.md) document explains the steps to follow to deploy the solution to your own Azure subscription. 
+The [Deployment Instructions](doc/deployment-instructions.md) document explains the steps to follow to deploy the solution to your own Azure subscription. 
 
 ## Training your first model
 
 Once you have deployed your solution, you will be ready to follow step-by-step instructions on how to create your first model using the [Getting Started Guide](getting-started.md).
 
-The [API Reference](api-reference.md) explains in more detail each of the APIs exposed by your newly created solution.
+The [API Reference](doc/api-reference.md) explains in more detail each of the APIs exposed by your newly created solution.
 
 ## High level architecture
 
