@@ -55,4 +55,4 @@ To make the debugging process easier, necessary telemetry has been added through
 7. ##### Scoring latency is degraded
 > There are two possible scenarios where scoring latency could be degraded.
 > 1. Model training is in progress - Since training happens on the same machine, cpu and memory resources are shared thus resulting in more processing time of a request.
-> 2. Degradation on first call - When a model is not in cache (see [Architecture](doc/architecture.md)), on a scoring call, it is downloaded from blob storage and loaded in memory. This results in a longer latency (we have seen 0.5-2 seconds), however once this is in the cache, subsequent scoring calls are much faster (<500 msec).
+> 2. Degradation on first call - When a model is not in cache (see [Architecture](architecture.md)), on a scoring call, it is downloaded from blob storage and loaded in memory. This results in a longer latency (we have seen 0.5-2 seconds), however once this is in the cache, subsequent scoring calls are much faster (<500 msec).

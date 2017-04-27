@@ -56,4 +56,4 @@ get recommendations, so this is the key you would use on the client or website r
 Those keys can also be found in the  [Azure Portal](portal.azure.com/), as **Application Settings** for the newly create AppService.
 
 Congratulations! You now have a recommendations service you can use to train models.
-Take a look at the [Getting Started Guide](getting-started.md) to learn how to create your first model.  If you want to learn abut the APIs exposed you can also take a look at the [API Reference](doc/api-reference.md).
+Take a look at the [Getting Started Guide](getting-started.md) to learn how to create your first model.  If you want to learn abut the APIs exposed you can also take a look at the [API Reference](api-reference.md).

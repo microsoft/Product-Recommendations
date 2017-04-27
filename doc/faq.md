@@ -7,7 +7,7 @@
 >Ensure the header - "Content-Type: application/json" is set.
 
 ##### Q. How can I cancel a model training which is in progress
->Same as how you delete a model using the "DELETE" operation. See [Api Reference](doc/api-reference.md)
+>Same as how you delete a model using the "DELETE" operation. See [Api Reference](api-reference.md)
 
 ##### Q. How can I use a custom domain?
 >See [buy domains](https://docs.microsoft.com/en-us/azure/app-service-web/custom-dns-web-site-buydomains-web-app) and [3rd party domains](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-custom-domain-name).
