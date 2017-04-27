@@ -94,7 +94,15 @@ to signal the [Web Job](#recommendations-web-job) to stop model training (if in 
  At the top most layer we find the [Web App](#recommendations-web-app) and the [Recommendations Web Job](#recommendations-web-job) that utilize the [Model Provider](#model-provider)
  and [Model Registry](#model-registry) to keep record, train and get recommendation from models. 
  
- ### Caching
+ ## Caching
+In memory caching is used to improve get recommendation API performance. 
+
+There are two levels of caching:
+At the top level, the [Model Provider](#model-provider) caches **Recommender** objects. 
+Every Recommender object is associated with a specific model. Recommender objects are kept cached in memory using a sliding window of one day, meaning that if no 'get recommendations' requests are received for that model, the model will be removed from the cache. 
+
+At a lower lever, Recommender objects keep an internal cache of an even lower level *Scoring Engine* objects. 
+Scoring Engine is the underlying TLC's object that is used to "score" (get recommendation) items. A Scoring Engine object is a combination of a trained model and scoring-time arguments (e.g. the number of requested recommendations, the latest usage event's timestamp). For that reason, it is likely for a single model to have multiple Scoring Engines, and that is why Recommender objects keep a cache. Similarly to the top level cache, Scoring Engine objects leave the cache is not used after one day. 
 
  
   
