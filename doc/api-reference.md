@@ -43,7 +43,7 @@ including the status of the training process.
 
 See the "Get model information" API below.
 
-The algorithm used to create this model is called SAR (Smart Adaptive Recommendations). 
+The algorithm used to create this model is called SAR (Smart Adaptive Recommendations). Optionally model metrics are computed if *evaluationUsageFolderRelativeLocation* is provided. See [Model Evaluation](model-evaluation.md) for more details.
 
 The body of the message should contain the following parameters:
 

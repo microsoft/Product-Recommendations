@@ -75,3 +75,6 @@ To make the debugging process easier, necessary telemetry has been added through
 
 ##### Q. How can I use a custom domain?
 >See [buy domains](https://docs.microsoft.com/en-us/azure/app-service-web/custom-dns-web-site-buydomains-web-app) and [3rd party domains](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-custom-domain-name).
+
+##### Q. How can I configure auto-scaling of my web app to handle more load?
+>Auto scale can be configured from azure portal. This [article](https://blogs.msdn.microsoft.com/devschool/2015/05/24/azure-how-to-auto-scale-your-web-apps-web-sites/) provides a good overview on how to set things up.

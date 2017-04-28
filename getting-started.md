@@ -13,7 +13,7 @@ of information: a catalog file, and usage data.
 > If you just want to use [sample data](http://aka.ms/RecoSampleData) to create your model, 
 > you can download it [here](http://aka.ms/RecoSampleData). 
 
-Below is the information on the catalog and usage file schemas:  
+Below is the information on the catalog and usage file schema:  
 
 ### Catalog file format
 The catalog file contains information about the items you are offering to your customer.
@@ -268,4 +268,4 @@ For more information on getting recommendations, and to understand all options a
 
 Before you go, these are a few additional thing you may want to know.
 
-1. Lorem ipsum... add so more content here.
+**TODO** This section is currently empty
