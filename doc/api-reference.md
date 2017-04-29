@@ -107,7 +107,7 @@ With features:
 #### Schema details
 | Name | Mandatory | Type | Description |
 |:--- |:--- |:--- |:--- |
-| Item Id |Yes |[A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 50 |Unique identifier of an item. |
+| Item Id |Yes | [A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 450 |Unique identifier of an item. |
 | Item Name |Yes |Any alphanumeric characters<br> Max length: 255 |Item name. |
 | Item Category |Yes |Any alphanumeric characters <br> Max length: 255 |Category to which this item belongs (e.g. Cooking Books, Drama…); can be empty. |
 | Description |No, unless features are present (but can be empty) |Any alphanumeric characters <br> Max length: 4000 |Description of this item. |
@@ -140,7 +140,7 @@ A usage file is a CSV (comma separated value) file where each row in a usage fil
 | Name | Mandatory | Type | Description |
 | --- | --- | --- | --- |
 | User Id |Yes |[A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 255 |Unique identifier of a user. |
-| Item Id |Yes |[A-z], [a-z], [0-9], [&#95;] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 50 |Unique identifier of an item. |
+| Item Id |Yes |[A-z], [a-z], [0-9], [&#95;] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 450 |Unique identifier of an item. |
 | Time |Yes |Date in format: YYYY/MM/DDTHH:MM:SS (e.g. 2013/06/20T10:00:00) |The time of the event |
 
 #### Sample Rows in a Usage File
