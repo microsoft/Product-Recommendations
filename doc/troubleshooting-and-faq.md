@@ -28,7 +28,7 @@ In some cases, error message might not point to exact point of error. This happe
 Ensure the header - "Content-Type: application/json" is set.
 
 #### 5. Model takes forever to train. Eventually fails with status "aborted after n attempts"
-The recommendations algorithm is a memory based algorithm. Based on the [App Service Plan](https://azure.microsoft.com/en-us/pricing/details/app-service) you choose for the web app, your instance is allocated certain amout of RAM. If you data size is much bigger than the published benchmarks **"TODO: Add link when ready"**, web-jobs infrastructure gives up on the task after a certain time. This is due to an [open issue](https://github.com/Azure/azure-webjobs-sdk/issues/899) in azure web job infrastructure.
+The recommendations algorithm is a memory based algorithm. Based on the [App Service Plan](https://azure.microsoft.com/en-us/pricing/details/app-service) you choose for the web app, your instance is allocated certain amout of RAM. If you data size is much bigger than the published [benchmarks](benchmarks.md), web-jobs infrastructure gives up on the task after a certain time. This is due to an [open issue](https://github.com/Azure/azure-webjobs-sdk/issues/899) in azure web job infrastructure.
 
 **Recommendation:** Either move to a higher tiered app service plan from your web app in Azure Portal, or to reduce your usage and catalog size.
 
@@ -72,7 +72,7 @@ There are two kind of keys that are used - *adminKey* - used for all API operati
 
 Same as how you delete a model using the "DELETE" operation. See [Api Reference](api-reference.md)
 
-#### Q. Why I cannot select "Free" and "Shared" [App Service Plans](https://azure.microsoft.com/en-us/pricing/details/app-service)?
+#### Q. Why can't I select "Free" and "Shared" [App Service Plans](https://azure.microsoft.com/en-us/pricing/details/app-service)?
 
 The solution can **only** be run on 64-bit machines. Since "Free" and "Shared" plans only provide 32-bit machines it is not possible to use those plans.
 
