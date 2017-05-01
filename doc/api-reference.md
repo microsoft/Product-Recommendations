@@ -141,17 +141,17 @@ A usage file is a CSV (comma separated value) file where each row in a usage fil
 | --- | --- | --- | --- |
 | User Id |Yes |[A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 255 |Unique identifier of a user. |
 | Item Id |Yes |[A-z], [a-z], [0-9], [&#95;] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 450 |Unique identifier of an item. |
-| Time |Yes |Date in format: YYYY/MM/DDTHH:MM:SS (e.g. 2013/06/20T10:00:00) |The time of the event |
+| Time |Yes |Date in ISO 8601 format:<br>**yyyy-MM-ddTHH:mm:ss**<br>(e.g. 2017-04-20T18:00:00) |The time of the event |
 | Event Type<br><br><br>*only used in [model evaluation](#model-evaluation.md) |No |One of the following:<br> **Click** (=weight of 1)<br>**RecommendationClick** (=weight of 2)<br>**AddShopCart** (=weight of 3)<br>**RemoveShopCart** (=weight of -1)<br>**Purchase** (=weight of 4)<br> (defaults to **Click**)|The type of transaction. <br>This will be used to determain the event strength. <br><br> *used only if *Custom Event Weight* is not provided. | 
 | Custom Event Weight <br><br>*only used in [model evaluation](#model-evaluation.md)|No |float | The trasaction strength.<br><br>*if provided, *Evnet Type* will be ignored. | 
 
 #### Sample Rows in a Usage File
-    00037FFEA61FCA16,288186200,2015/08/04T11:02:52,Click 
-    0003BFFDD4C2148C,297833400,2015/08/04T11:02:50,Purchase 
-    0003BFFDD4C2118D,297833300,2015/08/04T11:02:40,,5.2 
-    00030000D16C4237,297833300,2015/08/04T11:02:37,Purchase 
-    0003BFFDD4C20B63,297833400,2015/08/04T11:02:12,Click 
-    00037FFEC8567FB8,297833400,2015/08/04T11:02:04
+    00037FFEA61FCA16,288186200,2015-08-14T11:02:52,Click 
+    0003BFFDD4C2148C,297833400,2015-08-14T11:02:50,Purchase 
+    0003BFFDD4C2118D,297833300,2015-08-14T11:02:40,,5.2 
+    00030000D16C4237,297833300,2015-08-14T11:02:37,Purchase 
+    0003BFFDD4C20B63,297833400,2015-08-14T11:02:12,Click 
+    00037FFEC8567FB8,297833400,2015-08-14T11:02:04
 
 ## Get model information
 *GET /api/models/\{modelId\}*
@@ -195,7 +195,7 @@ The *recent events* -- or recent history -- should be passed in the body of the 
 | Event Member | Description   | Valid values (default)
 |--------------|---------------|-----------------
 |    itemId    |  Seed item Id | String
-|   timestamp  |  Timestamp of event | Timestamp (defaults to *UTC Now*)
+|   timestamp  |  Timestamp of event | ISO 8601 format:<br>**yyyy-MM-ddTHH:mm:ss**<br> (defaults to *UTC Now*)
 |   eventType  |  Event type. This will determain the event strength **only if _weight_** is not provided  | Click (=weight of 1)<br>RecommendationClick (=weight of 2)<br>AddShopCart (=weight of 3)<br>RemoveShopCart (=weight of -1)<br>Purchase (=weight of 4)<br> (defaults to *Click*)
 |    weight    |  Custom event strength. If provided, **_evnetType_ will be ignored** | float
 
@@ -204,7 +204,7 @@ The *recent events* -- or recent history -- should be passed in the body of the 
     {
        "itemId": "ItemId123",
        "eventType": "Click",
-       "timestamp": "2017-01-31 23:59:59"
+       "timestamp": "2017-01-31T23:59:59"
     },
     {
        "itemId": "ItemId456",
