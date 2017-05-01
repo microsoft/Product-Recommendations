@@ -33,7 +33,7 @@ storage account to be create.
 2. The solution will run as an [Azure WebApp](https://azure.microsoft.com/en-us/services/app-service/web/).
 You will need to select the [hosting plan](https://azure.microsoft.com/en-us/pricing/details/app-service/) . 
 This will impact the size of your machine, and therefore the number of models you can concurrently train as well 
-as how quickly you will be able to score requests. We have [benchmarked](benchmarks.md) a few common data set sizes to help you choose the right one.
+as how quickly you will be able to score requests. We have [benchmarked](benchmarks.md) a few scenarios to help you choose the right one.
 
     If you want to increase the size of the scale up or scale out after deployment, you can do that from 
     the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).

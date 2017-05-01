@@ -1,4 +1,6 @@
-# Benchmarks -Train duration on different SKUs
+# Benchmarks 
+
+## Train duration on different SKUs
 
 Below are the train duration for a few typical datasets on different App Service [hosting plans](https://azure.microsoft.com/en-us/pricing/details/app-service/). These are meant to give guidance on what plan should be picked up during setup of the solution or selecting the right one as data sets change.
 
@@ -60,3 +62,21 @@ K=*1000
 M=*1000,000
 
 In our measurements, the system was unable to complete the training due to memory constraints on the items marked with "n/a".
+
+---
+
+## Scoring latencies on different SKUs
+
+Below are the scoring latencies for a few combination of load on the system on various SKUs.
+
+Note - These are just for references, and actual time may vary based on size of model, network latency etc. We have also seen the latencies being impacted if a model training is in progress.
+
+
+
+|SKU|Instances|Requests (per second)|Latency(msec)| 
+|:-:|:-:|:-:|:-:|
+|S1|1|100|50-100|
+|S3|1|100|50-100|
+|S3|1|200|150-250|
+|S3|3|100|50-100|
+|S3|3|200|50-100|
