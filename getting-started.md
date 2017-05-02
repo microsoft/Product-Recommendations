@@ -3,7 +3,7 @@
 ## Step 1: Deploy the recommendations pre-configured solution
 
 If you have not done so already, please deploy the solution to your Azure subscription
-by following the [Deployment Instructions](deployment-instructions.md).
+by following the [Deployment Instructions](doc/deployment-instructions.md).
 
 ## Step 2: Collect Data to Train your Model
 The preconfigured solution allows you to create recommendations models by learning 
@@ -13,75 +13,8 @@ of information: a catalog file, and usage data.
 > If you just want to use [sample data](http://aka.ms/RecoSampleData) to create your model, 
 > you can download it [here](http://aka.ms/RecoSampleData). 
 
-Below is the information on the catalog and usage file schemas:  
+The [catalog schema](doc/api-reference.md#catalog-file-schema) and [usage events schema](doc/api-reference.md#usage-events-file-schema) could be found in the [API reference](doc/api-reference.md)  
 
-### Catalog file format
-The catalog file contains information about the items you are offering to your customer.
-The catalog data should follow the following format:
-
-* Without features - `<Item Id>,<Item Name>,<Item Category>[,<Description>]`
-* With features - `<Item Id>,<Item Name>,<Item Category>,[<Description>],<Features list>`
-
-#### Sample Rows in a Catalog File
-Without features:
-
-    AAA04294,Office Language Pack Online DwnLd,Office
-    AAA04303,Minecraft Download Game,Games
-    C9F00168,Kiruna Flip Cover,Accessories
-
-With features:
-
-    AAA04294,Office Language Pack Online DwnLd,Office,, softwaretype=productivity, compatibility=Windows
-    BAB04303,Minecraft DwnLd,Games, softwaretype=gaming,, compatibility=iOS, agegroup=all
-    C9F00168,Kiruna Flip Cover,Accessories, compatibility=lumia,, hardwaretype=mobile
-
-#### Format details
-| Name | Mandatory | Type | Description |
-|:--- |:--- |:--- |:--- |
-| Item Id |Yes |[A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 50 |Unique identifier of an item. |
-| Item Name |Yes |Any alphanumeric characters<br> Max length: 255 |Item name. |
-| Item Category |Yes |Any alphanumeric characters <br> Max length: 255 |Category to which this item belongs (e.g. Cooking Books, Drama…); can be empty. |
-| Description |No, unless features are present (but can be empty) |Any alphanumeric characters <br> Max length: 4000 |Description of this item. |
-| Features list |No |Any alphanumeric characters <br> Max length: 4000; Max number of features:20 |Comma-separated list of feature name=feature value that can be used to enhance model recommendation. |
-
-
-#### Why add features to the catalog?
-The recommendations engine creates a statistical model that tells you what items are likely to be liked or purchased by a customer. When you have a new product that has never been interacted with it is not possible to create a model on co-occurrences alone. Let's say you start offering a new "children's violin" in your store, since you have never sold that violin before you cannot tell what other items to recommend with that violin.
-
-That said, if the engine knows information about that violin (i.e. It's a musical instrument, it is for children ages 7-10, it is not an expensive violin, etc.), then the engine can learn from other products with similar features. For instance, you have sold violin's in the past and usually people that buy violins tend to buy classical music CDs and sheet music stands.  The system can find these connections between the features and provide recommendations based on the features while your new violin has little usage.
-
-Features are imported as part of the catalog data. The SAR algorithm that is used to train the model will automatically detect the strength of each of the features based on the transaction data.
-
-#### Features are Categorical
-You should create features that resemble a category. For instance, price=9.34 is not a categorical feature. On the other hand, a feature like priceRange=Under5Dollars is a categorical feature. Another common mistake is to use the name of the item as a feature. This would cause the name of an item to be unique so it would not describe a category. Make sure the features represent categories of items.
-
-#### How many/which features should I use?
-You should use less than 20 features.
-
-#### When are features actually used?
-Features are used by the model when there is not enough transaction data to provide recommendations on transaction information alone. So features will have the greatest impact on “cold items” – items with few transactions. If all your items have sufficient transaction information you may not need to enrich your model with features.
-
-### Usage Data
-A usage file contains information about how those items are used, or the transactions from your business.
-
-#### Usage Format details
-A usage file is a CSV (comma separated value) file where each row in a usage file represents an interaction between a user and an item. Each row is formatted as follows:<br>
-`<User Id>,<Item Id>,<Time>,[<Event>]`
-
-| Name | Mandatory | Type | Description |
-| --- | --- | --- | --- |
-| User Id |Yes |[A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 255 |Unique identifier of a user. |
-| Item Id |Yes |[A-z], [a-z], [0-9], [&#95;] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 50 |Unique identifier of an item. |
-| Time |Yes |Date in format: YYYY/MM/DDTHH:MM:SS (e.g. 2013/06/20T10:00:00) |Time of data. |
-| Event |No |One of the following:<br>• Click<br>• RecommendationClick<br>•    AddShopCart<br>• RemoveShopCart<br>• Purchase |The type of transaction. |
-
-#### Sample Rows in a Usage File
-    00037FFEA61FCA16,288186200,2015/08/04T11:02:52,Purchase
-    0003BFFDD4C2148C,297833400,2015/08/04T11:02:50,Purchase
-    0003BFFDD4C2118D,297833300,2015/08/04T11:02:40,Purchase
-    00030000D16C4237,297833300,2015/08/04T11:02:37,Purchase
-    0003BFFDD4C20B63,297833400,2015/08/04T11:02:12,Purchase
-    00037FFEC8567FB8,297833400,2015/08/04T11:02:04,Purchase
 
 > ### How much data do you need?
 > The quality of your model is heavily dependent on the quality and quantity of your data.
@@ -131,7 +64,7 @@ Now that you have your data in Azure, we can train the model!
 >  Note that you will get the root url upon deploying your service.
 
 We are going to use the POST /api/models call to create a new model.  
-You can learn more about this API call and others in the [API Reference](api-reference.md).
+You can learn more about this API call and others in the [API Reference](doc/api-reference.md).
 
 This is what a sample request will look like: 
 
@@ -180,7 +113,7 @@ Content-Length: 64
 {"id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb","status":"Created"}
 ```
 
-For more information on training a recommendations model, and to understand all build parameters available to you, please check the [API Reference](api-reference.md).
+For more information on training a recommendations model, and to understand all build parameters available to you, please check the [API Reference](doc/api-reference.md).
 
 ## Step 4: Wait for your build to complete
 
@@ -262,10 +195,18 @@ Accept: application/json
 
 ```
 
-For more information on getting recommendations, and to understand all options available to you, please check the [API Reference](api-reference.md).
+For more information on getting recommendations, and to understand all options available to you, please check the [API Reference](doc/api-reference.md).
 
-## Step 6: A few things to consider before you go to production...
+## Step 6: A few things to help you go to production...
 
-Before you go, these are a few additional thing you may want to know.
+|||
+|:-|:-|
+|[API Reference](doc\api-reference.md) | Guide on all the APIs and their usage.|
+|[Model Evaluation](doc\model-evaluation.md)| Gain insights on your model.|
+|[Benchmarks](doc\benchmarks.md)| Training duration and Scoring latencies on common datasets.|
+|[Troubleshooting and FAQ ](doc\troubleshooting-and-faq.md)| Guide to debugging common scenarios.|
+|[Service Architecture](doc\architecture.md)| Detailed description on the service architecture. | 
+|[SAR - Recommendation Algorithm](doc\sar.md)| Detailed description on the recommendation algorithm.| 
 
-1. Lorem ipsum... add so more content here.
+
+

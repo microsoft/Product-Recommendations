@@ -6,7 +6,7 @@
 
 This solution enables you to create product recommendations predictive models based on historical transaction data and information on the product catalog.
 
-The following scenarios are supported by a SAR algorithm:
+The following scenarios are supported by the SAR algorithm:
 
 1. **Item-to-Item Recommendations.**
 This is the "Customers who liked this product also liked these other products" scenario.
@@ -16,7 +16,7 @@ Increase the discoverability of items in your catalog by showing relevant produc
 
 
 At a high level, The solution exposes mechanisms to:
-1. Build models using a SAR (Smart Adaptive Recommendations) algorithm. 
+1. Train models using the SAR (Smart Adaptive Recommendations) algorithm. 
 2. Request a previously created model for recommendations.
 
 
@@ -24,25 +24,25 @@ At a high level, The solution exposes mechanisms to:
 
 Before you can use the solution, you need to deploy it. 
 
-The [Deployment Instructions](deployment-instructions.md) document explains the steps to follow to deploy the solution to your own Azure subscription. 
+The [Deployment Instructions](doc/deployment-instructions.md) document explains the steps to follow to deploy the solution to your own Azure subscription. 
 
 ## Training your first model
 
 Once you have deployed your solution, you will be ready to follow step-by-step instructions on how to create your first model using the [Getting Started Guide](getting-started.md).
 
-The [API Reference](api-reference.md) explains in more detail each of the APIs exposed by your newly created solution.
+The [API Reference](doc/api-reference.md) explains in more detail each of the APIs exposed by your newly created solution.
 
 ## High level architecture
 
-This solution creates a new Azure Resource Group to your Azure subscription with the following components:
+This solution creates a new Azure Resource Group in your Azure subscription with the following components:
 
-1. An [Azure WebApp](https://azure.microsoft.com/en-us/services/app-service/web/) (and respective web jobs)
+1. An [Azure WebApp](https://azure.microsoft.com/en-us/services/app-service/web/) (and a respective Web Job)
 The Azure Web-Application exposes a RESTful interface (See API Reference section) that allows you to train
 recommendations models, and then query those models for product recommendations. The Azure Web-Application also
-delegates training jobs  to an [Azure WebJob](https://docs.microsoft.com/en-us/azure/app-service-web/websites-webjobs-resources).
+delegates training jobs to an [Azure WebJob](https://docs.microsoft.com/en-us/azure/app-service-web/websites-webjobs-resources).
 
 2. An [Azure Storage](https://azure.microsoft.com/en-us/services/storage) subscription that is used for storing models, 
-model metadata as well as messages between the WebApp and the WebJob.
+model metadata as well as for WebApp to WebJob communication.
 
 ![Architecture Diagram](images/architecture-diagram.png)
 
