@@ -18,9 +18,9 @@ If you did not copy the keys at the time of setting up the preconfigured solutio
 2. Navigating to the resource group that was created by the solution. The resource group is named after the deployment name you provided when you set up the solution.
 3. Then navigate to **App Service**.
 4. Click on **Application Settings**
-5. The keys are under the **App settings** section, they are called *adminPrimaryKey*, *adminSecondaryKey*, *recommendPrimaryKey* and *recommendSecondaryKey*.
+5. The keys are under the **App settings** section, they are called *AdminPrimaryKey*, *AdminSecondaryKey*, *RecommendPrimaryKey* and *RecommendSecondaryKey*.
 
-The *admin\*Key* are keys that can be used for all API operations, the *recommend\*Key* keys can only be used to 
+The *Admin\*Key* are keys that can be used for all API operations, the *Recommend\*Key* keys can only be used to 
 get recommendations, so these are the keys you would use in client applications or websites requesting recommendations.
 
 Sample authentication header:
@@ -109,7 +109,7 @@ With features:
 |:--- |:--- |:--- |:--- |
 | Item Id |Yes | [A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 450 |Unique identifier of an item. |
 | Item Name |Yes |Any alphanumeric characters<br> Max length: 255 |Item name. |
-| Item Category |Yes |Any alphanumeric characters <br> Max length: 255 |Category to which this item belongs (e.g. Cooking Books, DramaÖ); can be empty. |
+| Item Category |Yes |Any alphanumeric characters <br> Max length: 255 |Category to which this item belongs (e.g. Cooking Books, Drama‚Ä¶); can be empty. |
 | Description |No, unless features are present (but can be empty) |Any alphanumeric characters <br> Max length: 4000 |Description of this item. |
 | Features list |No |Any alphanumeric characters <br> Max length: 4000; Max number of features:20 |Comma-separated list of feature name=feature value that can be used to enhance model recommendation. |
 
@@ -128,7 +128,7 @@ You should create features that resemble a category. For instance, price=9.34 is
 You should use less than 20 features.
 
 #### When are features actually used?
-Features are used by the model when there is not enough transaction data to provide recommendations on transaction information alone. So features will have the greatest impact on ìcold itemsî ñ items with few transactions. If all your items have sufficient transaction information you may not need to enrich your model with features.
+Features are used by the model when there is not enough transaction data to provide recommendations on transaction information alone. So features will have the greatest impact on ‚Äúcold items‚Äù ‚Äì items with few transactions. If all your items have sufficient transaction information you may not need to enrich your model with features.
 
 ### Usage Data
 A usage file contains information about how those items are used, or the transactions from your business.
