@@ -201,12 +201,12 @@ For more information on getting recommendations, and to understand all options a
 
 |||
 |:-|:-|
-|[API Reference](doc\api-reference.md) | Guide on all the APIs and their usage.|
-|[Model Evaluation](doc\model-evaluation.md)| Gain insights on your model.|
-|[Benchmarks](doc\benchmarks.md)| Training duration and Scoring latencies on common datasets.|
-|[Troubleshooting and FAQ ](doc\troubleshooting-and-faq.md)| Guide to debugging common scenarios.|
-|[Service Architecture](doc\architecture.md)| Detailed description on the service architecture. | 
-|[SAR - Recommendation Algorithm](doc\sar.md)| Detailed description on the recommendation algorithm.| 
+|[API Reference](doc/api-reference.md) | Guide on all the APIs and their usage.|
+|[Model Evaluation](doc/model-evaluation.md)| Gain insights on your model.|
+|[Benchmarks](doc/benchmarks.md)| Training duration and Scoring latencies on common datasets.|
+|[Troubleshooting and FAQ ](doc/troubleshooting-and-faq.md)| Guide to debugging common scenarios.|
+|[Service Architecture](doc/architecture.md)| Detailed description on the service architecture. | 
+|[SAR - Recommendation Algorithm](doc/sar.md)| Detailed description on the recommendation algorithm.| 
 
 
 
