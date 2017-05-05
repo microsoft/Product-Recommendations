@@ -30,20 +30,18 @@ x-api-key: <yourKeyGoesHere>
 ```
 
 
-## Create (train) a new model
+## Train a new model
 *POST /api/models*
 
-Starts the training process that creates a new model that you can later on query for
-recommendations. Before creating a model you first must upload usage data, and optionally the catalog and evaluation files,
+Starts the process of training a new model that could be later used to query for
+recommendations. To start training a model one must first upload usage data, and optionally a catalog and evaluation files,
 to the new blob storage account created by the preconfigured solution.
 
-Creating a new model is an asynchronous operation. Once a model has been created you
-will receive a *Location* header that you can reference to get information about the model,
-including the status of the training process.
-
-See the "Get model information" API below.
-
-The algorithm used to create this model is called SAR (Smart Adaptive Recommendations). Optionally model metrics are computed if *evaluationUsageFolderRelativeLocation* is provided. See [Model Evaluation](model-evaluation.md) for more details.
+Training a new model is an asynchronous operation. The response to this HTTP request containe a *Location* header that 
+reference the newly created model, as well as the model in the body of the response.
+You can use the [Get Model API](#get-model-information) to query for the model training status along with other model information.
+ 
+Optionally model metrics are computed if *evaluationUsageFolderRelativeLocation* is provided. See [Model Evaluation](model-evaluation.md) for more details.
 
 The body of the message should contain the following parameters:
 
