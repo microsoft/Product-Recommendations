@@ -31,9 +31,11 @@ would like on your storage account. Note that the models you create will be stor
 storage account to be create.
 
 2. The solution will run as an [Azure WebApp](https://azure.microsoft.com/en-us/services/app-service/web/).
-You will need to select the [hosting plan](https://azure.microsoft.com/en-us/pricing/details/app-service/) . 
-This will impact the size of your machine, and therefore the number of models you can concurrently train as well 
-as how quickly you will be able to score requests. We have [benchmarked](benchmarks.md) a few scenarios to help you choose the right one.
+You will need to select the application [hosting plan](https://azure.microsoft.com/en-us/pricing/details/app-service/). 
+Note that you can always change you plan from Azure Portal even after you've deployed the service.
+>**Important**: The selected plan will determine the size of your machine, and therefore the number of models you can concurrently train and 
+> the latency of get-recommendation requests. You can [use these benchmarks](benchmarks.md) to help you choose the right one to start with 
+>and later on adjust the plan according to your specific needs and observed latencies 
 
     If you want to increase the size of the scale up or scale out after deployment, you can do that from 
     the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).
