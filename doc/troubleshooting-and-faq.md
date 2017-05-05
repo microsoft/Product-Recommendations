@@ -11,11 +11,11 @@ To make the debugging process easier, necessary telemetry has been added through
 ### Common Scenarios
 
 #### 1. API call fails with 5xx status codes
-When using _admin_ key, a detailed exception message along with inner exceptions are returned to help understand the potential problem. Note that this stack is not returned with the _recommend_ key.
+When using _Admin_ key, a detailed exception message along with inner exceptions are returned to help understand the potential problem. Note that this stack is not returned with the _Recommend_ key.
 
 #### 2. API call fails with 401 Unauthorized
 i. Ensure you are passing the api key header - "x-api-key:<*key*>".
-ii. For all non recommendation APIs, ensure you are using *adminKey*.
+ii. For all non recommendation APIs, ensure you are using *AdminKey*.
 
 #### 3. Model training request fails with 400 status codes
 In most cases, a clear error message indicating the issue is returned. 
