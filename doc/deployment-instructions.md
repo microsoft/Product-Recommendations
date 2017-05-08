@@ -11,12 +11,9 @@ deploys a fully functioning recommendations-service to your subscription.
 
 1. Go to the [Product Recommendations Template](https://aka.ms/recotemplate) on the Cortana Analytics Gallery.
 
-2. Click **Deploy**. This will take you to a wizard that will help you deploy the solution.
+2. Enter the **Deployment Name**,  select the **Subscription** where you would like to install the solution, the **Location**  (Region) for the deployment.  You may also enter an optional **Description** for your deployment.
 
-3. Enter the **Deployment Name**,  select the **Subscription** where you would like to install the solution, the **Location**  (Region) for the deployment.
-   You may also enter an optional **Description** for your deployment.
-
-4. Click **Create**
+3. Click **Create**
 
 ![Deployment Step 1](../images/deploy-step1.png)
 
