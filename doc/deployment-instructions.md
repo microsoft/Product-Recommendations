@@ -34,8 +34,8 @@ Note that you can always change you plan from Azure Portal even after you've dep
 > the latency of get-recommendation requests. You can [use these benchmarks](benchmarks.md) to help you choose the right one to start with 
 >and later on adjust the plan according to your specific needs and observed latencies 
 
-    If you want to increase the size of the scale up or scale out after deployment, you can do that from 
-    the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).
+If you want to increase the size of the scale up or scale out after deployment, you can do that from 
+the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).
 
 ![Deployment Step 2](../images/deploy-step2.png)
 
