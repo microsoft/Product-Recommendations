@@ -1,7 +1,3 @@
-![Debugging](../images/debugging.gif)
-
----
-
 To make the debugging process easier, necessary telemetry has been added throughout the source code. By default, diagnostics is disabled in azure web apps and can be enabled by following the steps here - [Enable diagnostics logging for web apps in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-enable-diagnostic-log). The logs should give a fair idea of where the system is failing. Below are some common scenarios to help get started.
 
 **Tip:** Stream *logs and console output* directly from azure portal. More details are explained here - [Streaming Logs and the Console](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-streaming-logs-and-console).
