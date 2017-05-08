@@ -12,9 +12,10 @@ the Recommendations preconfigured solution. You can find more details on the Rec
  4. Set a model to be the default model, and request recommendations from the default model.
   
 ## Pre-Requirements
-The steps below are explained in more detail in the [Getting Started Guide](https://github.com/abhi1509/RecoPreview/blob/master/getting-started.md)
+The steps below are explained in more detail in the [Getting Started Guide](../../getting-started.md)
  
- 1. Before you can run the application you need to deploy the Recommendations Template. Deployment instructions are at https://github.com/abhi1509/RecoPreview/blob/master/doc/deployment-instructions.md
+ 1. Before you can run the application you need to deploy the Recommendations Template. See [Deployment Instructions](../../doc/deployment-instructions.md) for more detail.
+ 
 2. You will get an API Key as part of the deployment process and the url of your solution. 
 Set the apiKey and recommendationsUri variable based on those values.
 
