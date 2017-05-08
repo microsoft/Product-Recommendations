@@ -24,7 +24,7 @@ It is important to note that you copy your usage and evaluation files to distinc
 while you provide the location of the catalog **file**.
      
  Based on that, you will need to set the following variables: 
- blobContainerName, string trainCatalogFileRelativeLocation,
+ blobContainerName, trainCatalogFileRelativeLocation,
  trainUsageFolderRelativeLocation and evaluationUsageFolderRelativeLocation 
    
  
