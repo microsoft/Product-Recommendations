@@ -2,10 +2,8 @@
 
 This document outlines step-by-step what you need to do to deploy the recommendations preconfigured solution.
 
-## Before you get started...
-
-If you don't already have an [Azure account](http://portal.azure.com/), you will need to create one as this solution
-deploys a fully functioning recommendations-service to your subscription.
+>If you don't already have an [Azure account](http://portal.azure.com/), you will need to create one as this solution
+>deploys a fully functioning recommendations-service to your subscription.
 
 ## Installing the preconfigured solution
 

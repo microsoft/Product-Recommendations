@@ -2,13 +2,32 @@
 
 ## Swagger UI
 Once you deploy the service, you will be able to navigate to the API Reference (Swagger definition)
-of your newly created service by going to **https://<root_url>/swagger** . You will get the root url
+of your newly created service by going to **https://<service_name>.azurewebsites.net/swagger** . You will get the root url
 upon deploying your service.
 
 The swagger UI is the authoritative definition of the API interface -- but we have duplicated a
 description of the API reference here so you can understand what the service will look like before
 you actually deploy it.
 
+## Quick Reference
+
+Use the following links to quickly jump to the relevant documentation:
+
+| Documentation
+| ---------------------
+| [Authentication](#authentication)
+| [Train a New Model API](#train-a-new-model)
+| [Get Model Information API](#get-model-information)
+| [List Models API](#list-models)
+| [Delete a Model API](#delete-a-model)
+| [Get Item-To-Item Recommendations API](#get-item-to-item-recommendations)
+| [Get Personalized Recommendations API](#get-personalized-recommendations)
+| [Set Default Model Id API](#set-default-model-id)
+| [Get Default Model Information API](#get-default-model-information)
+| [Get Item-To-Item Recommendations from the Default Model API](#get-item-to-item-recommendations-from-the-default-model)
+| [Get Personalized Recommendations from the Default Model API](#get-personalized-recommendations-from-the-default-model)
+| [Model Object Schema](#model-object-schema)
+| [Recommendation Object Schema](#recommendation-object-schema)
 
 ## Authentication
 When calling the service, you will need to set authentication headers with the API key that is provided as part of the set-up process.
@@ -20,8 +39,8 @@ If you did not copy the keys at the time of setting up the preconfigured solutio
 4. Click on **Application Settings**
 5. The keys are under the **App settings** section, they are called *AdminPrimaryKey*, *AdminSecondaryKey*, *RecommendPrimaryKey* and *RecommendSecondaryKey*.
 
-The *Admin\*Key* are keys that can be used for all API operations, the *Recommend\*Key* keys can only be used to 
-get recommendations, so these are the keys you would use in client applications or websites requesting recommendations.
+The primary and secondary *Admin* keys can be used for all API operations while the primary and secondary *Recommend* keys can only be used to 
+get recommendations, typically used in client applications or websites requesting recommendations.
 
 Sample authentication header:
 
@@ -29,8 +48,7 @@ Sample authentication header:
 x-api-key: <yourKeyGoesHere>
 ```
 
-
-## Train a new model
+## Train a New Model
 *POST /api/models*
 
 Starts the process of training a new model that could be later used to query for
@@ -43,32 +61,21 @@ You can use the [Get Model API](#get-model-information) to query for the model t
  
 Optionally model metrics are computed if *evaluationUsageFolderRelativeLocation* is provided. See [Model Evaluation](model-evaluation.md) for more details.
 
-The body of the message should contain the following parameters:
+The **request** body should be a valid [Model Training Parameters](#model-training-parameters-schema) JSON object.
 
-|  Parameter  | Description | Valid values (default)    
-|-------------|-------------|------------------------------
-| description | Textual description | String (Current time)
-| blobContainerName| Name of the container where the catalog, usage data and evaluation data are stored. Note that this container must be in the storage account created by the preconfigured solution | String 
-| catalogFileRelativeLocation |  Relative path to the catalog file. See [Catalog file format](#catalog-file-schema) | String (null)
-| usageFolderRelativeLocation |  Relative path to the virtual directory that contains the usage file(s) to be used for training. See [Usage events file format](#usage-events-file-schema) | String
-| evaluationUsageFolderRelativeLocation |  Relative path to the virtual directory that contains the usage file(s) to be used for evaluation. See [Usage events file format](#usage-events-file-schema) | String (null)
-| supportThreshold | How conservative the model is. Number of co-occurrences of items to be considered for modeling. | 3-50 (6)
-| cooccurrenceUnit | Indicates how to group usage events before counting co-occurrences. A 'User' cooccurrence unit will consider all items purchased by the same user as occurring together in the same session. A 'Timestamp' cooccurrence unit will consider all items purchased by the same user in the same time as occurring together in the same session. | *User*, *Timestamp* (User)
-| similarityFunction| Defines the similarity function to be used by the model. Lift favors serendipity, Co-occurrence favors predictability, and Jaccard is a nice compromise between the two. | *Cooccurrence*, *Lift*, *Jaccard* (Lift)
-| enableColdItemPlacement |  Indicates if recommendations should also push cold items via feature similarity.  | True, False (False)
-| enableColdToColdRecommendations | Indicates whether the similarity between pairs of cold items (catalog items without usage) should be computed. If set to false, only similarity between cold and warm items will be computed, using catalog item features. Note that this configuration is only relevant when enableColdItemPlacement is set to true. | True, False (False)
-| enableUserAffinity | For personalized recommendations, it defines whether the event type and the time of the event should be considered as input into the scoring. | True, False (False)
-| enableBackfilling | Backfill with popular items when the system does not find sufficient recommendations. | True, False (True)
-| allowSeedItemsInRecommendations |  Allow seed items (items in the input or in the user history) to be returned as recommendation results. | True, False (False)
-| decayPeriodInDays | The decay period in days. The strength of the signal for events that are that many days old will be half that of the most recent events. | Integer (30)
+The **response** body will contain a [Model](#model-object-schema) JSON object.
 
-> **Sample Request Body**:
+> **Sample Request:**
 >```
+>POST https://<service_name>.azurewebsites.net/api/models
+>x-api-key: your_api_key
+>Content-Type: application/json
+>
 >{
 >    "description": "Simple recommendations model",
 >    "blobContainerName": "input-files",
->    "catalogFileRelativeLocation": "books.csv",
 >    "usageFolderRelativeLocation": "booksTrainUsage",
+>    "catalogFileRelativeLocation": "books.csv",
 >    "evaluationUsageFolderRelativeLocation": "booksTestUsage",
 >    "supportThreshold": 6,
 >    "cooccurrenceUnit": "User",
@@ -79,6 +86,20 @@ The body of the message should contain the following parameters:
 >    "allowSeedItemsInRecommendations": true,
 >    "enableBackfilling": true,
 >    "decayPeriodInDays": 30
+>}
+>```
+
+> **Sample Response:**
+>```
+>HTTP/1.1 201 Created
+>Content-Type: application/json; charset=utf-8
+>Location: https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb
+>
+>{
+>    "id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb",
+>    "description": "Simple recommendations model",
+>    "creationTime":"2017-05-04T00:26:06.386324Z",
+>    "modelStatus":"Created"
 >}
 >```
 
@@ -105,11 +126,11 @@ With features:
 #### Schema details
 | Name | Mandatory | Type | Description |
 |:--- |:--- |:--- |:--- |
-| Item Id |Yes | [A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 450 |Unique identifier of an item. |
-| Item Name |Yes |Any alphanumeric characters<br> Max length: 255 |Item name. |
-| Item Category |Yes |Any alphanumeric characters <br> Max length: 255 |Category to which this item belongs (e.g. Cooking Books, Drama…); can be empty. |
-| Description |No, unless features are present (but can be empty) |Any alphanumeric characters <br> Max length: 4000 |Description of this item. |
-| Features list |No |Any alphanumeric characters <br> Max length: 4000; Max number of features:20 |Comma-separated list of feature name=feature value that can be used to enhance model recommendation. |
+| Item Id |Yes | [A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br/> Max length: 450 |Unique identifier of an item. |
+| Item Name |Yes |Any alphanumeric characters<br/> Max length: 255 |Item name. |
+| Item Category |Yes |Any alphanumeric characters <br/> Max length: 255 |Category to which this item belongs (e.g. Cooking Books, Drama…); can be empty. |
+| Description |No, unless features are present (but can be empty) |Any alphanumeric characters <br/> Max length: 4000 |Description of this item. |
+| Features list |No |Any alphanumeric characters <br/> Max length: 4000; Max number of features:20 |Comma-separated list of feature name=feature value that can be used to enhance model recommendation. |
 
 
 #### Why add features to the catalog?
@@ -132,16 +153,16 @@ Features are used by the model when there is not enough transaction data to prov
 A usage file contains information about how those items are used, or the transactions from your business.
 
 #### Usage Events File Schema
-A usage file is a CSV (comma separated value) file where each row in a usage file represents an interaction between a user and an item. Each row is formatted as follows:<br>
+A usage file is a CSV (comma separated value) file where each row in a usage file represents an interaction between a user and an item. Each row is formatted as follows:<br/>
 `<User Id>,<Item Id>,<Time>[,<Event Type> | ,,<Custom Event Weight>]`
 
 | Name | Mandatory | Type | Description |
 | --- | --- | --- | --- |
-| User Id |Yes |[A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 255 |Unique identifier of a user. |
-| Item Id |Yes |[A-z], [a-z], [0-9], [&#95;] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br> Max length: 450 |Unique identifier of an item. |
-| Time |Yes |Date in ISO 8601 format:<br>**yyyy-MM-ddTHH:mm:ss**<br>(e.g. 2017-04-20T18:00:00) |The time of the event |
-| Event Type<br><br><br>*only used in [model evaluation](#model-evaluation.md) |No |One of the following:<br> **Click** (=weight of 1)<br>**RecommendationClick** (=weight of 2)<br>**AddShopCart** (=weight of 3)<br>**RemoveShopCart** (=weight of -1)<br>**Purchase** (=weight of 4)<br> (defaults to **Click**)|The type of transaction. <br>This will be used to determain the event strength. <br><br> *used only if *Custom Event Weight* is not provided. | 
-| Custom Event Weight <br><br>*only used in [model evaluation](#model-evaluation.md)|No |float | The trasaction strength.<br><br>*if provided, *Evnet Type* will be ignored. | 
+| User Id |Yes |[A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br/> Max length: 255 |Unique identifier of a user. |
+| Item Id |Yes |[A-z], [a-z], [0-9], [&#95;] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br/> Max length: 450 |Unique identifier of an item. |
+| Time |Yes |Date in ISO 8601 format:<br/>**yyyy-MM-ddTHH:mm:ss**<br/>(e.g. 2017-04-20T18:00:00) |The time of the event |
+| Event Type<br/><br/><br/>*only used in [model evaluation](#model-evaluation.md) |No |One of the following:<br/> **Click** (=weight of 1)<br/>**RecommendationClick** (=weight of 2)<br/>**AddShopCart** (=weight of 3)<br/>**RemoveShopCart** (=weight of -1)<br/>**Purchase** (=weight of 4)<br/> (defaults to **Click**)|The type of transaction. <br/>This will be used to determain the event strength. <br/><br/> *used only if *Custom Event Weight* is not provided. | 
+| Custom Event Weight <br/><br/>*only used in [model evaluation](#model-evaluation.md)|No |float | The trasaction strength.<br/><br/>*if provided, *Evnet Type* will be ignored. | 
 
 #### Sample Rows in a Usage File
     00037FFEA61FCA16,288186200,2015-08-14T11:02:52,Click 
@@ -151,25 +172,87 @@ A usage file is a CSV (comma separated value) file where each row in a usage fil
     0003BFFDD4C20B63,297833400,2015-08-14T11:02:12,Click 
     00037FFEC8567FB8,297833400,2015-08-14T11:02:04
 
-## Get model information
+## Get Model Information
 *GET /api/models/\{modelId\}*
 
-Returns metadata about the model, including the training status, parameters used to
-build the model, the time of creation, statistics about the model and evaluation results.
+Returns the model information, including the training status, parameters used to
+build the model, the time of creation, statistics about the model and evaluation results
+(See [Model JSON Schema](#model-object-schema)).
 
-## List models
+
+> **Sample Request:**
+>```
+>GET https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb
+>x-api-key: your_api_key
+>```
+> **Sample Response:**
+>```
+>HTTP/1.1 200 OK
+>Content-Type: application/json; charset=utf-8
+>
+>{
+>    "id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb",
+>    "description": "Simple recommendations model",
+>    "creationTime":"2017-05-04T00:26:06.386324Z",
+>    "modelStatus": "Completed",
+>    "modelStatusMessage": "Model Training Completed Successfully",
+>    "parameters": {
+>        ...
+>    },
+>    "statistics": {
+>        ...
+>    }
+>}
+>```
+
+## List Models
 *GET /api/models*
 
-Return model metadata for each existing model.
+Returns the id, description, creation time and status of all the existing models. (See [Model JSON Schema](#model-object-schema)).
 
-## Delete a model
+> **Sample Request:**
+>```
+>GET https://<service_name>.azurewebsites.net/api/models
+>x-api-key: your_api_key
+>```
+> **Sample Response:**
+>```
+>HTTP/1.1 200 OK
+>Content-Type: application/json; charset=utf-8
+>
+>[{
+>    "id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb",
+>    "description": "Simple recommendations model",
+>    "creationTime":"2017-05-04T00:26:06.386324Z"
+>    "modelStatus": "Completed"
+>},
+>{
+>    "id": "1bd76c6d-0a25-4d9a-8111-9e897823ae1f",
+>    "description": "my other model",
+>    "creationTime": "2017-05-04T00:26:51.1024762Z",
+>    "modelStatus": "Created"
+>}]
+>```
+
+## Delete a Model
 *DELETE /api/models/\{modelId\}*
 
 Deletes the specified model.
 
-If you delete the default model then there will be no default model until it is set again. Any recommendation requests to the default model will fail.
+> **Important** If you delete the default model then there will be no default model until it is set again. Any recommendation requests to the default model **will fail**.
 
-## Get item-to-item recommendations for a single item
+> **Sample Request:**
+>```
+>DELETE https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb
+>x-api-key: your_api_key
+>```
+> **Sample Response:**
+>```
+>HTTP/1.1 202 Accepted
+>Content-Length: 0
+>```
+
+## Get Item-To-Item Recommendations
 *GET /api/models/\{modelId\}/recommend*
 
 Gets item-to-item recommendations for the model specified.
@@ -179,61 +262,341 @@ did not have sufficient training data to provide recommendations for the item.
 
 *Request parameters*
 
-|  Request Parameter  | Description    | Valid values (default)
-|-------------|-------------------|-----------------
-|  itemId     |  Seed item Id | String
-| recommendationCount | Number of recommended items to return | 1-100 (10)
+|  Request Parameter  | Description    | Valid Values | Default Value
+|-------------|-------------------|-----------------|-----------------
+|  itemId     |  Seed item Id | string
+| recommendationCount | Number of recommended items to return | 1-100 | 10
 
-## Get personalized recommendations
+
+The response body will be a JSON array of [Recommendation Objects](#recommendation-object-schema).
+
+> **Sample Request:**
+>```
+>GET https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend?itemId=70322
+>x-api-key: your_api_key
+>```
+> **Sample Response:**
+>
+>```
+>HTTP/1.1 200 OK
+>Content-Type: application/json; charset=utf-8
+>
+>[{
+>	"recommendedItemId": "46846",
+>	"score": 0.45787626504898071
+>},
+>{
+>	"recommendedItemId": "46845",
+>	"score": 0.12505614757537842
+>},
+>...
+>{
+>	"recommendedItemId": "41607",
+>	"score": 0.049780447036027908
+>}]
+>```
+
+## Get Personalized Recommendations
 *POST /api/models/\{modelId\}/recommend*
 
 Gets personalized recommendations for the model specified, given a set of recent events for a particular user.
 The *recent events* -- or recent history -- should be passed in the body of the request in the following format:
 
-| Event Member | Description   | Valid values (default)
-|--------------|---------------|-----------------
-|    itemId    |  Seed item Id | String
-|   timestamp  |  Timestamp of event | ISO 8601 format:<br>**yyyy-MM-ddTHH:mm:ss**<br> (defaults to *UTC Now*)
-|   eventType  |  Event type. This will determain the event strength **only if _weight_** is not provided  | Click (=weight of 1)<br>RecommendationClick (=weight of 2)<br>AddShopCart (=weight of 3)<br>RemoveShopCart (=weight of -1)<br>Purchase (=weight of 4)<br> (defaults to *Click*)
+| Event Member | Description   | Valid Values | Default Value
+|--------------|---------------|-----------------|-----------------
+|    itemId    |  Seed item Id | string |
+|   timestamp  |  Timestamp of event | ISO 8601 format:<br/>**yyyy-MM-ddTHH:mm:ss**<br/> | Current UTC date and time
+|   eventType  |  Event type. This will determain the event strength **only if _weight_** is not provided  | Click (=weight of 1)<br/>RecommendationClick (=weight of 2)<br/>AddShopCart (=weight of 3)<br/>RemoveShopCart (=weight of -1)<br/>Purchase (=weight of 4)<br/> | Click
 |    weight    |  Custom event strength. If provided, **_evnetType_ will be ignored** | float
 
-```
-[
-    {
-       "itemId": "ItemId123",
-       "eventType": "Click",
-       "timestamp": "2017-01-31T23:59:59"
-    },
-    {
-       "itemId": "ItemId456",
-       "eventType": "Purchase",
-    },
-    {
-       "itemId": "ItemId789",
-       "weight": 2.3,
-    },
-    {
-       "itemId": "ItemId135",
-    }
-]
-```
+The response body will be a JSON array of [Recommendation Objects](#recommendation-object-schema).
 
-## Set default model
-*POST /api/models/default* 
+> **Sample Request:**
+>```
+>POST https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend
+>x-api-key: your_api_key
+>
+>[
+>    {
+>       "itemId": "ItemId123",
+>       "eventType": "Click",
+>       "timestamp": "2017-01-31T23:59:59"
+>    },
+>    {
+>       "itemId": "ItemId456",
+>       "eventType": "Purchase",
+>    },
+>    {
+>       "itemId": "ItemId789",
+>       "weight": 2.3,
+>    },
+>    {
+>       "itemId": "ItemId135",
+>    }
+>]
+>```
+> **Sample Response:**
+>
+>```
+>HTTP/1.1 200 OK
+>Content-Type: application/json; charset=utf-8
+>
+>[{
+>	"recommendedItemId": "46846",
+>	"score": 0.45787626504898071
+>},
+>{
+>	"recommendedItemId": "46845",
+>	"score": 0.12505614757537842
+>},
+>...
+>{
+>	"recommendedItemId": "41607",
+>	"score": 0.049780447036027908
+>}]
+>```
 
-Sets the specified model as the default model.
+## Set Default Model Id
+*PUT /api/models/default*
 
-## Get default model
+Sets the specified model id as the default model.
+
+*Request parameters:*
+
+|  Request Parameter  | Description    | Valid Value
+|-------------|-------------------|-----------------
+|  modelId     |  The model id to set as the default model | GUID
+
+> **Sample Request:**
+>```
+>PUT https://<service_name>.azurewebsites.net/api/models/default?modelId=e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb
+>x-api-key: your_api_key
+>```
+> **Sample Response:**
+>
+>```
+>HTTP/1.1 200 OK
+>```
+
+## Get Default Model Information
 *GET /api/models/default* 
 
-Gets the metadata of the default model.
+Returns the default model information, including the training status, parameters used to
+build the model, the time of creation, statistics about the model and evaluation results
+(See [Model JSON Schema](#model-object-schema)).
 
-## Get item-to-item recommendations from the default model
+> **Sample Request:**
+>```
+>GET https://<service_name>.azurewebsites.net/api/models/default
+>x-api-key: your_api_key
+>```
+> **Sample Response:**
+>```
+>HTTP/1.1 200 OK
+>Content-Type: application/json; charset=utf-8
+>
+>{
+>    "id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb",
+>    "description": "Simple recommendations model",
+>    "creationTime":"2017-05-04T00:26:06.386324Z",
+>    "modelStatus": "Completed",
+>    "modelStatusMessage": "Model Training Completed Successfully",
+>    "parameters": {
+>        ...
+>    },
+>    "statistics": {
+>        ...
+>    }
+>}
+>
+>```
+
+## Get Item-To-Item Recommendations from the Default Model
 *GET /api/models/default/recommend*
 
 Once a default model is set, similar to getting item-to-item recommendations, but using the default model.
 
-## Get personalized recommendations from default model
+The response body will be a JSON array of [Recommendation Objects](#recommendation-object-schema).
+
+*Request parameters*
+
+|  Request Parameter  | Description    | Valid Values | Default Value
+|-------------|-------------------|-----------------|-----------------
+|  itemId     |  Seed item Id | string
+| recommendationCount | Number of recommended items to return | 1-100 | 10
+
+
+> **Sample Request:**
+>```
+>GET https://<service_name>.azurewebsites.net/api/models/default/recommend?itemId=70322
+>x-api-key: your_api_key
+>```
+> **Sample Response:**
+>
+>```
+>HTTP/1.1 200 OK
+>Content-Type: application/json; charset=utf-8
+>
+>[{
+>	"recommendedItemId": "46846",
+>	"score": 0.45787626504898071
+>},
+>{
+>	"recommendedItemId": "46845",
+>	"score": 0.12505614757537842
+>},
+>...
+>{
+>	"recommendedItemId": "41607",
+>	"score": 0.049780447036027908
+>}]
+>```
+
+## Get Personalized Recommendations from the Default Model
 *POST /api/models/default/recommend*
 
 Once a default model is set, similar to getting personalized recommendations, but using the default model.
+
+The response body will be a JSON array of [Recommendation Objects](#recommendation-object-schema).
+
+> **Sample Request:**
+>```
+>POST https://<service_name>.azurewebsites.net/api/models/default/recommend
+>x-api-key: your_api_key
+>
+>[
+>    {
+>       "itemId": "ItemId123",
+>       "eventType": "Click",
+>       "timestamp": "2017-01-31T23:59:59"
+>    },
+>    {
+>       "itemId": "ItemId456",
+>       "eventType": "Purchase",
+>    },
+>    {
+>       "itemId": "ItemId789",
+>       "weight": 2.3,
+>    },
+>    {
+>       "itemId": "ItemId135",
+>    }
+>]
+>```
+> **Sample Response:**
+>
+>```
+>HTTP/1.1 200 OK
+>Content-Type: application/json; charset=utf-8
+>
+>[{
+>	"recommendedItemId": "46846",
+>	"score": 0.45787626504898071
+>},
+>{
+>	"recommendedItemId": "46845",
+>	"score": 0.12505614757537842
+>},
+>...
+>{
+>	"recommendedItemId": "41607",
+>	"score": 0.049780447036027908
+>}]
+>```
+
+## Model Object Schema
+
+The following table specifies the schema of the *model* JSON object:
+
+|  Property Name  | Type | Description |
+|-----------------|------|-------------|
+| id | GUID | The model id
+| description | string | A textual description of the model, as provided when the model was created
+| creationTime | Date Time |  The model creation UTC time and date
+| modelStatus | string | The status of the model:<br/>**Created** - the initial status of a new model<br/>**InProgress** - the model is being trained<br/>**Completed** - model trainining was completed successfully<br/>**Failed** - model trainining had failed
+| modelStatusMessage | string | An optional message associated with the model status
+| parameters | [Model Training Parameters](#model-training-parameters-schema) | The parameters used for training the model, as provided when the model was created
+| statistics | [Model Training Statistics](#model-training-statistics-schema) | The model training statisctics, specifing metrics like training duration and model quality
+
+## Model Training Parameters Schema 
+
+The following table specifies the schema of the *model training parameters* JSON object (**mandatory properties in bold**):
+
+|  Property Name  | Mandatory? | Description | Valid Values | Default Value
+|-------------|--------------|-------------|--------------|--------------
+| description | no | Textual description | string | *null*
+| **blobContainerName**| **yes** |  Name of the container where the catalog, usage data and evaluation data are stored. Note that this container must be in the storage account created by the preconfigured solution | string  | 
+| **usageFolderRelativeLocation** | **yes** |   Relative path to the virtual directory that contains the usage file(s) to be used for training. See [Usage events file format](#usage-events-file-schema) | string |
+| catalogFileRelativeLocation | no |   Relative path to the catalog file. See [Catalog file format](#catalog-file-schema) | string  | *null*
+| evaluationUsageFolderRelativeLocation | no |   Relative path to the virtual directory that contains the usage file(s) to be used for evaluation. See [Usage events file format](#usage-events-file-schema) | string | *null*
+| supportThreshold | no |  How conservative the model is. Number of co-occurrences of items to be considered for modeling. | 3-50 | 6
+| cooccurrenceUnit | no |  Indicates how to group usage events before counting co-occurrences. A 'User' cooccurrence unit will consider all items purchased by the same user as occurring together in the same session. A 'Timestamp' cooccurrence unit will consider all items purchased by the same user in the same time as occurring together in the same session. | *User*, *Timestamp* | User
+| similarityFunction| no |  Defines the similarity function to be used by the model. Lift favors serendipity, Co-occurrence favors predictability, and Jaccard is a nice compromise between the two. | *Cooccurrence*, *Lift*, *Jaccard* | Lift
+| enableColdItemPlacement | no |   Indicates if recommendations should also push cold items via feature similarity.  | True, False | False
+| enableColdToColdRecommendations | no |  Indicates whether the similarity between pairs of cold items (catalog items without usage) should be computed. If set to false, only similarity between cold and warm items will be computed, using catalog item features. Note that this configuration is only relevant when enableColdItemPlacement is set to true. | True, False | False
+| enableUserAffinity | no |  For personalized recommendations, it defines whether the event type and the time of the event should be considered as input into the scoring. | True, False | False
+| enableBackfilling | no |  Backfill with popular items when the system does not find sufficient recommendations. | True, False | True
+| allowSeedItemsInRecommendations | no |   Allow seed items (items in the input or in the user history) to be returned as recommendation results. | True, False | False
+| decayPeriodInDays | no |  The decay period in days. The strength of the signal for events that are that many days old will be half that of the most recent events. | Integer | 30
+
+## Model Training Statistics Schema
+
+The following table specifies the schema of the *model training statistics* JSON object:
+
+|  Property Name  | Type | Description |
+|-----------------|------|-------------|
+| totalDuration | time span | The total duration of the model training process
+| trainingDuration | time span | The duration of the core model training
+| catalogParsing | [Parsing Report Schema](#parsing-report-schema) |  The catalog file parsing report
+| usageEventsParsing | [Parsing Report Schema](#parsing-report-schema) |  The usage events file(s) parsing report
+| uniqueUsersCount | int | The total number of unique users found in the usage events file(s)
+| uniqueItemsCount | int | The total number of unique items found in the catalog\usage events file(s)
+| evaluation | [Model Evaluation Schema](#model-evaluation-schema) | The model evaluation metrics
+
+## Parsing Report Schema
+
+The following table specifies the schema of the *catalog\usage file(s) parsing report* JSON object:
+
+|  Property Name  | Type | Description |
+|-----------------|------|-------------|
+| linesCount | int | The total number of successfully parsed lines
+| parsingDuration | time span | The total parsing duration
+| parsingErrors | An array of [Parsing Error Schema](#parsing-error-schema) | The parsing errors, if found
+
+## Parsing Error Schema
+
+The following table specifies the schema of the *parsing error* JSON object:
+
+|  Property Name  | Type | Description |
+|-----------------|------|-------------|
+| file | string | The name of the file containing the parsing error
+| line | int | The line number of the parsing error
+| error | string | The type of the parsing error: <br/>**MalformedLine** - The line is in an invalid CSV format<br/>**MissingFields** - The line is missing some mandatory fields<br/>**BadTimestampFormat** - The time stamp field is malformed<br/>**BadWeightFormat** - The event weight field is not numeric<br/>**MalformedCatalogItemFeature** - Some catalog item feature has a malformed format<br/>**ItemIdTooLong** - The item id string is longer than the maximum allowed<br/>**IllegalCharactersInItemId** - The item id string contains invalid characters.<br/>**UserIdTooLong** - The user id string is longer than the maximum allowed<br/>**IllegalCharactersInUserId** - The user id string contains invalid characters.<br/>**UnknownItemId** - The item id doesn't appear in the catalog<br/>
+
+## Model Evaluation Schema
+
+The following table specifies the schema of the *model evaluation* JSON object:
+
+|  Property Name  | Type | Description |
+|-----------------|------|-------------|
+| duration | time span | The total duration of the model evaluation process
+| usageEventsParsing | [Parsing Report Schema](#parsing-report-schema) |  The evaluation usage events file(s) parsing report
+| metrics | [Model Evaluation Metrics Schema](#model-evaluation-metrics-schema) | The model evaluation metrics
+
+## Model Evaluation Metrics Schema
+
+The following table specifies the schema of the *model evaluation metrics* JSON object:
+
+|  Property Name  | Type | Description |
+|-----------------|------|-------------|
+| precisionMetrics |  | 
+| diversityMetrics |  | 
+
+## Recommendation Object Schema
+
+The following table specifies the schema of the *recommendation* JSON object:
+
+| Property Name | Type | Description 
+|---------------|------|------------
+| recommendedItemId | string | The recommended item id
+| score | float | The score of this recommendation
