@@ -79,3 +79,7 @@ See [buy domains](https://docs.microsoft.com/en-us/azure/app-service-web/custom-
 #### Q. How can I configure auto-scaling of my web app to handle more load?
 
 Auto scale can be configured from azure portal. This [article](https://blogs.msdn.microsoft.com/devschool/2015/05/24/azure-how-to-auto-scale-your-web-apps-web-sites/) provides a good overview on how to set things up.
+
+#### Q. How can I disable Application Insights?
+
+Application Insights can simply be disabled by removing the key/value - *ApplicationInsightsInstrumentationKey* in "Application Settings" of the deployed "App Service" on [Azure Portal](http://portal.azure.com).
