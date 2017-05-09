@@ -53,50 +53,15 @@ The catalog file could be placed directly under the container, or in some sub fo
 
 >The catalog **file** location (relative to the container) is a optional parameters for the train model API 
 
-
 ## Step 4: Train a new Recommendations Model
 Now that you have your data in the blob container, we can train the model!
 
 >  After deploying the service, you will be able to navigate to its API Reference
 >  (Swagger definition) at https://<service_name>.azurewebsites.net/swagger/ .
 >
->  Note that you will get the root url upon deploying your service.
+>  Note that you will get the URL upon deploying your service.
 
-We are going to use a *POST /api/models* call to create a new model.  
-You can learn more about this API call use this [API Reference](doc/api-reference.md#train-a-new-model).
-
-This is what a sample request will look like: 
-
-```
-POST https://<service_name>.azurewebsites.net/api/models
-x-api-key: your_api_key
-Content-Type: application/json
-
-{
-  "description": "Simple recommendations model",
-  "blobContainerName": "input",
-  "catalogFileRelativeLocation": "books.csv",
-  "usageFolderRelativeLocation": "usage"
-}
-
-```
-
-The response of this request will look like this:
-
-```
-HTTP/1.1 201 Created
-Content-Type: application/json; charset=utf-8
-Location: https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb
-
-{
-  "id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb",
-  "description": "Simple recommendations model",
-  "creationTime":"2017-05-04T00:26:06.386324Z",
-  "modelStatus":"Created"
-}
-```
-
-For more information on training a recommendations model, and to understand all train parameters available to you, please check the [API Reference](doc/api-reference.md).
+To train the model, we will call the *POST /api/models* API to create a new model. See full API spec and examples in the [train a new model API reference](doc/api-reference.md#train-a-new-model).
 
 ## Step 4: Wait for Model Training Completion
 
@@ -110,9 +75,11 @@ Once the model status is *Completed*, the model will be ready for use, i.e. get 
 {"id":"e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb","status":"Completed"}
 ```
 
+Learn more in the [Get Model Information API reference](doc/api-reference.md#get-model-information).
+
 ## Step 5: Getting Recommendations
 
-If you want to get item-to-item recommendations, you can perform a simple GET request like the one below: 
+If you want to get item-to-item recommendations, you can perform a simple GET request like described in the one below: 
 
 ```
 GET https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend?itemId=70322
@@ -140,9 +107,8 @@ The response will look something like this:
 
 You can learn more about this API call use this [API Reference](doc/api-reference.md#get-item-to-item-recommendations).
 
-
-If you want to get personalized recommendations you will need to pass the list of recent transactions for a particular user as part of the body. For instance, the RAW request below
-is requesting for recommendations for a customer that purchased item 316569321 in Febrary, and then clicked item 6480764 in March.
+If you want to get personalized recommendations you will need to pass the list of recent transactions for a particular user as part of the body. 
+For instance, the request below is for getting recommendations for a customer that purchased item 316569321 in Febrary, and then clicked item 6480764 in March.
 
 ```
 POST https://<service_name>.azurewebsites.net/swagger/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend HTTP/1.1
@@ -168,7 +134,7 @@ Accept: application/json
 
 ```
 
-For more information on getting recommendations, and to understand all options available to you, please check the [API Reference](doc/api-reference.md).
+For more information on getting recommendations, and to understand all options available to you, please check the [Get Personalized Recommendations API](doc/api-reference.md#get-personalized-recommendations)
 
 ## Step 6: A few things to help you go to production...
 

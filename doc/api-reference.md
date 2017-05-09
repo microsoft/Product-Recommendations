@@ -13,7 +13,7 @@ you actually deploy it.
 
 Use the following links to quickly jump to the relevant documentation:
 
-| Documentation
+| API Documentation
 | ---------------------
 | [Authentication](#authentication)
 | [Train a New Model API](#train-a-new-model)
@@ -26,7 +26,20 @@ Use the following links to quickly jump to the relevant documentation:
 | [Get Default Model Information API](#get-default-model-information)
 | [Get Item-To-Item Recommendations from the Default Model API](#get-item-to-item-recommendations-from-the-default-model)
 | [Get Personalized Recommendations from the Default Model API](#get-personalized-recommendations-from-the-default-model)
+
+| Object Schemas Documentation
+| ---------------------
 | [Model Object Schema](#model-object-schema)
+| [Model Training Parameters Schema](#model-training-parameter-schema)
+| [Model Training Statistics Schema](#model-training-statistics-schema)
+| [Parsing Report Schema](#parsing-report-schema)
+| [Parsing Error Schema](#parsing-error-schema)
+| [Model Evaluation Schema](#model-evaluation-schema)
+| [Model Evaluation Metrics Schema](#model-evaluation-metrics-schema)
+| [Precision Metric](#precision-metric-schema)
+| [Model Diversity Metrics](#model-diversity-metrics-schema)
+| [Diversity Percentile Bucket](#diversity-percentile-bucket)
+| [Get Recommendations Usage Event](#get-recommendations-usage-event)
 | [Recommendation Object Schema](#recommendation-object-schema)
 
 ## Authentication
@@ -55,7 +68,7 @@ Starts the process of training a new model that could be later used to query for
 recommendations. To start training a model one must first upload usage data, and optionally a catalog and evaluation files,
 to the new blob storage account created by the preconfigured solution.
 
-Training a new model is an asynchronous operation. The response to this HTTP request containe a *Location* header that 
+Training a new model is an asynchronous operation. The response to this HTTP request contains a *Location* header that 
 reference the newly created model, as well as the model in the body of the response.
 You can use the [Get Model API](#get-model-information) to query for the model training status along with other model information.
  
@@ -162,7 +175,7 @@ A usage file is a CSV (comma separated value) file where each row in a usage fil
 | Item Id |Yes |[A-z], [a-z], [0-9], [&#95;] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br/> Max length: 450 |Unique identifier of an item. |
 | Time |Yes |Date in ISO 8601 format:<br/>**yyyy-MM-ddTHH:mm:ss**<br/>(e.g. 2017-04-20T18:00:00) |The time of the event |
 | Event Type<br/><br/><br/>*only used in [model evaluation](#model-evaluation.md) |No |One of the following:<br/> **Click** (=weight of 1)<br/>**RecommendationClick** (=weight of 2)<br/>**AddShopCart** (=weight of 3)<br/>**RemoveShopCart** (=weight of -1)<br/>**Purchase** (=weight of 4)<br/> (defaults to **Click**)|The type of transaction. <br/>This will be used to determain the event strength. <br/><br/> *used only if *Custom Event Weight* is not provided. | 
-| Custom Event Weight <br/><br/>*only used in [model evaluation](#model-evaluation.md)|No |float | The trasaction strength.<br/><br/>*if provided, *Evnet Type* will be ignored. | 
+| Custom Event Weight <br/><br/>*only used in [model evaluation](#model-evaluation.md)|No |number | The trasaction strength.<br/><br/>*if provided, *Evnet Type* will be ignored. | 
 
 #### Sample Rows in a Usage File
     00037FFEA61FCA16,288186200,2015-08-14T11:02:52,Click 
@@ -299,16 +312,8 @@ The response body will be a JSON array of [Recommendation Objects](#recommendati
 ## Get Personalized Recommendations
 *POST /api/models/\{modelId\}/recommend*
 
-Gets personalized recommendations for the model specified, given a set of recent events for a particular user.
-The *recent events* -- or recent history -- should be passed in the body of the request in the following format:
-
-| Event Member | Description   | Valid Values | Default Value
-|--------------|---------------|-----------------|-----------------
-|    itemId    |  Seed item Id | string |
-|   timestamp  |  Timestamp of event | ISO 8601 format:<br/>**yyyy-MM-ddTHH:mm:ss**<br/> | Current UTC date and time
-|   eventType  |  Event type. This will determain the event strength **only if _weight_** is not provided  | Click (=weight of 1)<br/>RecommendationClick (=weight of 2)<br/>AddShopCart (=weight of 3)<br/>RemoveShopCart (=weight of -1)<br/>Purchase (=weight of 4)<br/> | Click
-|    weight    |  Custom event strength. If provided, **_evnetType_ will be ignored** | float
-
+Gets personalized recommendations for the model specified, given a set of recent usage events for a particular user.
+The request body should be an array of [Get Recommendations Usage Events](#get-recommendations-usage-event).
 The response body will be a JSON array of [Recommendation Objects](#recommendation-object-schema).
 
 > **Sample Request:**
@@ -381,6 +386,8 @@ Sets the specified model id as the default model.
 ## Get Default Model Information
 *GET /api/models/default* 
 
+> To use this API, a default model must first be set
+
 Returns the default model information, including the training status, parameters used to
 build the model, the time of creation, statistics about the model and evaluation results
 (See [Model JSON Schema](#model-object-schema)).
@@ -414,10 +421,22 @@ build the model, the time of creation, statistics about the model and evaluation
 ## Get Item-To-Item Recommendations from the Default Model
 *GET /api/models/default/recommend*
 
-Once a default model is set, similar to getting item-to-item recommendations, but using the default model.
+> To use this API, a default model must first be set
+
+Gets item-to-item recommendations for the *default* model.
+
+Empty recommendations may be returned if none of the items are in the catalog or if the model
+did not have sufficient training data to provide recommendations for the item.
+
+*Request parameters*
+
+|  Request Parameter  | Description    | Valid Values | Default Value
+|-------------|-------------------|-----------------|-----------------
+|  itemId     |  Seed item Id | string
+| recommendationCount | Number of recommended items to return | 1-100 | 10
+
 
 The response body will be a JSON array of [Recommendation Objects](#recommendation-object-schema).
-
 *Request parameters*
 
 |  Request Parameter  | Description    | Valid Values | Default Value
@@ -455,8 +474,10 @@ The response body will be a JSON array of [Recommendation Objects](#recommendati
 ## Get Personalized Recommendations from the Default Model
 *POST /api/models/default/recommend*
 
-Once a default model is set, similar to getting personalized recommendations, but using the default model.
+> To use this API, a default model must first be set
 
+Gets personalized recommendations for the *default* model, given a set of recent usage events for a particular user.
+The request body should be an array of [Get Recommendations Usage Events](#get-recommendations-usage-event).
 The response body will be a JSON array of [Recommendation Objects](#recommendation-object-schema).
 
 > **Sample Request:**
@@ -508,22 +529,22 @@ The response body will be a JSON array of [Recommendation Objects](#recommendati
 
 The following table specifies the schema of the *model* JSON object:
 
-|  Property Name  | Type | Description |
-|-----------------|------|-------------|
-| id | GUID | The model id
+| Property Name | Type | Description |
+|---------------|------|-------------|
+| id | string | The model id
 | description | string | A textual description of the model, as provided when the model was created
 | creationTime | Date Time |  The model creation UTC time and date
 | modelStatus | string | The status of the model:<br/>**Created** - the initial status of a new model<br/>**InProgress** - the model is being trained<br/>**Completed** - model trainining was completed successfully<br/>**Failed** - model trainining had failed
 | modelStatusMessage | string | An optional message associated with the model status
 | parameters | [Model Training Parameters](#model-training-parameters-schema) | The parameters used for training the model, as provided when the model was created
-| statistics | [Model Training Statistics](#model-training-statistics-schema) | The model training statisctics, specifing metrics like training duration and model quality
+| statistics | [Model Training Statistics](#model-training-statistics-schema) | The model training statistics, specifying metrics like training duration and model quality
 
 ## Model Training Parameters Schema 
 
 The following table specifies the schema of the *model training parameters* JSON object (**mandatory properties in bold**):
 
-|  Property Name  | Mandatory? | Description | Valid Values | Default Value
-|-------------|--------------|-------------|--------------|--------------
+| Property Name | Mandatory? | Description | Valid Values | Default Value
+|---------------|------------|-------------|--------------|--------------
 | description | no | Textual description | string | *null*
 | **blobContainerName**| **yes** |  Name of the container where the catalog, usage data and evaluation data are stored. Note that this container must be in the storage account created by the preconfigured solution | string  | 
 | **usageFolderRelativeLocation** | **yes** |   Relative path to the virtual directory that contains the usage file(s) to be used for training. See [Usage events file format](#usage-events-file-schema) | string |
@@ -543,23 +564,24 @@ The following table specifies the schema of the *model training parameters* JSON
 
 The following table specifies the schema of the *model training statistics* JSON object:
 
-|  Property Name  | Type | Description |
-|-----------------|------|-------------|
+| Property Name | Type | Description |
+|---------------|------|-------------|
 | totalDuration | time span | The total duration of the model training process
 | trainingDuration | time span | The duration of the core model training
 | catalogParsing | [Parsing Report Schema](#parsing-report-schema) |  The catalog file parsing report
 | usageEventsParsing | [Parsing Report Schema](#parsing-report-schema) |  The usage events file(s) parsing report
-| uniqueUsersCount | int | The total number of unique users found in the usage events file(s)
-| uniqueItemsCount | int | The total number of unique items found in the catalog\usage events file(s)
+| uniqueUsersCount | number | The total number of unique users found in the usage events file(s)
+| uniqueItemsCount | number | The total number of unique items found in the catalog\usage events file(s)
 | evaluation | [Model Evaluation Schema](#model-evaluation-schema) | The model evaluation metrics
+| catalogFeatureWeights | Array of numbers | The calculated catalog feature's weights
 
 ## Parsing Report Schema
 
 The following table specifies the schema of the *catalog\usage file(s) parsing report* JSON object:
 
-|  Property Name  | Type | Description |
-|-----------------|------|-------------|
-| linesCount | int | The total number of successfully parsed lines
+| Property Name | Type | Description |
+|---------------|------|-------------|
+| linesCount | number | The total number of successfully parsed lines
 | parsingDuration | time span | The total parsing duration
 | parsingErrors | An array of [Parsing Error Schema](#parsing-error-schema) | The parsing errors, if found
 
@@ -567,18 +589,18 @@ The following table specifies the schema of the *catalog\usage file(s) parsing r
 
 The following table specifies the schema of the *parsing error* JSON object:
 
-|  Property Name  | Type | Description |
-|-----------------|------|-------------|
+| Property Name | Type | Description |
+|---------------|------|-------------|
 | file | string | The name of the file containing the parsing error
-| line | int | The line number of the parsing error
+| line | number | The line number of the parsing error
 | error | string | The type of the parsing error: <br/>**MalformedLine** - The line is in an invalid CSV format<br/>**MissingFields** - The line is missing some mandatory fields<br/>**BadTimestampFormat** - The time stamp field is malformed<br/>**BadWeightFormat** - The event weight field is not numeric<br/>**MalformedCatalogItemFeature** - Some catalog item feature has a malformed format<br/>**ItemIdTooLong** - The item id string is longer than the maximum allowed<br/>**IllegalCharactersInItemId** - The item id string contains invalid characters.<br/>**UserIdTooLong** - The user id string is longer than the maximum allowed<br/>**IllegalCharactersInUserId** - The user id string contains invalid characters.<br/>**UnknownItemId** - The item id doesn't appear in the catalog<br/>
 
 ## Model Evaluation Schema
 
 The following table specifies the schema of the *model evaluation* JSON object:
 
-|  Property Name  | Type | Description |
-|-----------------|------|-------------|
+| Property Name | Type | Description |
+|---------------|------|-------------|
 | duration | time span | The total duration of the model evaluation process
 | usageEventsParsing | [Parsing Report Schema](#parsing-report-schema) |  The evaluation usage events file(s) parsing report
 | metrics | [Model Evaluation Metrics Schema](#model-evaluation-metrics-schema) | The model evaluation metrics
@@ -587,10 +609,52 @@ The following table specifies the schema of the *model evaluation* JSON object:
 
 The following table specifies the schema of the *model evaluation metrics* JSON object:
 
-|  Property Name  | Type | Description |
-|-----------------|------|-------------|
-| precisionMetrics |  | 
-| diversityMetrics |  | 
+| Property Name | Type | Description |
+|---------------|------|-------------|
+| precisionMetrics | Array of [Precision Metric](#precision-metric-schema) objects | Precision@K metrics for a model. These are a measure of quality of the Model. It works by splitting the input data into a test and training data. Then use the test period to evaluate what percentage of the customers would have actually clicked on a recommendation if k recommendations had been shown to them given their prior history.
+| diversityMetrics | [Model Diversity Metrics](#model-diversity-metrics-schema) | The model diversity metrics. Diversity gives customers a sense of how diverse the item recommendations are, based on their usage shown by bucket eg: 0-90, 90-99, 99-100. In simple terms, how many recommendations are coming from most popular items, how many from non-popular etc., unique items recommended.
+
+## Precision Metric Schema
+
+The following table specifies the schema of the *model precision metric* JSON object:
+
+| Property Name | Type | Description |
+|---------------|------|-------------|
+| k | number | The value K used to calculate the metric values
+| percentage | number | Precision@K percentage
+| usersInTest | number | The total number of users found in the test dataset
+
+## Model Diversity Metrics Schema
+
+The following table specifies the schema of the *model diversity metric* JSON object:
+
+| Property Name | Type | Description |
+|---------------|------|-------------|
+| percentileBuckets | Array of [Diversity Percentile Bucket](#diversity-percentile-bucket) | The diversity metrics for all of the popularity buckets
+| totalItemsRecommended | number | Total number of items recommended (some may be duplicates)
+| uniqueItemsRecommended | number | The total number of distinct items that were returned for evaluation
+| uniqueItemsInTrainSet | The total number of distinct items in the train dataset 
+
+## Diversity Percentile Bucket
+
+The following table specifies the schema of the *model diversity percentile bucket* JSON object:
+
+| Property Name | Type | Description |
+|---------------|------|-------------|
+| min | number | The beginning percentile of the popularity bucket (inclusive)
+| max | number | The ending percentile of the popularity bucket (exclusive)
+| percentage | number | The fraction of all recommended users that belong to the specified popularity bucket
+
+## Get Recommendations Usage Event
+
+The following table specifies the schema of the *usage event* JSON object used in get recommendations requests:
+
+| Property Name | Type | Description | Default Value
+|---------------|------|-------------|-----------------
+| **itemId** | string | An item id to get recommendations for | 
+| timestamp |  ISO 8601 format:<br/>**yyyy-MM-ddTHH:mm:ss**<br/> | The timestamp of event | Current UTC date and time
+| eventType | One of the following string values:<br/>**Click** (=weight of 1)<br/>**RecommendationClick** (=weight of 2)<br/>**AddShopCart** (=weight of 3)<br/>**RemoveShopCart** (=weight of -1)<br/>**Purchase** (=weight of 4)<br/> | The event type. This will determain the event strength **only if _weight_** is not provided | Click
+| weight | number | Custom event strength. If provided, **_evnetType_ will be ignored** | 1.0
 
 ## Recommendation Object Schema
 
@@ -599,4 +663,4 @@ The following table specifies the schema of the *recommendation* JSON object:
 | Property Name | Type | Description 
 |---------------|------|------------
 | recommendedItemId | string | The recommended item id
-| score | float | The score of this recommendation
+| score | number | The score of this recommendation
