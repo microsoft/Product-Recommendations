@@ -21,9 +21,8 @@ You will select a few parameters that will impact the size of the resources that
 
 1. The solution will create an Azure Storage account where the models will be stored. The storage
 account is also used to store model-metadata and any state required for the solution to work. 
-Specify the type of [replication](https://docs.microsoft.com/en-us/azure/storage/storage-introduction) that you
-would like on your storage account. Note that the models you create will be stored in the
-storage account to be create.
+Specify the type of [replication](https://docs.microsoft.com/en-us/azure/storage/storage-redundancy) that you
+would like on your storage account.
 
 2. The solution will run as an [Azure WebApp](https://azure.microsoft.com/en-us/services/app-service/web/).
 You will need to select the application [hosting plan](https://azure.microsoft.com/en-us/pricing/details/app-service/). 
