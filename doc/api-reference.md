@@ -30,7 +30,7 @@ Use the following links to quickly jump to the relevant documentation:
 | Object Schemas Documentation
 | ---------------------
 | [Model Object Schema](#model-object-schema)
-| [Model Training Parameters Schema](#model-training-parameter-schema)
+| [Model Training Parameters Schema](#model-training-parameters-schema)
 | [Model Training Statistics Schema](#model-training-statistics-schema)
 | [Parsing Report Schema](#parsing-report-schema)
 | [Parsing Error Schema](#parsing-error-schema)
