@@ -543,9 +543,9 @@ The following table specifies the schema of the *model* JSON object:
 
 The following table specifies the schema of the *model training parameters* JSON object (**mandatory properties in bold**):
 
-| Property Name | Mandatory? | Description | Valid Values | Default Value
+| Property Name | Mandatory? | Description | Type | Default Value
 |---------------|------------|-------------|--------------|--------------
-| description | no | Textual description | string | *null*
+| description | no | Textual description | string with max length of 256 characters | *null*
 | **blobContainerName**| **yes** |  Name of the container where the catalog, usage data and evaluation data are stored. Note that this container must be in the storage account created by the preconfigured solution | string  | 
 | **usageFolderRelativeLocation** | **yes** |   Relative path to the virtual directory that contains the usage file(s) to be used for training. See [Usage events file format](#usage-events-file-schema) | string |
 | catalogFileRelativeLocation | no |   Relative path to the catalog file. See [Catalog file format](#catalog-file-schema) | string  | *null*
