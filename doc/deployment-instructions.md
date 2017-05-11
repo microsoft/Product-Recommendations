@@ -26,7 +26,7 @@ would like on your storage account.
 
 2. The solution will run as an [Azure WebApp](https://azure.microsoft.com/en-us/services/app-service/web/).
 You will need to select the application [hosting plan](https://azure.microsoft.com/en-us/pricing/details/app-service/). 
-Note that you can always change you plan from Azure Portal even after you've deployed the service.
+Note that you can always change the plan from Azure Portal even after you've deployed the service.
 >**Important**: The selected plan will determine the size of your machine, and therefore the number of models you can concurrently train and 
 > the latency of get-recommendation requests. You can [use these benchmarks](benchmarks.md) to help you choose the right one to start with 
 >and later on adjust the plan according to your specific needs and observed latencies 
