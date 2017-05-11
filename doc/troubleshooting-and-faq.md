@@ -1,6 +1,38 @@
-To make the debugging process easier, necessary telemetry has been added throughout the source code. By default, diagnostics is disabled in azure web apps and can be enabled by following the steps here - [Enable diagnostics logging for web apps in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-enable-diagnostic-log). The logs should give a fair idea of where the system is failing. Below are some common scenarios to help get started.
+# Troubleshooting and FAQs
 
-**Tip:** Stream *logs and console output* directly from azure portal. More details are explained here - [Streaming Logs and the Console](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-streaming-logs-and-console).
+## Debugging
+
+The service uses traces to communicate messages with the usual levels (verbose, info, warning, error). These traces are visible in two diffferance channels: [Aplication Insights](#using-application-insights) and [Azure Portal](#using-azure-portal-to-view-trace-messages).
+
+>The logs should give a fair idea of where the system is failing. Below are some [**Common Scenarios**](#common-scenarios) to help get started.
+
+### Using Application Insights
+Along side the Recommendation serivce, a new Application Insights app was created. A link to it was displayed on the final deployment page, but can also be found under the same **resource group** as the service it self. 
+
+Browsing to the overview page of your application insights app in Azure portal, you could see the service health metrics (e.g. # of requests, # of failed requests etc.) and the requests latencies:
+
+![Application Insights Overview](../images/application-insights-overview-page.png)
+
+Clicking on the **Search** tab will expose all the service telemetry, including traces.
+
+![Application Insights Search](../images/application-insights-search-page.png)
+
+Althogt you can search for traces\events directly from the *search* screen, consider clicking on the **Analytics** button - you'll be redirected to the analytics site where you'll get the full flexible search capability:
+
+![Application Insights Analytics](../images/application-insights-analytics.png)
+
+> **Tip**: use this query to get all the traces from the passed 1 hour:
+> ```` 
+> traces | where timestamp >= ago(1h) | sort by timestamp desc
+> ````
+ 
+You can learn more about [Application Insights here](https://azure.microsoft.com/en-us/services/application-insights/).
+
+### Using Azure Portal to View Trace Messages
+If you disabled Application Insight or prefer not to use it, you can still access the serice traces directly from Azure Portal.
+By default, diagnostics are disabled in Azure Web Apps and needs to be enabled by following the steps here - [Enable diagnostics logging for web apps in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-enable-diagnostic-log). 
+
+>**Tip:** Stream '*logs and console output*' directly from azure portal. More details are explained here - [Streaming Logs and the Console](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-streaming-logs-and-console).
 
 ---
 
@@ -16,7 +48,8 @@ ii. For all non recommendation APIs, ensure you are using *AdminKey*.
 #### 3. Model training request fails with 400 status codes
 In most cases, a clear error message indicating the issue is returned. 
 ![400Withmessage](../images/400withmessage.png)
-In some cases, error message might not point to exact point of error. This happens mainly if the body is not properly composed. Eg: a boolean parameter has a value other than true/false.
+
+In some cases, error message might not point to exact point of error. This happens mainly if the body is not properly composed. E.g. a boolean parameter has a value other than true/false.
 
 ![400Withoutmessage](../images/400withoutmessage.png)
 
@@ -60,7 +93,7 @@ One idea is to [deploy](deployment-instructions.md) two instances  of the servic
 
 ## Frequently Asked Questions:
 
-#### Q. Where can i see and change my access keys?
+#### Q. Where can I see and change my access keys?
 
 There are two kind of keys that are used - *adminKey* - used for all API operations, *recommendKey* - used only to get recommendation. Both the keys have a primay and secondary key which can be viewed/changed via "Application Settings" of the deployed "App Service" on [Azure Portal](http://portal.azure.com). 
 
