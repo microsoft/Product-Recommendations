@@ -581,9 +581,11 @@ The following table specifies the schema of the *catalog\usage file(s) parsing r
 
 | Property Name | Type | Description |
 |---------------|------|-------------|
-| linesCount | number | The total number of successfully parsed lines
+| successfullyParsedItemsCount | number | The total number of successfully parsed lines
 | parsingDuration | time span | The total parsing duration
-| parsingErrors | An array of [Parsing Error Schema](#parsing-error-schema) | The parsing errors, if found
+| parsingErrorsSample | An array of [Parsing Error Schema](#parsing-error-schema) | A sample of parsing errors, if found
+| itemsWithUnknownIdCount | number | The number of items with an unknown id
+| unknownItemIdsSample | An array of strings | A sample of unknown item ids found during parsing
 
 ## Parsing Error Schema
 
