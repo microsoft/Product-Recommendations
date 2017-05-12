@@ -59,7 +59,7 @@ namespace Recommendations.Sample
             // note that the connection string is only needed by the sample because it uploads some sample
             // data to create a recommendation model.
             string recommendationsEndPointUri = "https://yoursite.azurewebsites.net";
-            string adminApiKey = "your admin key goes here";
+            string apiAdminKey = "your admin key goes here";
             string connectionString = @"DefaultEndpointsProtocol=https;AccountName=yoursite;AccountKey=theAccountKeyProvidedToYouAtConfigurationTime";
 
             // create recommendations client that allows us to work with the recommendations API
@@ -68,7 +68,7 @@ namespace Recommendations.Sample
             // add the api key header to all requests.
             // note that you can "train" recommendation models only with the modeling key,
             // you can score models with either the modeling key or the scoring key.
-            recommendationsClient.HttpClient.DefaultRequestHeaders.Add("x-api-key", adminApiKey);
+            recommendationsClient.HttpClient.DefaultRequestHeaders.Add("x-api-key", apiAdminKey);
             
             // comment out this line and use a pre-trained model Id if you would like to skip the training phase.
             Guid modelId = TrainModelUsingSampleData(recommendationsClient, connectionString);
