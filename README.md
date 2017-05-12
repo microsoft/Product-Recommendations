@@ -51,7 +51,8 @@ model metadata as well as for WebApp to WebJob communication.
 Contact [mlapi@microsoft.com](mailto:mlapi@microsoft.com) with any additional questions or comments you may have on the usage of the Recommendations preconfigured solution.
 
 ## Contributing
-See the [Contributing Document](contributing.md) to understand contribution guidelines and code of conduct.
+See the [Contributing Document](CONTRIBUTING.md) to understand contribution guidelines and code of conduct.
 
 ## License
-.NET Core (including the corefx repo) is licensed under the MIT license.
+
+See the [License Document](LICENSE.md).
