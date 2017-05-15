@@ -19,7 +19,7 @@ namespace Recommendations.Client.Entities
         /// <summary>
         /// Initializes a new instance of the ParsingReport class.
         /// </summary>
-        /// <param name="successfullyParsedItemsCount">The total number of
+        /// <param name="successfullyParsedLinesCount">The total number of
         /// lines parsed successfully</param>
         /// <param name="parsingErrorsSample">A sample list of line parsing
         /// errors</param>
@@ -28,9 +28,9 @@ namespace Recommendations.Client.Entities
         /// <param name="unknownItemIdsSample">A sample list of unknown item
         /// ids found during parsing</param>
         /// <param name="parsingDuration">The total parsing duration</param>
-        public ParsingReport(int? successfullyParsedItemsCount = default(int?), System.Collections.Generic.IList<LineParsingError> parsingErrorsSample = default(System.Collections.Generic.IList<LineParsingError>), long? itemsWithUnknownIdCount = default(long?), System.Collections.Generic.IList<string> unknownItemIdsSample = default(System.Collections.Generic.IList<string>), string parsingDuration = default(string))
+        public ParsingReport(int? successfullyParsedLinesCount = default(int?), System.Collections.Generic.IList<LineParsingError> parsingErrorsSample = default(System.Collections.Generic.IList<LineParsingError>), long? itemsWithUnknownIdCount = default(long?), System.Collections.Generic.IList<string> unknownItemIdsSample = default(System.Collections.Generic.IList<string>), string parsingDuration = default(string))
         {
-            SuccessfullyParsedItemsCount = successfullyParsedItemsCount;
+            SuccessfullyParsedLinesCount = successfullyParsedLinesCount;
             ParsingErrorsSample = parsingErrorsSample;
             ItemsWithUnknownIdCount = itemsWithUnknownIdCount;
             UnknownItemIdsSample = unknownItemIdsSample;
@@ -40,8 +40,8 @@ namespace Recommendations.Client.Entities
         /// <summary>
         /// Gets or sets the total number of lines parsed successfully
         /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "successfullyParsedItemsCount")]
-        public int? SuccessfullyParsedItemsCount { get; set; }
+        [Newtonsoft.Json.JsonProperty(PropertyName = "successfullyParsedLinesCount")]
+        public int? SuccessfullyParsedLinesCount { get; set; }
 
         /// <summary>
         /// Gets or sets a sample list of line parsing errors

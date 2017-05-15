@@ -13,6 +13,178 @@ namespace Recommendations.Client
     public static partial class ModelsExtensions
     {
             /// <summary>
+            /// Get recommendations using the default model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='itemId'>
+            /// Item id to get recommendations for
+            /// </param>
+            /// <param name='recommendationCount'>
+            /// The number of requested recommendations
+            /// </param>
+            public static System.Collections.Generic.IList<RecommendationResult> GetItemRecommendationsFromDefaultModel(this IModels operations, string itemId, int? recommendationCount = default(int?))
+            {
+                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetItemRecommendationsFromDefaultModelAsync(itemId, recommendationCount), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get recommendations using the default model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='itemId'>
+            /// Item id to get recommendations for
+            /// </param>
+            /// <param name='recommendationCount'>
+            /// The number of requested recommendations
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<RecommendationResult>> GetItemRecommendationsFromDefaultModelAsync(this IModels operations, string itemId, int? recommendationCount = default(int?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                using (var _result = await operations.GetItemRecommendationsFromDefaultModelWithHttpMessagesAsync(itemId, recommendationCount, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get recommendations using the default model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='usageEvents'>
+            /// The usage events to get recommendations for
+            /// </param>
+            /// <param name='recommendationCount'>
+            /// The number of requested recommendations
+            /// </param>
+            public static System.Collections.Generic.IList<RecommendationResult> GetPersonalizedRecommendationsFromDefaultModel(this IModels operations, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?))
+            {
+                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetPersonalizedRecommendationsFromDefaultModelAsync(usageEvents, recommendationCount), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get recommendations using the default model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='usageEvents'>
+            /// The usage events to get recommendations for
+            /// </param>
+            /// <param name='recommendationCount'>
+            /// The number of requested recommendations
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<RecommendationResult>> GetPersonalizedRecommendationsFromDefaultModelAsync(this IModels operations, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                using (var _result = await operations.GetPersonalizedRecommendationsFromDefaultModelWithHttpMessagesAsync(usageEvents, recommendationCount, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get recommendations using the requested model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model id to use when scoring
+            /// </param>
+            /// <param name='itemId'>
+            /// Item id to get recommendations for
+            /// </param>
+            /// <param name='recommendationCount'>
+            /// The number of requested recommendations
+            /// </param>
+            public static System.Collections.Generic.IList<RecommendationResult> GetItemRecommendations(this IModels operations, System.Guid modelId, string itemId, int? recommendationCount = default(int?))
+            {
+                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetItemRecommendationsAsync(modelId, itemId, recommendationCount), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get recommendations using the requested model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model id to use when scoring
+            /// </param>
+            /// <param name='itemId'>
+            /// Item id to get recommendations for
+            /// </param>
+            /// <param name='recommendationCount'>
+            /// The number of requested recommendations
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<RecommendationResult>> GetItemRecommendationsAsync(this IModels operations, System.Guid modelId, string itemId, int? recommendationCount = default(int?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                using (var _result = await operations.GetItemRecommendationsWithHttpMessagesAsync(modelId, itemId, recommendationCount, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get recommendations using the requested model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model id to use when scoring
+            /// </param>
+            /// <param name='usageEvents'>
+            /// The usage events to get recommendations for
+            /// </param>
+            /// <param name='recommendationCount'>
+            /// The number of requested recommendations
+            /// </param>
+            public static System.Collections.Generic.IList<RecommendationResult> GetPersonalizedRecommendations(this IModels operations, System.Guid modelId, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?))
+            {
+                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetPersonalizedRecommendationsAsync(modelId, usageEvents, recommendationCount), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get recommendations using the requested model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model id to use when scoring
+            /// </param>
+            /// <param name='usageEvents'>
+            /// The usage events to get recommendations for
+            /// </param>
+            /// <param name='recommendationCount'>
+            /// The number of requested recommendations
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<RecommendationResult>> GetPersonalizedRecommendationsAsync(this IModels operations, System.Guid modelId, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                using (var _result = await operations.GetPersonalizedRecommendationsWithHttpMessagesAsync(modelId, usageEvents, recommendationCount, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// Lists all the models
             /// </summary>
             /// <param name='operations'>
@@ -196,178 +368,6 @@ namespace Recommendations.Client
             public static async System.Threading.Tasks.Task SetDefaultModelAsync(this IModels operations, System.Guid modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
             {
                 await operations.SetDefaultModelWithHttpMessagesAsync(modelId, null, cancellationToken).ConfigureAwait(false);
-            }
-
-            /// <summary>
-            /// Get recommendations using the default model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='itemId'>
-            /// Item id to get recommendations for
-            /// </param>
-            /// <param name='recommendationCount'>
-            /// The number of requested recommendations
-            /// </param>
-            public static System.Collections.Generic.IList<RecommendationResult> GetItemRecommendationsFromDefaultModel(this IModels operations, string itemId, int? recommendationCount = default(int?))
-            {
-                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetItemRecommendationsFromDefaultModelAsync(itemId, recommendationCount), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get recommendations using the default model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='itemId'>
-            /// Item id to get recommendations for
-            /// </param>
-            /// <param name='recommendationCount'>
-            /// The number of requested recommendations
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<RecommendationResult>> GetItemRecommendationsFromDefaultModelAsync(this IModels operations, string itemId, int? recommendationCount = default(int?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                using (var _result = await operations.GetItemRecommendationsFromDefaultModelWithHttpMessagesAsync(itemId, recommendationCount, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Get recommendations using the default model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='usageEvents'>
-            /// The usage events to get recommendations for
-            /// </param>
-            /// <param name='recommendationCount'>
-            /// The number of requested recommendations
-            /// </param>
-            public static System.Collections.Generic.IList<RecommendationResult> GetPersonalizedRecommendationsFromDefaultModel(this IModels operations, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?))
-            {
-                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetPersonalizedRecommendationsFromDefaultModelAsync(usageEvents, recommendationCount), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get recommendations using the default model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='usageEvents'>
-            /// The usage events to get recommendations for
-            /// </param>
-            /// <param name='recommendationCount'>
-            /// The number of requested recommendations
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<RecommendationResult>> GetPersonalizedRecommendationsFromDefaultModelAsync(this IModels operations, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                using (var _result = await operations.GetPersonalizedRecommendationsFromDefaultModelWithHttpMessagesAsync(usageEvents, recommendationCount, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Get recommendations using the requested model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model id to use when scoring
-            /// </param>
-            /// <param name='itemId'>
-            /// Item id to get recommendations for
-            /// </param>
-            /// <param name='recommendationCount'>
-            /// The number of requested recommendations
-            /// </param>
-            public static System.Collections.Generic.IList<RecommendationResult> GetItemRecommendations(this IModels operations, System.Guid modelId, string itemId, int? recommendationCount = default(int?))
-            {
-                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetItemRecommendationsAsync(modelId, itemId, recommendationCount), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get recommendations using the requested model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model id to use when scoring
-            /// </param>
-            /// <param name='itemId'>
-            /// Item id to get recommendations for
-            /// </param>
-            /// <param name='recommendationCount'>
-            /// The number of requested recommendations
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<RecommendationResult>> GetItemRecommendationsAsync(this IModels operations, System.Guid modelId, string itemId, int? recommendationCount = default(int?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                using (var _result = await operations.GetItemRecommendationsWithHttpMessagesAsync(modelId, itemId, recommendationCount, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Get recommendations using the requested model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model id to use when scoring
-            /// </param>
-            /// <param name='usageEvents'>
-            /// The usage events to get recommendations for
-            /// </param>
-            /// <param name='recommendationCount'>
-            /// The number of requested recommendations
-            /// </param>
-            public static System.Collections.Generic.IList<RecommendationResult> GetPersonalizedRecommendations(this IModels operations, System.Guid modelId, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?))
-            {
-                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetPersonalizedRecommendationsAsync(modelId, usageEvents, recommendationCount), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get recommendations using the requested model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model id to use when scoring
-            /// </param>
-            /// <param name='usageEvents'>
-            /// The usage events to get recommendations for
-            /// </param>
-            /// <param name='recommendationCount'>
-            /// The number of requested recommendations
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<RecommendationResult>> GetPersonalizedRecommendationsAsync(this IModels operations, System.Guid modelId, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                using (var _result = await operations.GetPersonalizedRecommendationsWithHttpMessagesAsync(modelId, usageEvents, recommendationCount, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
             }
 
     }

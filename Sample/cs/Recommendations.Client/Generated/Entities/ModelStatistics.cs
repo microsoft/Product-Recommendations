@@ -25,21 +25,28 @@ namespace Recommendations.Client.Entities
         /// report</param>
         /// <param name="usageEventsParsing">The usage events files parsing
         /// report</param>
-        /// <param name="uniqueUsersCount">The number of unique users found in
+        /// <param name="numberOfCatalogItems">The number of items found in
+        /// catalog</param>
+        /// <param name="numberOfUsageItems">The number of valid (which are
+        /// present in catalog if provided) unique items found in usage
+        /// files</param>
+        /// <param name="numberOfUsers">The number of unique users found in
         /// usage files</param>
-        /// <param name="uniqueItemsCount">The number of unique items found in
-        /// catalog\usage files</param>
+        /// <param name="catalogCoverage">The ratio of unique items found in
+        /// usage files and total items in catalog</param>
         /// <param name="evaluation">The model evaluation report</param>
         /// <param name="catalogFeatureWeights">The calculated catalog feature
         /// weights</param>
-        public ModelStatistics(string trainingDuration = default(string), string totalDuration = default(string), ParsingReport catalogParsing = default(ParsingReport), ParsingReport usageEventsParsing = default(ParsingReport), int? uniqueUsersCount = default(int?), int? uniqueItemsCount = default(int?), ModelEvaluationResult evaluation = default(ModelEvaluationResult), System.Collections.Generic.IList<double?> catalogFeatureWeights = default(System.Collections.Generic.IList<double?>))
+        public ModelStatistics(string trainingDuration = default(string), string totalDuration = default(string), ParsingReport catalogParsing = default(ParsingReport), ParsingReport usageEventsParsing = default(ParsingReport), int? numberOfCatalogItems = default(int?), int? numberOfUsageItems = default(int?), int? numberOfUsers = default(int?), double? catalogCoverage = default(double?), ModelEvaluationResult evaluation = default(ModelEvaluationResult), System.Collections.Generic.IList<double?> catalogFeatureWeights = default(System.Collections.Generic.IList<double?>))
         {
             TrainingDuration = trainingDuration;
             TotalDuration = totalDuration;
             CatalogParsing = catalogParsing;
             UsageEventsParsing = usageEventsParsing;
-            UniqueUsersCount = uniqueUsersCount;
-            UniqueItemsCount = uniqueItemsCount;
+            NumberOfCatalogItems = numberOfCatalogItems;
+            NumberOfUsageItems = numberOfUsageItems;
+            NumberOfUsers = numberOfUsers;
+            CatalogCoverage = catalogCoverage;
             Evaluation = evaluation;
             CatalogFeatureWeights = catalogFeatureWeights;
         }
@@ -69,17 +76,30 @@ namespace Recommendations.Client.Entities
         public ParsingReport UsageEventsParsing { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of unique users found in usage files
+        /// Gets or sets the number of items found in catalog
         /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "uniqueUsersCount")]
-        public int? UniqueUsersCount { get; set; }
+        [Newtonsoft.Json.JsonProperty(PropertyName = "numberOfCatalogItems")]
+        public int? NumberOfCatalogItems { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of unique items found in catalog\usage
-        /// files
+        /// Gets or sets the number of valid (which are present in catalog if
+        /// provided) unique items found in usage files
         /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "uniqueItemsCount")]
-        public int? UniqueItemsCount { get; set; }
+        [Newtonsoft.Json.JsonProperty(PropertyName = "numberOfUsageItems")]
+        public int? NumberOfUsageItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of unique users found in usage files
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty(PropertyName = "numberOfUsers")]
+        public int? NumberOfUsers { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ratio of unique items found in usage files and
+        /// total items in catalog
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty(PropertyName = "catalogCoverage")]
+        public double? CatalogCoverage { get; set; }
 
         /// <summary>
         /// Gets or sets the model evaluation report
