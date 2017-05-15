@@ -325,7 +325,7 @@ namespace Recommendations.Client
             }
 
             /// <summary>
-            /// Get recommendations using the default model
+            /// Get recommendations using the requested model
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -345,7 +345,7 @@ namespace Recommendations.Client
             }
 
             /// <summary>
-            /// Get recommendations using the default model
+            /// Get recommendations using the requested model
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

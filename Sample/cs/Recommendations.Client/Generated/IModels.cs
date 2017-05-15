@@ -195,7 +195,7 @@ namespace Recommendations.Client
         /// </exception>
         System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetItemRecommendationsWithHttpMessagesAsync(System.Guid modelId, string itemId, int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get recommendations using the default model
+        /// Get recommendations using the requested model
         /// </summary>
         /// <param name='modelId'>
         /// The model id to use when scoring

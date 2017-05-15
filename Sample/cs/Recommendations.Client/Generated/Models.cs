@@ -1188,7 +1188,7 @@ namespace Recommendations.Client
         }
 
         /// <summary>
-        /// Get recommendations using the default model
+        /// Get recommendations using the requested model
         /// </summary>
         /// <param name='modelId'>
         /// The model id to use when scoring
