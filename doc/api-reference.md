@@ -13,8 +13,8 @@ you actually deploy it.
 
 Use the following links to quickly jump to the relevant documentation:
 
-| API Documentation
-| ---------------------
+| API Documentation Reference
+| ---------------------------
 | [Authentication](#authentication)
 | [Train a New Model API](#train-a-new-model)
 | [Get Model Information API](#get-model-information)
@@ -27,8 +27,10 @@ Use the following links to quickly jump to the relevant documentation:
 | [Get Item-To-Item Recommendations from the Default Model API](#get-item-to-item-recommendations-from-the-default-model)
 | [Get Personalized Recommendations from the Default Model API](#get-personalized-recommendations-from-the-default-model)
 
-| Object Schemas Documentation
-| ---------------------
+| Schemas Documentation Reference
+| -------------------------------
+| [Catalog File Schema](#catalog-file-schema)
+| [Usage Events File Schema](#usage-events-file-schema)
 | [Model Object Schema](#model-object-schema)
 | [Model Training Parameters Schema](#model-training-parameters-schema)
 | [Model Training Statistics Schema](#model-training-statistics-schema)
