@@ -572,8 +572,10 @@ The following table specifies the schema of the *model training statistics* JSON
 | trainingDuration | time span | The duration of the core model training
 | catalogParsing | [Parsing Report Schema](#parsing-report-schema) |  The catalog file parsing report
 | usageEventsParsing | [Parsing Report Schema](#parsing-report-schema) |  The usage events file(s) parsing report
-| uniqueUsersCount | number | The total number of unique users found in the usage events file(s)
-| uniqueItemsCount | number | The total number of unique items found in the catalog\usage events file(s)
+| numberOfCatalogItems | number | The total number of items found in the catalog file
+| numberOfUsers | number | The total number of unique users found in the usage events file(s)
+| numberOfUsageItems | number | The total number of valid (which are present in catalog if provided) unique items found in usage file(s)
+| catalogCoverage | number | The ratio of unique items found in usage file(s) and total items in catalog
 | evaluation | [Model Evaluation Schema](#model-evaluation-schema) | The model evaluation metrics
 | catalogFeatureWeights | Array of numbers | The calculated catalog feature's weights
 
@@ -583,7 +585,7 @@ The following table specifies the schema of the *catalog\usage file(s) parsing r
 
 | Property Name | Type | Description |
 |---------------|------|-------------|
-| successfullyParsedItemsCount | number | The total number of successfully parsed lines
+| successfullyParsedLinesCount | number | The total number of successfully parsed lines
 | parsingDuration | time span | The total parsing duration
 | parsingErrorsSample | An array of [Parsing Error Schema](#parsing-error-schema) | A sample of parsing errors, if found
 | itemsWithUnknownIdCount | number | The number of items with an unknown id
