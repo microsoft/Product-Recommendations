@@ -585,11 +585,10 @@ The following table specifies the schema of the *catalog\usage file(s) parsing r
 
 | Property Name | Type | Description |
 |---------------|------|-------------|
-| successfullyParsedLinesCount | number | The total number of successfully parsed lines
-| parsingDuration | time span | The total parsing duration
-| parsingErrorsSample | An array of [Parsing Error Schema](#parsing-error-schema) | A sample of parsing errors, if found
-| itemsWithUnknownIdCount | number | The number of items with an unknown id
-| unknownItemIdsSample | An array of strings | A sample of unknown item ids found during parsing
+| duration | time span | The total parsing duration
+| errors | An array of [Parsing Error Schema](#parsing-error-schema) | A list of line parsing errors, if found
+| successfulLinesCount | number | The total number of lines parsed
+| totalLinesCount | number | The number of items with an unknown id
 
 ## Parsing Error Schema
 
@@ -597,9 +596,16 @@ The following table specifies the schema of the *parsing error* JSON object:
 
 | Property Name | Type | Description |
 |---------------|------|-------------|
+| error | string | The type of the parsing error: <br/>**MalformedLine** - The line is in an invalid CSV format<br/>**MissingFields** - The line is missing some mandatory fields<br/>**BadTimestampFormat** - The time stamp field is malformed<br/>**BadWeightFormat** - The event weight field is not numeric<br/>**MalformedCatalogItemFeature** - Some catalog item feature has a malformed format<br/>**ItemIdTooLong** - The item id string is longer than the maximum allowed<br/>**IllegalCharactersInItemId** - The item id string contains invalid characters.<br/>**UserIdTooLong** - The user id string is longer than the maximum allowed<br/>**IllegalCharactersInUserId** - The user id string contains invalid characters.<br/>**UnknownItemId** - The item id doesn't appear in the catalog<br/>**DuplicateItemId** - The item id appears more than once in the catalog<br/>
+| count | number | The number of occurrences of this particular error
+| sample | [Parsing Error Sample Schema](#parsing-error-sample-schema) | A sample of an occurrence of this particular error
+
+## Parsing Error Sample Schema
+
+| Property Name | Type | Description |
+|---------------|------|-------------|
 | file | string | The name of the file containing the parsing error
 | line | number | The line number of the parsing error
-| error | string | The type of the parsing error: <br/>**MalformedLine** - The line is in an invalid CSV format<br/>**MissingFields** - The line is missing some mandatory fields<br/>**BadTimestampFormat** - The time stamp field is malformed<br/>**BadWeightFormat** - The event weight field is not numeric<br/>**MalformedCatalogItemFeature** - Some catalog item feature has a malformed format<br/>**ItemIdTooLong** - The item id string is longer than the maximum allowed<br/>**IllegalCharactersInItemId** - The item id string contains invalid characters.<br/>**UserIdTooLong** - The user id string is longer than the maximum allowed<br/>**IllegalCharactersInUserId** - The user id string contains invalid characters.<br/>**UnknownItemId** - The item id doesn't appear in the catalog<br/>
 
 ## Model Evaluation Schema
 

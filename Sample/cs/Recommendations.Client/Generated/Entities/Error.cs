@@ -30,6 +30,8 @@ namespace Recommendations.Client.Entities
         [System.Runtime.Serialization.EnumMember(Value = "IllegalCharactersInUserId")]
         IllegalCharactersInUserId,
         [System.Runtime.Serialization.EnumMember(Value = "UnknownItemId")]
-        UnknownItemId
+        UnknownItemId,
+        [System.Runtime.Serialization.EnumMember(Value = "DuplicateItemId")]
+        DuplicateItemId
     }
 }

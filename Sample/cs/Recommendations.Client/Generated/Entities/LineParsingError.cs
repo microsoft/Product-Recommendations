@@ -7,7 +7,7 @@ namespace Recommendations.Client.Entities
     using System.Linq;
 
     /// <summary>
-    /// A line parsing erroriInformation
+    /// A line parsing error information
     /// </summary>
     public partial class LineParsingError
     {
@@ -19,43 +19,42 @@ namespace Recommendations.Client.Entities
         /// <summary>
         /// Initializes a new instance of the LineParsingError class.
         /// </summary>
-        /// <param name="file">The name and relative path of the file
-        /// containing the error line</param>
-        /// <param name="line">The error line number</param>
-        /// <param name="error">Gets the error reason. Possible values
+        /// <param name="count">Gets the error count</param>
+        /// <param name="error">Gets the parsing error reason. Possible values
         /// include: 'MalformedLine', 'MissingFields', 'BadTimestampFormat',
         /// 'BadWeightFormat', 'MalformedCatalogItemFeature',
         /// 'ItemIdTooLong', 'IllegalCharactersInItemId', 'UserIdTooLong',
-        /// 'IllegalCharactersInUserId', 'UnknownItemId'</param>
-        public LineParsingError(string file = default(string), long? line = default(long?), Error? error = default(Error?))
+        /// 'IllegalCharactersInUserId', 'UnknownItemId',
+        /// 'DuplicateItemId'</param>
+        /// <param name="sample">Gets the parsing error sample</param>
+        public LineParsingError(int? count = default(int?), Error? error = default(Error?), ParsingErrorSample sample = default(ParsingErrorSample))
         {
-            File = file;
-            Line = line;
+            Count = count;
             Error = error;
+            Sample = sample;
         }
 
         /// <summary>
-        /// Gets or sets the name and relative path of the file containing the
-        /// error line
+        /// Gets the error count
         /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "file")]
-        public string File { get; set; }
+        [Newtonsoft.Json.JsonProperty(PropertyName = "count")]
+        public int? Count { get; set; }
 
         /// <summary>
-        /// Gets or sets the error line number
-        /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "line")]
-        public long? Line { get; set; }
-
-        /// <summary>
-        /// Gets the error reason. Possible values include: 'MalformedLine',
-        /// 'MissingFields', 'BadTimestampFormat', 'BadWeightFormat',
-        /// 'MalformedCatalogItemFeature', 'ItemIdTooLong',
-        /// 'IllegalCharactersInItemId', 'UserIdTooLong',
-        /// 'IllegalCharactersInUserId', 'UnknownItemId'
+        /// Gets the parsing error reason. Possible values include:
+        /// 'MalformedLine', 'MissingFields', 'BadTimestampFormat',
+        /// 'BadWeightFormat', 'MalformedCatalogItemFeature',
+        /// 'ItemIdTooLong', 'IllegalCharactersInItemId', 'UserIdTooLong',
+        /// 'IllegalCharactersInUserId', 'UnknownItemId', 'DuplicateItemId'
         /// </summary>
         [Newtonsoft.Json.JsonProperty(PropertyName = "error")]
         public Error? Error { get; set; }
+
+        /// <summary>
+        /// Gets the parsing error sample
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty(PropertyName = "sample")]
+        public ParsingErrorSample Sample { get; set; }
 
     }
 }
