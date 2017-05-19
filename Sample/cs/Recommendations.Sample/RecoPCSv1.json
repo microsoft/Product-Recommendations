@@ -1,0 +1,592 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "Recommendations.WebApp"
+    },
+    "host": "localhost:44342",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/api/models": {
+            "get": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Lists all the models",
+                "operationId": "Models_GetAsyncBy",
+                "consumes": [],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Creates a new model",
+                "operationId": "Models_PostAsyncBymodelParameters",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml",
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelParameters",
+                        "in": "body",
+                        "description": "The new model parameters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ModelParameters"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/models/{modelId}": {
+            "get": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Gets a model by id",
+                "operationId": "Models_GetAsyncBymodelId",
+                "consumes": [],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "path",
+                        "description": "The model id to retrieve",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Delete an existing model by id",
+                "operationId": "Models_DeleteAsyncBymodelId",
+                "consumes": [],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "path",
+                        "description": "The model id to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/models/default/recommend": {
+            "get": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Get recommendations using the default model",
+                "operationId": "Models_GetAsyncByitemIdrecommendationCount",
+                "consumes": [],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "itemId",
+                        "in": "query",
+                        "description": "Item id to get recommendations for",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "recommendationCount",
+                        "in": "query",
+                        "description": "The number of requested recommendations",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Get recommendations using the default model",
+                "operationId": "Models_PostAsyncByusageEventsrecommendationCount",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml",
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "usageEvents",
+                        "in": "body",
+                        "description": "The usage events to get recommendations for",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UsageEvent"
+                            }
+                        }
+                    },
+                    {
+                        "name": "recommendationCount",
+                        "in": "query",
+                        "description": "The number of requested recommendations",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/models/{modelId}/recommend": {
+            "get": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Get recommendations using the requested model",
+                "operationId": "Models_GetAsyncBymodelIditemIdrecommendationCount",
+                "consumes": [],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "path",
+                        "description": "The model id to use when scoring",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "itemId",
+                        "in": "query",
+                        "description": "Item id to get recommendations for",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "recommendationCount",
+                        "in": "query",
+                        "description": "The number of requested recommendations",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Get recommendations using the default model",
+                "operationId": "Models_PostAsyncBymodelIdusageEventsrecommendationCount",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml",
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "path",
+                        "description": "The model id to use when scoring",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "usageEvents",
+                        "in": "body",
+                        "description": "The usage events to get recommendations for",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UsageEvent"
+                            }
+                        }
+                    },
+                    {
+                        "name": "recommendationCount",
+                        "in": "query",
+                        "description": "The number of requested recommendations",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/models/default": {
+            "get": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Retrieve the default model.",
+                "operationId": "Models_GetDefaultAsyncBy",
+                "consumes": [],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Sets a model as the default model",
+                "operationId": "Models_PutAsyncBymodelId",
+                "consumes": [],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "The model id to set as default",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Values": {
+            "post": {
+                "tags": [
+                    "Values"
+                ],
+                "operationId": "Values_PostByvalue",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml",
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "value",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "CancellationToken": {
+            "type": "object",
+            "properties": {
+                "IsCancellationRequested": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "CanBeCanceled": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "WaitHandle": {
+                    "$ref": "#/definitions/WaitHandle",
+                    "readOnly": true
+                }
+            }
+        },
+        "WaitHandle": {
+            "type": "object",
+            "properties": {
+                "Handle": {
+                    "type": "object"
+                },
+                "SafeWaitHandle": {
+                    "$ref": "#/definitions/SafeWaitHandle"
+                }
+            }
+        },
+        "SafeWaitHandle": {
+            "type": "object",
+            "properties": {
+                "IsInvalid": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "IsClosed": {
+                    "type": "boolean",
+                    "readOnly": true
+                }
+            }
+        },
+        "ModelParameters": {
+            "description": "Represent a model's parameters required for training",
+            "required": [
+                "baseContainerSasUri",
+                "trainUsageFolderRelativeLocation"
+            ],
+            "type": "object",
+            "properties": {
+                "description": {
+                    "description": "Model description.",
+                    "maxLength": 256,
+                    "minLength": 0,
+                    "type": "string"
+                },
+                "baseContainerSasUri": {
+                    "description": "Complete SAS URI for the container.",
+                    "type": "string"
+                },
+                "trainCatalogFileRelativeLocation": {
+                    "description": "Catalog file location relative to the container.",
+                    "type": "string"
+                },
+                "trainUsageFolderRelativeLocation": {
+                    "description": "Usage file(s) folder location relative to the container.",
+                    "type": "string"
+                },
+                "evaluationUsageFolderRelativeLocation": {
+                    "description": "Optional. Evaluation file(s) folder location relative to the container.",
+                    "type": "string"
+                },
+                "supportThreshold": {
+                    "format": "int32",
+                    "description": "How conservative the model is. Number of co-occurrences of items to be considered for modeling.",
+                    "maximum": 50,
+                    "minimum": 3,
+                    "type": "integer"
+                },
+                "cooccurrenceUnit": {
+                    "format": "int32",
+                    "description": "Indicates how to group usage events before counting co-occurrences. \r\nA 'User' co-occurrence unit will consider all items purchased by the same user as occurring together in the same session. \r\nA 'Timestamp' co-occurrence unit will consider all items purchased by the same user in the same time as occurring together in the same session.",
+                    "enum": [
+                        0,
+                        1
+                    ],
+                    "type": "integer"
+                },
+                "similarityFunction": {
+                    "format": "int32",
+                    "description": "Defines the similarity function to be used by the model. Lift favors serendipity, \r\nCo-occurrence favors predictability, and Jaccard is a nice compromise between the two.",
+                    "enum": [
+                        0,
+                        1,
+                        2
+                    ],
+                    "type": "integer"
+                },
+                "enableColdItemPlacement": {
+                    "description": "Indicates if the recommendation should also push cold items via feature similarity.",
+                    "type": "boolean"
+                },
+                "enableColdToColdRecommendations": {
+                    "description": "Indicates whether the similarity between pairs of cold items (catalog items without usage) should be computed.\r\nIf set to false, only similarity between cold and warm item will be computed, using catalog item features. \r\nNote that this configuration is only relevant when enableColdItemPlacement is set to true.",
+                    "type": "boolean"
+                },
+                "popularItemBenchmarkWindow": {
+                    "format": "int32",
+                    "description": "If modeling insights are enabled, the size of the benchmark window (in days) that should be used to for the popular item benchmark. \r\nIf the value is not provided, the whole usage data is used to compute the most popular items.",
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "enableUserAffinity": {
+                    "description": "For user-to-item recommendations, it defines whether the event type and the time of the event should be considered as \r\ninput into the scoring.",
+                    "type": "boolean"
+                },
+                "allowSeedItemsInRecommendations": {
+                    "description": "Allow seed items (input items to the recommendation request) to be returned as part of the recommendation results.",
+                    "type": "boolean"
+                },
+                "enableBackfilling": {
+                    "description": "Backfill recommendations with popular items.",
+                    "type": "boolean"
+                },
+                "decayPeriodInDays": {
+                    "format": "int32",
+                    "description": "The decay period in days. The strength of the signal for events that are that many days old will be half that of the most recent events.",
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer"
+                }
+            }
+        },
+        "UsageEvent": {
+            "description": "Represent a single item usage event",
+            "type": "object",
+            "properties": {
+                "itemId": {
+                    "description": "The item id related to the usage event",
+                    "type": "string"
+                },
+                "timestamp": {
+                    "format": "date-time",
+                    "description": "The usage event timestamp",
+                    "type": "string"
+                },
+                "type": {
+                    "format": "int32",
+                    "description": "The usage event type. Will be ignored if 'weight' is also provided.",
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "integer"
+                },
+                "weight": {
+                    "format": "float",
+                    "description": "Gets or sets the event weight.",
+                    "type": "number"
+                }
+            }
+        }
+    }
+}

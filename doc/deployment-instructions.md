@@ -2,21 +2,16 @@
 
 This document outlines step-by-step what you need to do to deploy the recommendations preconfigured solution.
 
-## Before you get started...
-
-If you don't already have an [Azure account](http://portal.azure.com/), you will need to create one as this solution
-deploys a fully functioning recommendations-service to your subscription.
+>If you don't already have an [Azure account](http://portal.azure.com/), you will need to create one as this solution
+>deploys a fully functioning recommendations-service to your subscription.
 
 ## Installing the preconfigured solution
 
 1. Go to the [Product Recommendations Template](https://aka.ms/recotemplate) on the Cortana Analytics Gallery.
 
-2. Click **Deploy**. This will take you to a wizard that will help you deploy the solution.
+2. Enter the **Deployment Name**,  select the **Subscription** where you would like to install the solution, the **Location**  (Region) for the deployment.  You may also enter an optional **Description** for your deployment.
 
-3. Enter the **Deployment Name**,  select the **Subscription** where you would like to install the solution, the **Location**  (Region) for the deployment.
-   You may also enter an optional **Description** for your deployment.
-
-4. Click **Create**
+3. Click **Create**
 
 ![Deployment Step 1](../images/deploy-step1.png)
 
@@ -26,17 +21,18 @@ You will select a few parameters that will impact the size of the resources that
 
 1. The solution will create an Azure Storage account where the models will be stored. The storage
 account is also used to store model-metadata and any state required for the solution to work. 
-Specify the type of [replication](https://docs.microsoft.com/en-us/azure/storage/storage-introduction) that you
-would like on your storage account. Note that the models you create will be stored in the
-storage account to be create.
+Specify the type of [replication](https://docs.microsoft.com/en-us/azure/storage/storage-redundancy) that you
+would like on your storage account.
 
 2. The solution will run as an [Azure WebApp](https://azure.microsoft.com/en-us/services/app-service/web/).
-You will need to select the [hosting plan](https://azure.microsoft.com/en-us/pricing/details/app-service/) . 
-This will impact the size of your machine, and therefore the number of models you can concurrently train as well 
-as how quickly you will be able to score requests. We have [benchmarked](benchmarks.md) a few scenarios to help you choose the right one.
+You will need to select the application [hosting plan](https://azure.microsoft.com/en-us/pricing/details/app-service/). 
+Note that you can always change the plan from Azure Portal even after you've deployed the service.
+>**Important**: The selected plan will determine the size of your machine, and therefore the number of models you can concurrently train and 
+> the latency of get-recommendation requests. You can [use these benchmarks](benchmarks.md) to help you choose the right one to start with 
+>and later on adjust the plan according to your specific needs and observed latencies 
 
-    If you want to increase the size of the scale up or scale out after deployment, you can do that from 
-    the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).
+If you want to increase the size of the scale up or scale out after deployment, you can do that from 
+the [Azure Portal](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-scale).
 
 ![Deployment Step 2](../images/deploy-step2.png)
 

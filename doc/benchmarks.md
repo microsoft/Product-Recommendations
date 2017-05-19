@@ -2,7 +2,7 @@
 
 ## Train duration on different SKUs
 
-Below are the train duration for a few typical datasets on different App Service [hosting plans](https://azure.microsoft.com/en-us/pricing/details/app-service/). These are meant to give guidance on what plan should be picked up during setup of the solution or selecting the right one as data sets change.
+Below are the train duration for a few datasets (based on number of items in catalog/usage files) on different App Service [hosting plans](https://azure.microsoft.com/en-us/pricing/details/app-service/). These are meant to give guidance on what plan should be picked up during setup of the solution or selecting the right one as data sets change.
 
 Note - These are just for references, and actual time will vary based on different conditions which encompass things like build parameters, number of features in catalog etc, to the scoring load on the system.
 
