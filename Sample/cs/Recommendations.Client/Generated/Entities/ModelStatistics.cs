@@ -19,8 +19,11 @@ namespace Recommendations.Client.Entities
         /// <summary>
         /// Initializes a new instance of the ModelStatistics class.
         /// </summary>
-        /// <param name="trainingDuration">The core training duration</param>
         /// <param name="totalDuration">The total duration</param>
+        /// <param name="trainingDuration">The core training duration</param>
+        /// <param name="storingUserHistoryDuration">The duration of storing
+        /// usage events per user later to be used for user
+        /// recommendations</param>
         /// <param name="catalogParsing">The catalog file parsing
         /// report</param>
         /// <param name="usageEventsParsing">The usage events files parsing
@@ -37,10 +40,11 @@ namespace Recommendations.Client.Entities
         /// <param name="evaluation">The model evaluation report</param>
         /// <param name="catalogFeatureWeights">The calculated catalog feature
         /// weights</param>
-        public ModelStatistics(string trainingDuration = default(string), string totalDuration = default(string), ParsingReport catalogParsing = default(ParsingReport), ParsingReport usageEventsParsing = default(ParsingReport), int? numberOfCatalogItems = default(int?), int? numberOfUsageItems = default(int?), int? numberOfUsers = default(int?), double? catalogCoverage = default(double?), ModelEvaluationResult evaluation = default(ModelEvaluationResult), System.Collections.Generic.IList<double?> catalogFeatureWeights = default(System.Collections.Generic.IList<double?>))
+        public ModelStatistics(string totalDuration = default(string), string trainingDuration = default(string), string storingUserHistoryDuration = default(string), ParsingReport catalogParsing = default(ParsingReport), ParsingReport usageEventsParsing = default(ParsingReport), int? numberOfCatalogItems = default(int?), int? numberOfUsageItems = default(int?), int? numberOfUsers = default(int?), double? catalogCoverage = default(double?), ModelEvaluationResult evaluation = default(ModelEvaluationResult), System.Collections.Generic.IList<double?> catalogFeatureWeights = default(System.Collections.Generic.IList<double?>))
         {
-            TrainingDuration = trainingDuration;
             TotalDuration = totalDuration;
+            TrainingDuration = trainingDuration;
+            StoringUserHistoryDuration = storingUserHistoryDuration;
             CatalogParsing = catalogParsing;
             UsageEventsParsing = usageEventsParsing;
             NumberOfCatalogItems = numberOfCatalogItems;
@@ -52,16 +56,23 @@ namespace Recommendations.Client.Entities
         }
 
         /// <summary>
+        /// Gets or sets the total duration
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty(PropertyName = "totalDuration")]
+        public string TotalDuration { get; set; }
+
+        /// <summary>
         /// Gets or sets the core training duration
         /// </summary>
         [Newtonsoft.Json.JsonProperty(PropertyName = "trainingDuration")]
         public string TrainingDuration { get; set; }
 
         /// <summary>
-        /// Gets or sets the total duration
+        /// Gets or sets the duration of storing usage events per user later
+        /// to be used for user recommendations
         /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "totalDuration")]
-        public string TotalDuration { get; set; }
+        [Newtonsoft.Json.JsonProperty(PropertyName = "storingUserHistoryDuration")]
+        public string StoringUserHistoryDuration { get; set; }
 
         /// <summary>
         /// Gets or sets the catalog file parsing report

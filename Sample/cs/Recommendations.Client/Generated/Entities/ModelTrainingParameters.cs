@@ -57,6 +57,11 @@ namespace Recommendations.Client.Entities
         /// it defines whether the event type and the time of the event
         /// should be considered as
         /// input into the scoring.</param>
+        /// <param name="enableUserToItemRecommendations">Enables user to item
+        /// recommendations by storing the usage events per user and using it
+        /// for recommendations.
+        /// Setting this to true will impact the performance of the training
+        /// process.</param>
         /// <param name="allowSeedItemsInRecommendations">Allow seed items
         /// (input items to the recommendation request) to be returned as
         /// part of the recommendation results.</param>
@@ -65,7 +70,7 @@ namespace Recommendations.Client.Entities
         /// <param name="decayPeriodInDays">The decay period in days. The
         /// strength of the signal for events that are that many days old
         /// will be half that of the most recent events.</param>
-        public ModelTrainingParameters(string blobContainerName = default(string), string catalogFileRelativeLocation = default(string), string usageFolderRelativeLocation = default(string), string evaluationUsageFolderRelativeLocation = default(string), int? supportThreshold = default(int?), CooccurrenceUnit? cooccurrenceUnit = default(CooccurrenceUnit?), SimilarityFunction? similarityFunction = default(SimilarityFunction?), bool? enableColdItemPlacement = default(bool?), bool? enableColdToColdRecommendations = default(bool?), bool? enableUserAffinity = default(bool?), bool? allowSeedItemsInRecommendations = default(bool?), bool? enableBackfilling = default(bool?), int? decayPeriodInDays = default(int?))
+        public ModelTrainingParameters(string blobContainerName = default(string), string catalogFileRelativeLocation = default(string), string usageFolderRelativeLocation = default(string), string evaluationUsageFolderRelativeLocation = default(string), int? supportThreshold = default(int?), CooccurrenceUnit? cooccurrenceUnit = default(CooccurrenceUnit?), SimilarityFunction? similarityFunction = default(SimilarityFunction?), bool? enableColdItemPlacement = default(bool?), bool? enableColdToColdRecommendations = default(bool?), bool? enableUserAffinity = default(bool?), bool? enableUserToItemRecommendations = default(bool?), bool? allowSeedItemsInRecommendations = default(bool?), bool? enableBackfilling = default(bool?), int? decayPeriodInDays = default(int?))
         {
             BlobContainerName = blobContainerName;
             CatalogFileRelativeLocation = catalogFileRelativeLocation;
@@ -77,6 +82,7 @@ namespace Recommendations.Client.Entities
             EnableColdItemPlacement = enableColdItemPlacement;
             EnableColdToColdRecommendations = enableColdToColdRecommendations;
             EnableUserAffinity = enableUserAffinity;
+            EnableUserToItemRecommendations = enableUserToItemRecommendations;
             AllowSeedItemsInRecommendations = allowSeedItemsInRecommendations;
             EnableBackfilling = enableBackfilling;
             DecayPeriodInDays = decayPeriodInDays;
@@ -162,6 +168,15 @@ namespace Recommendations.Client.Entities
         /// </summary>
         [Newtonsoft.Json.JsonProperty(PropertyName = "enableUserAffinity")]
         public bool? EnableUserAffinity { get; set; }
+
+        /// <summary>
+        /// Gets or sets enables user to item recommendations by storing the
+        /// usage events per user and using it for recommendations.
+        /// Setting this to true will impact the performance of the training
+        /// process.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty(PropertyName = "enableUserToItemRecommendations")]
+        public bool? EnableUserToItemRecommendations { get; set; }
 
         /// <summary>
         /// Gets or sets allow seed items (input items to the recommendation

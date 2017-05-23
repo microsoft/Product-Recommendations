@@ -12,112 +12,6 @@ namespace Recommendations.Client
     public partial interface IModels
     {
         /// <summary>
-        /// Get recommendations using the default model
-        /// </summary>
-        /// <param name='itemId'>
-        /// Item id to get recommendations for
-        /// </param>
-        /// <param name='recommendationCount'>
-        /// The number of requested recommendations
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetItemRecommendationsFromDefaultModelWithHttpMessagesAsync(string itemId, int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// Get recommendations using the default model
-        /// </summary>
-        /// <param name='usageEvents'>
-        /// The usage events to get recommendations for
-        /// </param>
-        /// <param name='recommendationCount'>
-        /// The number of requested recommendations
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetPersonalizedRecommendationsFromDefaultModelWithHttpMessagesAsync(System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// Get recommendations using the requested model
-        /// </summary>
-        /// <param name='modelId'>
-        /// The model id to use when scoring
-        /// </param>
-        /// <param name='itemId'>
-        /// Item id to get recommendations for
-        /// </param>
-        /// <param name='recommendationCount'>
-        /// The number of requested recommendations
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetItemRecommendationsWithHttpMessagesAsync(System.Guid modelId, string itemId, int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// Get recommendations using the requested model
-        /// </summary>
-        /// <param name='modelId'>
-        /// The model id to use when scoring
-        /// </param>
-        /// <param name='usageEvents'>
-        /// The usage events to get recommendations for
-        /// </param>
-        /// <param name='recommendationCount'>
-        /// The number of requested recommendations
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetPersonalizedRecommendationsWithHttpMessagesAsync(System.Guid modelId, System.Collections.Generic.IList<UsageEvent> usageEvents, int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
         /// Lists all the models
         /// </summary>
         /// <param name='customHeaders'>
@@ -222,5 +116,121 @@ namespace Recommendations.Client
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse> SetDefaultModelWithHttpMessagesAsync(System.Guid modelId, System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get recommendations using the default model
+        /// </summary>
+        /// <param name='itemId'>
+        /// Item id to get recommendations for
+        /// </param>
+        /// <param name='recommendationCount'>
+        /// The number of requested recommendations
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetItemRecommendationsFromDefaultModelWithHttpMessagesAsync(string itemId, int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get recommendations using the default model
+        /// </summary>
+        /// <param name='usageEvents'>
+        /// The usage events to get recommendations for
+        /// </param>
+        /// <param name='userId'>
+        /// An optional id of the user to provide recommendations for. Any
+        /// stored usage events associated with this user will be considered
+        /// when getting recommendations
+        /// </param>
+        /// <param name='recommendationCount'>
+        /// The number of requested recommendations
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetPersonalizedRecommendationsFromDefaultModelWithHttpMessagesAsync(System.Collections.Generic.IList<UsageEvent> usageEvents, string userId = default(string), int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get recommendations using the requested model
+        /// </summary>
+        /// <param name='modelId'>
+        /// The model id to use when scoring
+        /// </param>
+        /// <param name='itemId'>
+        /// Item id to get recommendations for
+        /// </param>
+        /// <param name='recommendationCount'>
+        /// The number of requested recommendations
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetItemRecommendationsWithHttpMessagesAsync(System.Guid modelId, string itemId, int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get recommendations using the requested model
+        /// </summary>
+        /// <param name='modelId'>
+        /// The model id to use when scoring
+        /// </param>
+        /// <param name='usageEvents'>
+        /// The usage events to get recommendations for
+        /// </param>
+        /// <param name='userId'>
+        /// An optional id of the user to provide recommendations for. Any
+        /// stored usage events associated with this user will be considered
+        /// when getting recommendations
+        /// </param>
+        /// <param name='recommendationCount'>
+        /// The number of requested recommendations
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        System.Threading.Tasks.Task<Microsoft.Rest.HttpOperationResponse<System.Collections.Generic.IList<RecommendationResult>>> GetPersonalizedRecommendationsWithHttpMessagesAsync(System.Guid modelId, System.Collections.Generic.IList<UsageEvent> usageEvents, string userId = default(string), int? recommendationCount = default(int?), System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 }
