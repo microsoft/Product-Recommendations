@@ -314,13 +314,26 @@ The response body will be a JSON array of [Recommendation Objects](#recommendati
 ## Get Personalized Recommendations
 *POST /api/models/\{modelId\}/recommend*
 
-Gets personalized recommendations for the model specified, given a set of recent usage events for a particular user.
-The request body should be an array of [Get Recommendations Usage Events](#get-recommendations-usage-event).
+Gets personalized recommendations for the model specified, given a set of recent usage events for a particular user. 
+
+An optional user id may also be specified, in which case the usage events of that user, extracted during model training from the input usage files, will also be considered.
+> Note: If a user id is provided, additional usage events may still be provided in the request body, representing a more recent user activity
+
+*Request parameters*
+
+|  Request Parameter  | Description                                  | Valid Values | Default Value
+|---------------------|----------------------------------------------|--------------|-----------------
+|  userId             | The id of a user to get recommendations for. The user id will be ignored unless the model was trained with a *enableUserToItemRecommendations* set to **true**.<br/>See [Model Training Parameters Schema](#model-training-parameters-schema) for more info. | string       | null
+| recommendationCount | Number of recommended items to return        | 1-100        | 10
+
+
+The request body must be an array of [Get Recommendations Usage Events](#get-recommendations-usage-event).
+
 The response body will be a JSON array of [Recommendation Objects](#recommendation-object-schema).
 
 > **Sample Request:**
 >```
->POST https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend
+>POST https://<service_name>.azurewebsites.net/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend?userId=user032669023
 >x-api-key: your_api_key
 >
 >[
