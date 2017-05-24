@@ -1,5 +1,3 @@
-[[find a docx version of this docuemnt here]](tlcrecommendationseula.docx)
-
 # MICROSOFT SOFTWARE LICENSE TERMS
 # MICROSOFT.NET RECOMMENDATIONS CORE LIBRARY 
 ________________________________________
