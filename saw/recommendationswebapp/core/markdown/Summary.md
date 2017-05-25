@@ -9,7 +9,7 @@ The following scenarios are supported by the SAR algorithm:
 
 **Item-to-Item Recommendations.** This is the "Customers who liked this product also liked these other products" scenario. Increase the discoverability of items in your catalog by showing relevant products to your customers.
 
-**Personalized Recommendations.** By providing the recent history of transactions for a given user, the SAR algorithm can return personalized recommendations for that user.
+**Personalized Recommendations.** By providing a user id or the recent history of transactions for a given user, the SAR algorithm can return personalized recommendations for that user.
 
 ## High level architecture
 
