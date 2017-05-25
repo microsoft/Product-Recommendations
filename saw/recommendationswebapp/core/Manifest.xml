@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Template>
+  <Category>DesignPattern</Category>
+  <Title>Recommendations Preconfigured Solution</Title>
+  <Owner displayname="Recommendations" email="mlapi@microsoft.com"/>
+  <PublishedOn>04/14/2017</PublishedOn>
+  <ImageUrl>{PatternAssetBaseUrl}/image.png</ImageUrl>
+  <Description src="markdown\Description.md" format="markdown" />
+  <Summary src="markdown\Summary.md" format="markdown" />
+  <EstimatedTime>3 Minutes</EstimatedTime>
+  <ProvisioningSteps>
+    <Manual title="Getting Started">
+      <Instructions src="markdown\Introduction.md" format="markdown" />
+    </Manual>
+    <Manual parameterSource="arm\resources.json" title="Select App Service Plan">
+      <Instructions src="markdown\AppService.md" format="markdown" />
+      <Parameters>
+        <Parameter name="hostingPlanSku">
+          <ExtraDescription>(B=Basic, S=Standard, P=Premium)</ExtraDescription>
+        </Parameter>
+        <Parameter name="accountType" hidden="true"/>
+        <Parameter name="appInsightsLocation" hidden="true" />
+        <Parameter name="deployPackageUri" hidden="true" />
+      </Parameters>
+    </Manual>
+    <Manual parameterSource="arm\resources.json" title="Select Storage Replication">
+      <Instructions src="markdown\AzureStorage.md" format="markdown" />
+      <Parameters>
+        <Parameter name="hostingPlanSku" defaultValue="{Inputs.hostingPlanSku}" hidden="true"/>
+        <Parameter name="accountType" defaultValue="{Inputs.accountType}">
+          <ExtraDescription>(LRS=Locally redundant storage, GRS=Geo-redundant storage)</ExtraDescription>
+        </Parameter>
+        <Parameter name="appInsightsLocation" hidden="true" />
+        <Parameter name="deployPackageUri" hidden="true" />
+      </Parameters>
+    </Manual>
+    <Manual parameterSource="arm\resources.json" title="Select Application Insights Region">
+      <Instructions src="markdown\ApplicationInsights.md" format="markdown" />
+      <Parameters>
+        <Parameter name="hostingPlanSku" defaultValue="{Inputs.hostingPlanSku}" hidden="true"/>
+        <Parameter name="accountType" defaultValue="{Inputs.accountType}" hidden="true"/>
+        <Parameter name="appInsightsLocation"/>
+        <Parameter name="deployPackageUri" hidden="true" />
+      </Parameters>
+    </Manual>
+    <ArmDeployment source="arm\resources.json" title="Provisioning resources and deploying app">
+      <Parameters>
+        <Parameter name="hostingPlanSku" defaultValue="{Inputs.hostingPlanSku}" hidden="true"/>
+        <Parameter name="accountType" defaultValue="{Inputs.accountType}" hidden="true"/>
+        <Parameter name="appInsightsLocation" defaultValue="{Inputs.appInsightsLocation}" hidden="true"/>
+        <Parameter name="deployPackageUri" defaultValue="{PatternAssetBaseUrl}/Recommendations.WebApp.zip" hidden="true"/>
+      </Parameters>
+    </ArmDeployment>
+    <Manual title="Done">
+      <Instructions src="markdown\Instructions.md" format="markdown" />
+    </Manual>
+  </ProvisioningSteps>
+</Template>

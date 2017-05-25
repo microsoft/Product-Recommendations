@@ -1,0 +1,423 @@
+/* 
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  Licensed under the MIT license.
+*/
+
+body {
+  background-color: #eee;
+  display: block;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  font-family: "Segoe UI";
+  font-size: 10pt;
+  color: #5d5d5d;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  text-align: left;
+  background-color: #222;
+  margin: 0;
+  padding: 10px 20px;
+  color: white;
+}
+
+.navbar {
+  background-color: #d0e8e0;
+  min-height: 20px;
+  height: 30px;
+  margin-bottom: 0;
+}
+
+.navbar-default > .container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.navbar-default .navbar-nav > li > a {
+  padding: 3px 30px 3px 0px;
+  color: #444;
+}
+
+.navbar-default .navbar-right  > li > a {
+  padding: 3px 15px;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: #888;
+}
+
+.container > .navbar-collapse {
+  margin: auto;
+  padding: 0;
+  width: 80%;
+}
+
+.models-title {
+  background-color: white;
+  text-align: left;
+  margin: 0;
+  padding: 30px 0 10px 10%;
+}
+
+.model-container > .models-title > p {
+  text-align: left;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-title {
+  font-size: 20pt;
+  padding: 30px 0 0 20px;
+}
+
+h3 {
+  font-size: 20pt;
+  font-weight: normal;
+  text-align: left;
+  margin: 0;
+}
+
+h5 {
+  font-size: inherit;
+  font-weight: bold;
+  text-align: left;
+  margin: 0 auto;
+  width: 80%;
+  padding: 15px 0 10px 20px;
+}
+
+.login .modal-content {
+  width: 700px;
+}
+
+.modal-body > h5 {
+  font-weight: bold;
+  text-align: left;
+  margin: 0;
+  width: 100%;
+  padding: 5px 0 5px 20px;
+}
+
+.modal-body > p {
+  text-align: left;
+  margin: 0;
+  width: 100%;
+  padding: 0 0 0 20px;
+}
+
+.modal-body > input {
+  margin: 0 20px;
+  width: 630px;
+}
+
+.modal-body > div.align-right {
+  padding: 0 20px 15px 0;
+}
+
+p.error-text {
+  color: red;
+}
+
+.radio {
+  width: 13px;
+  margin: 0;
+}
+
+textarea.form-control {
+  margin-bottom: 15px;
+}
+
+.models-container > div > .table {
+  margin: 30px auto auto auto;
+  padding: 0;
+  width: 80%;
+  border: none;
+}
+
+.models-container > div > .table > thead > tr {
+  border: none;
+}
+
+.models-container > div > .table > thead > tr > th {
+  text-align: left;
+  padding-left: 15px;
+  background-color: #ccc;
+  border: none;
+}
+
+.models-container > div > .table > tbody > tr {
+  background-color: white;
+}
+
+.models-container > div > .table > tbody > tr:hover {
+  background-color: #ddd;
+}
+
+.model-nav {
+  margin: 0;
+  padding: 0 10%;
+  background-color: #ccc;
+}
+
+.model-nav ul {
+  list-style-type: none;
+  overflow: hidden;
+  margin: 0;
+  padding: 5px 0;
+}
+
+.model-nav ul > li {
+  float: left;
+  margin-right: 50px;
+}
+
+.model-nav ul > li > a {
+  color: black;
+}
+
+.model-nav ul > li > a.selected {
+  color: #087;
+  cursor: default;
+  opacity: unset;
+}
+
+.unclickable, .unclickable:hover, .model-nav ul > li > a.unclickable, .model-nav ul > li > a.unclickable:hover {
+  cursor: default;
+  opacity: 1;
+}
+
+.model-nav ul > li > a:hover {
+  opacity: 0.50;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+span.no-wrap {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.models-container > div > .table > tbody > tr > td {
+  text-align: left;
+  padding-left: 15px;
+  vertical-align: middle;
+  border: none;
+  border-bottom: 1px solid #eee;
+  background-color: inherit;
+}
+
+.models-container > div > .table > tbody > tr > td.delete-model {
+  padding: 0;
+  padding-left: 10px;
+}
+
+.models-container > div > .table > tbody > tr > td.delete-model > div {
+  padding: 0;
+}
+
+.delete-model > div > a {
+  font-size: 20pt;
+  color: #666;
+}
+
+.delete-model > div > a:hover {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.max {
+  width: 100%;
+}
+
+.btn {
+  padding: 2px 30px;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #087;
+}
+
+.btn-primary:active, .btn-primary:focus {
+  background-color: #087;
+}
+
+.btn-primary[disabled] {
+  background-color: #888;
+}
+
+.btn-primary[disabled]:hover {
+  background-color: #888;
+}
+
+.btn-primary:hover {
+  background-color: #087;
+  opacity: 0.90;
+}
+
+input.form-control, textarea.form-control, select.form-control, .btn, .modal-content {
+  border-radius: 0;
+}
+
+.train-new-model {
+  width: 100%;
+  padding-left: 10%;
+  text-align: left;
+}
+
+.new-model-params > tbody > tr {
+  border: none;
+}
+
+.new-model-params > tbody > tr > td {
+  border: none;
+  padding: 0 30px;
+  width: 50%;
+}
+
+.new-model-params > tbody > tr > td.align-bottom {
+  vertical-align: bottom;
+}
+
+#description {
+  height: 107px;
+}
+
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.simple-params > tbody > tr > td {
+  border: none;
+  padding: 0;
+}
+
+.model-container > div > .table {
+  margin: 0 auto;
+  width: 80%;
+  text-align: left;
+}
+
+.model-container > div > p {
+  width: 80%;
+  margin: auto;
+  padding: 30px 20px 10px;
+  text-align: left;
+}
+
+.data {
+  background-color: white;
+}
+
+.data > tbody > tr > td, .modal-data > tbody > tr > td {
+  border: none;
+  width: 50%;
+  text-align: left;
+  padding: 5px 10px;
+}
+
+table.modal-data > tbody > tr > td {
+  padding-left: 20px;
+}
+
+.data > tbody > tr > td > .table {
+  margin: 0;
+}
+
+.modal-data {
+  width: 60%;
+}
+
+.modal-data > tbody > tr > td:first-child {
+  width: 15%;
+}
+
+.model-params > tbody > tr > td {
+  padding: 0 0 0 20px;
+  height: 15px;
+}
+
+.items > textarea {
+  height: 100px;
+}
+
+.results > div {
+  border: 1px solid #888;
+  padding: 10px 20px;
+  overflow: auto;
+}
+
+.i2i .results > div {
+  height: 218px;
+}
+
+.u2i .results > div {
+  height: 319px;
+}
+
+.wait {
+  cursor: wait;
+}
+
+.metrics > table.desc-data > tbody > tr > td {
+  padding: 20px;
+}
+
+.metrics > table.desc-data > tbody > tr > td:first-child {
+  width: 40%;
+}
+
+.metrics > table.desc-data > tbody > tr > td > h3 {
+  font-size: 14pt;
+  margin-bottom: 10px;
+  color: #0ba;
+}
+
+.metrics-data > thead > tr > th, .metrics-data > tbody > tr > td:first-child {
+  font-weight: bold;
+}
+
+.metrics-data > tbody > tr > td > canvas {
+  width: 100%;
+}
+
+.metrics-data > thead > tr > th, .metrics-data > tbody > tr > td {
+  border: 1px solid black;
+  border-style: none none solid none;
+}
+
+.models > thead > tr > th {
+  font-weight: normal;
+}
+
+.models > thead > tr > th.sortable:hover {
+  opacity: 0.70;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.parsing-error {
+  display: inline-block;
+  padding: 10px 20px;
+}

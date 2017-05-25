@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendations.WebJob", "Recommendations.WebJob\Recommendations.WebJob.csproj", "{EE593122-C23F-419B-9043-9FA9DDCAD781}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendations.Core", "Recommendations.Core\Recommendations.Core.csproj", "{223B4B0A-CD77-44EA-B155-638003D98562}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendations.WebApp", "Recommendations.WebApp\Recommendations.WebApp.csproj", "{275437D7-B041-4DEC-815C-A7ABD7CB9564}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendations.Common", "Recommendations.Common\Recommendations.Common.csproj", "{F9CB9075-297F-4E65-A8DF-F30B3B3F8C04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendations.UnitTest", "Recommendations.UnitTest\Recommendations.UnitTest.csproj", "{45A002F7-EB96-4640-9C86-5565F7A7249F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE593122-C23F-419B-9043-9FA9DDCAD781}.Debug|x64.ActiveCfg = Debug|x64
+		{EE593122-C23F-419B-9043-9FA9DDCAD781}.Debug|x64.Build.0 = Debug|x64
+		{EE593122-C23F-419B-9043-9FA9DDCAD781}.Release|x64.ActiveCfg = Release|x64
+		{EE593122-C23F-419B-9043-9FA9DDCAD781}.Release|x64.Build.0 = Release|x64
+		{223B4B0A-CD77-44EA-B155-638003D98562}.Debug|x64.ActiveCfg = Debug|x64
+		{223B4B0A-CD77-44EA-B155-638003D98562}.Debug|x64.Build.0 = Debug|x64
+		{223B4B0A-CD77-44EA-B155-638003D98562}.Release|x64.ActiveCfg = Release|x64
+		{223B4B0A-CD77-44EA-B155-638003D98562}.Release|x64.Build.0 = Release|x64
+		{275437D7-B041-4DEC-815C-A7ABD7CB9564}.Debug|x64.ActiveCfg = Debug|x64
+		{275437D7-B041-4DEC-815C-A7ABD7CB9564}.Debug|x64.Build.0 = Debug|x64
+		{275437D7-B041-4DEC-815C-A7ABD7CB9564}.Release|x64.ActiveCfg = Release|x64
+		{275437D7-B041-4DEC-815C-A7ABD7CB9564}.Release|x64.Build.0 = Release|x64
+		{F9CB9075-297F-4E65-A8DF-F30B3B3F8C04}.Debug|x64.ActiveCfg = Debug|x64
+		{F9CB9075-297F-4E65-A8DF-F30B3B3F8C04}.Debug|x64.Build.0 = Debug|x64
+		{F9CB9075-297F-4E65-A8DF-F30B3B3F8C04}.Release|x64.ActiveCfg = Release|x64
+		{F9CB9075-297F-4E65-A8DF-F30B3B3F8C04}.Release|x64.Build.0 = Release|x64
+		{45A002F7-EB96-4640-9C86-5565F7A7249F}.Debug|x64.ActiveCfg = Debug|x64
+		{45A002F7-EB96-4640-9C86-5565F7A7249F}.Debug|x64.Build.0 = Debug|x64
+		{45A002F7-EB96-4640-9C86-5565F7A7249F}.Release|x64.ActiveCfg = Release|x64
+		{45A002F7-EB96-4640-9C86-5565F7A7249F}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

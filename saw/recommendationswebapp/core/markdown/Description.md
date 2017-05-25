@@ -1,0 +1,2 @@
+This solution enables you to create product recommendations predictive models based on historical transaction data
+ and information on the product catalog. The solution exposes mechanisms to train models and request recommendations from those models.
