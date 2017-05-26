@@ -10,7 +10,7 @@ REM
 REM ******************************************
 
 ECHO Downloading required packages...
-CALL npm install package
+CALL npm install
 
 IF NOT %ERRORLEVEL%==0 EXIT /B -1
 

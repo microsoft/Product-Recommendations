@@ -20,7 +20,7 @@ export default function ScoreResults(props) {
                   <Table className='data'>
                     <tbody>
                     {
-                      props.results.map(r => <tr key={r.recommendedItemId}><td>{r.recommendedItemId}</td><td>Score: {r.score.toFixed(4)}</td></tr>)
+                      props.results.map(r => <tr key={r.recommendedItemId}><td>{r.recommendedItemId}</td><td>Score: {r.score}</td></tr>)
                     }
                     </tbody>
                   </Table>

@@ -266,7 +266,7 @@ class Model extends React.Component {
                           if (!!this.props.model.statistics.catalogParsing) {
                             if (!!this.props.model.statistics.numberOfCatalogItems) {
                               rows.push(<tr key='catalogItemsTitle'><td><b>Number of Catalog Items</b></td><td><b>Catalog Coverage</b></td></tr>);
-                              rows.push(<tr key='catalogItemsValue'><td>{display(this.props.model.statistics.numberOfCatalogItems)}</td><td>{display(this.props.model.statistics.catalogCoverage)}</td></tr>);
+                              rows.push(<tr key='catalogItemsValue'><td>{display(this.props.model.statistics.numberOfCatalogItems)}</td><td>{display((this.props.model.statistics.catalogCoverage*100)+'%')}</td></tr>);
                               rows.push(<tr key='catalogItemsSpacer'><td></td></tr>);
                             }
                             if (!!this.props.model.statistics.catalogFeatureWeights && this.props.model.statistics.catalogFeatureWeights.length > 0) {

@@ -77,7 +77,7 @@ namespace Recommendations.Core.Recommend
             {
                 _tracer.TraceVerbose("Converting events to SAR format");
                 List<SarUsageEvent> sarUsageEvents =
-                    usageEvents?.Where(e => e != null).Select(ConvertToSarUsageEvent).ToList()
+                    usageEvents?.Where(e => e?.ItemId != null).Select(ConvertToSarUsageEvent).ToList()
                     ?? new List<SarUsageEvent>();
                 
                 // get user history if user to item recommendations is supported and a user id was provided
@@ -156,7 +156,7 @@ namespace Recommendations.Core.Recommend
             var sarUsageEvent = new SarUsageEvent();
 
             uint itemId;
-            if (_itemIdReverseLookup.TryGetValue(usageEvent.ItemId, out itemId))
+            if (_itemIdReverseLookup.TryGetValue(usageEvent.ItemId.ToLowerInvariant(), out itemId))
             {
                 sarUsageEvent.ItemId = itemId;
             }
@@ -180,13 +180,10 @@ namespace Recommendations.Core.Recommend
                 return null;
             }
 
-            // normalize the returned score 
-            double score = sarScoreResult.Score*_properties.ScoringFactor;
-
             return new Recommendation
             {
                 RecommendedItemId = _itemIdIndex[sarScoreResult.Recommended - 1],
-                Score = Math.Min(1, Math.Max(0, score)) // trim outlier values 
+                Score = sarScoreResult.Score
             };
         }
 

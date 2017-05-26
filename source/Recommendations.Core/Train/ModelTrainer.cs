@@ -13,7 +13,6 @@ using Microsoft.MachineLearning.EntryPoints;
 using Newtonsoft.Json;
 using Recommendations.Core.Evaluate;
 using Recommendations.Core.Parsing;
-using Recommendations.Core.Recommend;
 using Recommendations.Core.Sar;
 
 namespace Recommendations.Core.Train
@@ -322,11 +321,6 @@ namespace Recommendations.Core.Train
                 duration.SetEvaluationDuration();
             }
 
-            _tracer.TraceInformation("Calculating the scoring factor");
-            double factor = CalculateScoringFactor(result.Model, usageEvents.Take(1000));
-            result.Model.Properties.ScoringFactor = factor;
-            _tracer.TraceInformation($"Calculated scoring factor - '{factor}'");
-
             if (storeUserHistoryTask != null)
             {
                 _tracer.TraceInformation("Waiting for storing of usage events per user (user history) to complete");
@@ -372,36 +366,6 @@ namespace Recommendations.Core.Train
             }
         }
         
-        private double CalculateScoringFactor(ITrainedModel model, IEnumerable<SarUsageEvent> usageEvents)
-        {
-            const double margin = 0.2;
-
-            var recommender = new Recommender(model, null, _tracer);
-
-            // score all the input items to find the maximal score
-            List<float> scores = usageEvents
-                .Select(usageEvent => recommender.ScoreUsageEvents(new[] { usageEvent }, 1))
-                .Select(result => result.FirstOrDefault()?.Score ?? 0)
-                .ToList();
-            if (!scores.Any())
-            {
-                return 1;
-            }
-
-            double minScore = scores.Min();
-            double maxScore = scores.Max();
-
-            // if the scores are degenerated, return the trivial factor
-            if (Math.Abs(maxScore - minScore) < 0.0001)
-            {
-                return 1;
-            }
-
-            // set the scoring factor to value that will both stretch scores
-            // to include margins and normalize scores to the [0,1] range
-            return (1 - 2 * margin) / (maxScore - minScore);
-        }
-
         private bool _reportUserHistoryProgress;
         private readonly ITracer _tracer;
         private readonly UserHistoryStore _userHistoryStore;

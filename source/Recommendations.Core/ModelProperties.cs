@@ -33,12 +33,7 @@ namespace Recommendations.Core
         /// Gets or sets The decay period to consider while scoring
         /// </summary>
         public TimeSpan? Decay { get; set; }
-
-        /// <summary>
-        /// Gets or sets the scoring factor used to normalize recommendation scores
-        /// </summary>
-        public double ScoringFactor { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the number of unique users found in the usage files used for training the model
         /// </summary>
