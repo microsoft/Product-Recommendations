@@ -24,7 +24,7 @@
  *  The steps below are explained in more detail at https://go.microsoft.com/fwlink/?linkid=847717
  * 
  *  1. Before you can run the application you need to deploy the Recommendations Template. 
- *     Deployment instructions are at https://go.microsoft.com/fwlink/?linkid=847717&pc=deployment-instructions
+ *     Deployment instructions are at https://go.microsoft.com/fwlink/?linkid=850658
  *
  *  2. You will get an API Key as part of the deployment process and the url of your solution. 
  *     Set the apiKey and recommendationsUri variable based on those values.
