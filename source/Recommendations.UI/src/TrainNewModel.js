@@ -186,13 +186,13 @@ class TrainNewModel extends React.Component {
                 </tr>
                 
                 <tr>
-                  <td className='align-bottom'><ControlLabel>Catalog File Relative Location</ControlLabel></td>
+                  <td className='align-bottom'><ControlLabel>Evaluation Usage Folder Relative Location</ControlLabel></td>
                   <td className='align-bottom'><ControlLabel>Enable User Affinity</ControlLabel></td>
                 </tr>
                 <tr>
                   <td>
-                    <FormGroup controlId='catalogFileRelativeLocation'>
-                      <FormControl value={this.state.args.catalogFileRelativeLocation} componentClass='input' placeholder='Catalog File Path in Blob Container (Optional)' onChange={changeHandler} tabIndex='4' />
+                    <FormGroup controlId='evaluationUsageFolderRelativeLocation'>
+                      <FormControl value={this.state.args.evaluationUsageFolderRelativeLocation} componentClass='input' placeholder='Evaluation Usage Folder Path in Blob Container (Optional)' onChange={changeHandler} tabIndex='4' />
                     </FormGroup>
                   </td>
                   <td>
@@ -206,13 +206,13 @@ class TrainNewModel extends React.Component {
                 </tr>
                 
                 <tr>
-                  <td className='align-bottom'><ControlLabel>Evaluation Usage Folder Relative Location</ControlLabel></td>
+                  <td className='align-bottom'><ControlLabel>Catalog File Relative Location</ControlLabel></td>
                   <td className='align-bottom'><ControlLabel>Enable User to Item Recommendations</ControlLabel></td>
                 </tr>
                 <tr>
                   <td>
-                    <FormGroup controlId='evaluationUsageFolderRelativeLocation'>
-                      <FormControl value={this.state.args.evaluationUsageFolderRelativeLocation} componentClass='input' placeholder='Evaluation Usage Folder Path in Blob Container (Optional)' onChange={changeHandler} tabIndex='5' />
+                    <FormGroup controlId='catalogFileRelativeLocation'>
+                      <FormControl value={this.state.args.catalogFileRelativeLocation} componentClass='input' placeholder='Catalog File Path in Blob Container (Optional)' onChange={changeHandler} tabIndex='5' />
                     </FormGroup>
                   </td>
                   <td>
