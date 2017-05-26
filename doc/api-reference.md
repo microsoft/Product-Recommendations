@@ -574,6 +574,9 @@ The following table specifies the schema of the *model training parameters* JSON
 | enableBackfilling | no |  Backfill with popular items when the system does not find sufficient recommendations. | True, False | True
 | allowSeedItemsInRecommendations | no |   Allow seed items (items in the input or in the user history) to be returned as recommendation results. | True, False | False
 | decayPeriodInDays | no |  The decay period in days. The strength of the signal for events that are that many days old will be half that of the most recent events. | Integer | 30
+| enableUserToItemRecommendations | no |  If true, userId is honored when requesting personalized recommendations. Training takes a bit longer when this is enabled.  | True, False | False
+
+
 
 ## Model Training Statistics Schema
 
