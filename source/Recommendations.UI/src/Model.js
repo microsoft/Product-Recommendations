@@ -233,28 +233,31 @@ class Model extends React.Component {
                       <tr><td><b>Number of Users</b></td><td><b>Number of Items</b></td></tr>
                       <tr><td>{display(this.props.model.statistics.numberOfUsers)}</td><td>{display(this.props.model.statistics.numberOfUsageItems)}</td></tr>
                       <tr><td></td></tr>
-                      <tr><td><b>Usage Lines Parsed</b></td><td><b>Usage Parsing Duration</b></td></tr>
-                      <tr><td>{display(this.props.model.statistics.usageEventsParsing.totalLinesCount)}</td><td>{display(this.props.model.statistics.usageEventsParsing.duration)}</td></tr>
-                      <tr><td></td></tr>
-                      <tr><td><b>Successful Usage Lines</b></td><td><b></b></td></tr>
-                      <tr><td>{display(this.props.model.statistics.usageEventsParsing.successfulLinesCount)}</td><td></td></tr>
-                      <tr><td></td></tr>
                       {
                         (() => {
                           let rows = [];
-                          if (!!this.props.model.statistics.usageEventsParsing.errors && this.props.model.statistics.usageEventsParsing.errors.length > 0) {
-                            rows.push(<tr key='usageEventsParsingErrorsTitle'><td colSpan={2}><b>Usage Parsing Errors</b></td></tr>);
-                            rows.push(<tr key='usageEventsParsingErrorsValue'>
-                              <td colSpan={2}>
-                                {this.props.model.statistics.usageEventsParsing.errors.map(error => (
-                                  <div key={error.error} className='parsing-error'>
-                                    <b>{error.error}</b> ({error.count})
-                                    <br />
-                                    <b>Sample:</b> {error.sample.file}:{error.sample.line}
-                                  </div>
-                                ))}
-                              </td></tr>);
-                            rows.push(<tr key='usageEventsParsingErrorsSpacer'><td></td></tr>);
+                          if (!!this.props.model.statistics.usageEventsParsing) {
+                            rows.push(<tr key='usageEventsParsingLinesParsedTitle'><td><b>Usage Lines Parsed</b></td><td><b>Usage Parsing Duration</b></td></tr>);
+                            rows.push(<tr key='usageEventsParsingLinesParsedValue'><td>{display(this.props.model.statistics.usageEventsParsing.totalLinesCount)}</td><td>{display(this.props.model.statistics.usageEventsParsing.duration)}</td></tr>);
+                            rows.push(<tr key='usageEventsParsingLinesParsedSpacer'><td></td></tr>);
+                            rows.push(<tr key='usageEventsParsingSuccessfulLinesTitle'><td><b>Successful Usage Lines</b></td><td><b></b></td></tr>);
+                            rows.push(<tr key='usageEventsParsingSuccessfulLinesValue'><td>{display(this.props.model.statistics.usageEventsParsing.successfulLinesCount)}</td><td></td></tr>);
+                            rows.push(<tr key='usageEventsParsingSuccessfulLinesSpacer'><td></td></tr>);
+                            
+                            if (!!this.props.model.statistics.usageEventsParsing.errors && this.props.model.statistics.usageEventsParsing.errors.length > 0) {
+                              rows.push(<tr key='usageEventsParsingErrorsTitle'><td colSpan={2}><b>Usage Parsing Errors</b></td></tr>);
+                              rows.push(<tr key='usageEventsParsingErrorsValue'>
+                                <td colSpan={2}>
+                                  {this.props.model.statistics.usageEventsParsing.errors.map(error => (
+                                    <div key={error.error} className='parsing-error'>
+                                      <b>{error.error}</b> ({error.count})
+                                      <br />
+                                      <b>Sample:</b> {error.sample.file}:{error.sample.line}
+                                    </div>
+                                  ))}
+                                </td></tr>);
+                              rows.push(<tr key='usageEventsParsingErrorsSpacer'><td></td></tr>);
+                            }
                           }
                           return rows;
                         })()
@@ -281,7 +284,7 @@ class Model extends React.Component {
                             rows.push(<tr key='catalogParsingReportValue2'><td>{display(this.props.model.statistics.catalogParsing.successfulLinesCount)}</td><td></td></tr>);
                             rows.push(<tr key='catalogParsingReportSpacer2'><td></td></tr>);
                             if (!!this.props.model.statistics.catalogParsing.errors && this.props.model.statistics.catalogParsing.errors.length > 0) {
-                              rows.push(<tr key='catalogParsingErrorsTitle'><td colSpan={2}><b>Usage Parsing Errors</b></td></tr>);
+                              rows.push(<tr key='catalogParsingErrorsTitle'><td colSpan={2}><b>Catalog Parsing Errors</b></td></tr>);
                               rows.push(<tr key='catalogParsingErrorsValue'>
                                 <td colSpan={2}>
                                   {this.props.model.statistics.catalogParsing.errors.map(error => (

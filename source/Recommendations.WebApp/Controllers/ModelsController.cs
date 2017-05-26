@@ -155,9 +155,9 @@ namespace Recommendations.WebApp.Controllers
             var settings = new ModelTrainingParameters
             {
                 BlobContainerName = modelParameters.BlobContainerName,
-                CatalogFileRelativeLocation = modelParameters.CatalogFileRelativeLocation,
-                UsageFolderRelativeLocation = modelParameters.UsageFolderRelativeLocation,
-                EvaluationUsageFolderRelativeLocation = modelParameters.EvaluationUsageFolderRelativeLocation,
+                CatalogFileRelativeLocation = modelParameters.CatalogFileRelativeLocation?.Replace('\\', '/'),
+                UsageFolderRelativeLocation = modelParameters.UsageFolderRelativeLocation?.Replace('\\', '/'),
+                EvaluationUsageFolderRelativeLocation = modelParameters.EvaluationUsageFolderRelativeLocation?.Replace('\\', '/'),
                 SupportThreshold = modelParameters.SupportThreshold ?? @default.SupportThreshold,
                 CooccurrenceUnit = modelParameters.CooccurrenceUnit ?? @default.CooccurrenceUnit,
                 SimilarityFunction = modelParameters.SimilarityFunction ?? @default.SimilarityFunction,

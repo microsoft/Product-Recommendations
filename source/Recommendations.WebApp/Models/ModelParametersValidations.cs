@@ -78,7 +78,7 @@ namespace Recommendations.WebApp.Models
                 }
 
                 // validate catalog exists
-                var blockBlob = container.GetBlockBlobReference(catalogBlobRelativeLocation);
+                var blockBlob = container.GetBlockBlobReference(catalogBlobRelativeLocation.Replace('\\', '/'));
                 if (!blockBlob.Exists())
                 {
                     return new ValidationResult($"{context.DisplayName} does not exist under the base container");
@@ -115,7 +115,7 @@ namespace Recommendations.WebApp.Models
                 }
 
                 // create a reference to the blob directory
-                CloudBlobDirectory blobDirectory = container.GetDirectoryReference(blobDirectoryRelativeLocation);
+                CloudBlobDirectory blobDirectory = container.GetDirectoryReference(blobDirectoryRelativeLocation.Replace('\\', '/'));
 
                 // list the directory blobs to validate at least one block blob exists
                 BlobResultSegment segment =
