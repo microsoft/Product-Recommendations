@@ -73,9 +73,9 @@ namespace Recommendations.Sample
             // comment out this line and use a pre-trained model Id if you would like to skip the training phase.
             Guid modelId = TrainModelUsingSampleData(recommendationsClient, connectionString);
 
-            #region Scoring Example 1: Getting some recommendations for item with ID 6480764
+            #region Scoring Example 1: Getting some recommendations for item with ID DHF-01159 
 
-            string itemId = "6480764";
+            string itemId = "DHF-01159";
             Console.WriteLine($"Getting recommendations for item '{itemId}' using model '{modelId}':");
             IList<RecommendationResult> results = recommendationsClient.Models.GetItemRecommendations(modelId, itemId);
             PrintRecommendationResults(results);
@@ -97,13 +97,13 @@ namespace Recommendations.Sample
 
             #region Scoring Example 3: Getting personalized recommendations
 
-            // assuming some user had done two recent transactions -- she purchased item  DHF-01550 
+            // assuming some user had done two recent transactions -- she purchased item DAF-00448
             // on February 1st 2017, and purchased item DHF-01333 the previous day.
             var events = new List<UsageEvent>
             {
                 new UsageEvent
                 {
-                    ItemId = "DHF-01550",
+                    ItemId = "DAF-00448",
                     EventType = EventType.Purchase,
                     Timestamp = new DateTime(2017, 2, 1)
                 },
