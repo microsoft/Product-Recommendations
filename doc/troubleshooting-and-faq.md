@@ -119,4 +119,4 @@ Application Insights can simply be disabled by removing the key/value - *Applica
 
 #### Q. How can I deploy a code change?
 
-See [Post Deployments](deployment-instructions.md#Post-Deployments).
+See [Post Deployments](deployment-instructions.md#post-deployments).
