@@ -57,7 +57,7 @@ Take a look at the [Getting Started Guide](../getting-started.md) to learn how t
 
 To deploy new version of the code on an already deployed solution, there are several possible ways. Two of the many approaches are described below:
 
-##### 1. Ad-hoc deployment using Visual Studio
+#### 1. Ad-hoc deployment using Visual Studio
 
 Manual deployments can be performed from visual studio. More details [here](https://msdn.microsoft.com/en-us/library/dd465337(v=vs.110).aspx).
 
@@ -75,7 +75,7 @@ Manual deployments can be performed from visual studio. More details [here](http
 4. Import the publishing profile from **step 1**. Refer to [Creating a Publish Profile](https://msdn.microsoft.com/en-us/library/dd465337(v=vs.110).aspx#Anchor_0).
 5. Publish the changes. Refer to [Previewing Changes and Publishing the Project](https://msdn.microsoft.com/en-us/library/dd465337(v=vs.110).aspx#Anchor_4).
 
-##### 2. Continous deployment from Azure Portal
+#### 2. Continous deployment from Azure Portal
 
 An automated pipeline can be setup to code-build-deploy new changes. More details are [here](https://github.com/Microsoft/azure-docs/blob/master/articles/app-service-web/app-service-continuous-deployment.md).
 
