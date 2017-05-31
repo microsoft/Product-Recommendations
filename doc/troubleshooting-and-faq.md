@@ -57,7 +57,7 @@ In some cases, error message might not point to exact point of error. This happe
 Ensure the header - "Content-Type: application/json" is set.
 
 #### 5. Model takes forever to train. Eventually fails with status "aborted after n attempts"
-The recommendations algorithm is a memory based algorithm. Based on the [App Service Plan](https://azure.microsoft.com/en-us/pricing/details/app-service) you choose for the web app, your instance is allocated certain amout of RAM. If you data size is much bigger than the published [benchmarks](benchmarks.md), web-jobs infrastructure gives up on the task after a certain time. This is due to an [open issue](https://github.com/Azure/azure-webjobs-sdk/issues/899) in azure web job infrastructure.
+The recommendations algorithm is a memory based algorithm. Based on the [App Service Plan](https://azure.microsoft.com/en-us/pricing/details/app-service) you choose for the web app, your instance is allocated certain amount of RAM. If you data size is much bigger than the published [benchmarks](benchmarks.md), web-jobs infrastructure gives up on the task after a certain time. This is due to an [open issue](https://github.com/Azure/azure-webjobs-sdk/issues/899) in azure web job infrastructure.
 
 **Recommendation:** Either move to a higher tiered app service plan from your web app in Azure Portal, or to reduce your usage and catalog size.
 
@@ -116,3 +116,7 @@ Auto scale can be configured from azure portal. This [article](https://blogs.msd
 #### Q. How can I disable Application Insights?
 
 Application Insights can simply be disabled by removing the key/value - *ApplicationInsightsInstrumentationKey* in "Application Settings" of the deployed "App Service" on [Azure Portal](http://portal.azure.com).
+
+#### Q. How can I deploy a code change?
+
+See [Post Deployments](deployment-instructions.md#Post-Deployments).

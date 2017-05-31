@@ -51,3 +51,50 @@ Those keys can also be found in the  [Azure Portal](http://portal.azure.com/), a
 
 Congratulations! You now have a recommendations service you can use to train models.
 Take a look at the [Getting Started Guide](../getting-started.md) to learn how to create your first model.  If you want to learn abut the APIs exposed you can also take a look at the [API Reference](api-reference.md).
+
+
+## Post Deployments
+
+To deploy new version of the code on an already deployed solution, there are several possible ways. Two of the many approaches are described below:
+
+##### 1. Ad-hoc deployment using Visual Studio
+
+Manual deployments can be performed from visual studio. More details [here](https://msdn.microsoft.com/en-us/library/dd465337(v=vs.110).aspx).
+
+###### Pre-requisites
+1. Visual Studio 15 or greater
+2. Local clone / copy of the source code solution - https://github.com/Microsoft/Product-Recommendations/tree/master/source
+3. Azure Subscription Access on which solution was originally provisioned.
+
+
+###### Steps
+1. Download the publishing profile from the deployed App Service via Azure portal
+![Download Publish Profile](../images/post-deployment/download-publish-profile.png)
+2. Open the Recommendations solution - **Recommendations.Core.sln**
+3. Right click on the **Recommendations.WebApp** project from the **Solution Explorer** and click **Publish**
+4. Import the publishing profile from **step 1**. Refer to [Creating a Publish Profile](https://msdn.microsoft.com/en-us/library/dd465337(v=vs.110).aspx#Anchor_0).
+5. Publish the changes. Refer to [Previewing Changes and Publishing the Project](https://msdn.microsoft.com/en-us/library/dd465337(v=vs.110).aspx#Anchor_4).
+
+##### 2. Continous deployment from Azure Portal
+
+An automated pipeline can be setup to code-build-deploy new changes. More details are [here](https://github.com/Microsoft/azure-docs/blob/master/articles/app-service-web/app-service-continuous-deployment.md).
+
+###### Pre-requisites
+1. Azure Subscription Access on which solution was originally provisioned.
+
+###### Steps
+
+1. Fork the git hub [project](https://github.com/Microsoft/Product-Recommendations)
+2. Open **Deployment options** in the deployed App Service on Azure Portal.
+    ![Deployment options](../images/post-deployment/deployment-options.png)
+3. Choose source as **Github** and select the project Production Recommendations (forked) and hit OK.
+4. **Important** - Since the github project contains multiple solutions, we need to set the one we want to use explicitly. This can be done by adding a new setting in **Application Settings** of the App.
+
+    `Key - PROJECT`
+
+    `Value - source/Recommendations.WebApp/Recommendations.WebApp.csproj`
+    ![Application Settings](../images/post-deployment/application-settings.png)
+5. Any changes pushed to the forked branch will be automatically built and deployed.
+![Post-Setup](../images/post-deployment/post-setup.png)
+
+
