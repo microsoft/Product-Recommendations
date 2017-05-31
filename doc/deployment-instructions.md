@@ -93,6 +93,7 @@ An automated pipeline can be setup to code-build-deploy new changes. More detail
     `Key - PROJECT`
 
     `Value - source/Recommendations.WebApp/Recommendations.WebApp.csproj`
+    
     ![Application Settings](../images/post-deployment/application-settings.png)
 5. Any changes pushed to the forked branch will be automatically built and deployed.
 ![Post-Setup](../images/post-deployment/post-setup.png)
