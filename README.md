@@ -1,6 +1,6 @@
 <img  src="images/logo.png" align="right" height="200px">
 
-# Product Recommendations Preconfigured Solution
+# Product Recommendations Solution
 
 ## Overview
 
@@ -48,7 +48,7 @@ model metadata as well as for WebApp to WebJob communication.
 
 ## Questions?
 
-Contact [mlapi@microsoft.com](mailto:mlapi@microsoft.com) with any additional questions or comments you may have on the usage of the Recommendations preconfigured solution.
+Contact [mlapi@microsoft.com](mailto:mlapi@microsoft.com) with any additional questions or comments you may have on the usage of the Recommendations solution.
 
 ## Contributing
 See the [Contributing Document](CONTRIBUTING.md) to understand contribution guidelines and code of conduct.

@@ -1,4 +1,4 @@
-Recommendations Preconfigured Solution Template
+Recommendations Solution Template
 ===============================================
 Copyright (c) Microsoft Corporation
 

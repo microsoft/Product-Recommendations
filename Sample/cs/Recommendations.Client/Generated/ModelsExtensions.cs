@@ -13,192 +13,6 @@ namespace Recommendations.Client
     public static partial class ModelsExtensions
     {
             /// <summary>
-            /// Lists all the models
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            public static System.Collections.Generic.IList<Model> GetModels(this IModels operations)
-            {
-                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetModelsAsync(), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Lists all the models
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<Model>> GetModelsAsync(this IModels operations, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                using (var _result = await operations.GetModelsWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Trains a new model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelParameters'>
-            /// The new model parameters
-            /// </param>
-            public static Model TrainNewModel(this IModels operations, ModelParameters modelParameters)
-            {
-                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).TrainNewModelAsync(modelParameters), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Trains a new model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelParameters'>
-            /// The new model parameters
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task<Model> TrainNewModelAsync(this IModels operations, ModelParameters modelParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                using (var _result = await operations.TrainNewModelWithHttpMessagesAsync(modelParameters, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Gets a model by id
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model id to retrieve
-            /// </param>
-            public static Model GetModel(this IModels operations, System.Guid modelId)
-            {
-                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetModelAsync(modelId), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Gets a model by id
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model id to retrieve
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task<Model> GetModelAsync(this IModels operations, System.Guid modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                using (var _result = await operations.GetModelWithHttpMessagesAsync(modelId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Delete an existing model by id
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model to delete
-            /// </param>
-            public static void DeleteModel(this IModels operations, System.Guid modelId)
-            {
-                System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).DeleteModelAsync(modelId), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None,  System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Delete an existing model by id
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model to delete
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task DeleteModelAsync(this IModels operations, System.Guid modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                await operations.DeleteModelWithHttpMessagesAsync(modelId, null, cancellationToken).ConfigureAwait(false);
-            }
-
-            /// <summary>
-            /// Retrieve the default model.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            public static Model GetDefaultModel(this IModels operations)
-            {
-                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetDefaultModelAsync(), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Retrieve the default model.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task<Model> GetDefaultModelAsync(this IModels operations, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                using (var _result = await operations.GetDefaultModelWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Sets a model as the default model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model id to set as default
-            /// </param>
-            public static void SetDefaultModel(this IModels operations, System.Guid modelId)
-            {
-                System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).SetDefaultModelAsync(modelId), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None,  System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Sets a model as the default model
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='modelId'>
-            /// The model id to set as default
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async System.Threading.Tasks.Task SetDefaultModelAsync(this IModels operations, System.Guid modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-            {
-                await operations.SetDefaultModelWithHttpMessagesAsync(modelId, null, cancellationToken).ConfigureAwait(false);
-            }
-
-            /// <summary>
             /// Get recommendations using the default model
             /// </summary>
             /// <param name='operations'>
@@ -388,6 +202,192 @@ namespace Recommendations.Client
                 {
                     return _result.Body;
                 }
+            }
+
+            /// <summary>
+            /// Lists all the models
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            public static System.Collections.Generic.IList<Model> GetModels(this IModels operations)
+            {
+                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetModelsAsync(), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists all the models
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task<System.Collections.Generic.IList<Model>> GetModelsAsync(this IModels operations, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                using (var _result = await operations.GetModelsWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Trains a new model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelParameters'>
+            /// The new model parameters
+            /// </param>
+            public static Model TrainNewModel(this IModels operations, ModelParameters modelParameters)
+            {
+                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).TrainNewModelAsync(modelParameters), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Trains a new model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelParameters'>
+            /// The new model parameters
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task<Model> TrainNewModelAsync(this IModels operations, ModelParameters modelParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                using (var _result = await operations.TrainNewModelWithHttpMessagesAsync(modelParameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Gets a model by id
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model id to retrieve
+            /// </param>
+            public static Model GetModel(this IModels operations, System.Guid modelId)
+            {
+                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetModelAsync(modelId), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets a model by id
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model id to retrieve
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task<Model> GetModelAsync(this IModels operations, System.Guid modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                using (var _result = await operations.GetModelWithHttpMessagesAsync(modelId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Delete an existing model by id
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model to delete
+            /// </param>
+            public static void DeleteModel(this IModels operations, System.Guid modelId)
+            {
+                System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).DeleteModelAsync(modelId), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None,  System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete an existing model by id
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model to delete
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task DeleteModelAsync(this IModels operations, System.Guid modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                await operations.DeleteModelWithHttpMessagesAsync(modelId, null, cancellationToken).ConfigureAwait(false);
+            }
+
+            /// <summary>
+            /// Retrieve the default model.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            public static Model GetDefaultModel(this IModels operations)
+            {
+                return System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).GetDefaultModelAsync(), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Retrieve the default model.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task<Model> GetDefaultModelAsync(this IModels operations, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                using (var _result = await operations.GetDefaultModelWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Sets a model as the default model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model id to set as default
+            /// </param>
+            public static void SetDefaultModel(this IModels operations, System.Guid modelId)
+            {
+                System.Threading.Tasks.Task.Factory.StartNew(s => ((IModels)s).SetDefaultModelAsync(modelId), operations, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None,  System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Sets a model as the default model
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='modelId'>
+            /// The model id to set as default
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async System.Threading.Tasks.Task SetDefaultModelAsync(this IModels operations, System.Guid modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+            {
+                await operations.SetDefaultModelWithHttpMessagesAsync(modelId, null, cancellationToken).ConfigureAwait(false);
             }
 
     }

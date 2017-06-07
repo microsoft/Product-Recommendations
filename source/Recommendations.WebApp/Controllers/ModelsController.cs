@@ -191,7 +191,7 @@ namespace Recommendations.WebApp.Controllers
         /// <param name="modelId">The model to delete</param>
         [Route("api/models/{modelId}", Name = nameof(DeleteModel))]
         [HttpDelete]
-        [SwaggerResponse(HttpStatusCode.OK), SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.Accepted), SwaggerResponseRemoveDefaults]
         public async Task<IHttpActionResult> DeleteModel(CancellationToken cancellationToken, [FromUri] Guid? modelId)
         {
             if (!modelId.HasValue)
