@@ -415,7 +415,7 @@ class Model extends React.Component {
                   <tbody>
                     <tr>
                       <td>
-                        <h3>Diversity (Item Recommendations)</h3>
+                        <h3>Diversity (User Recommendations)</h3>
                         <p>Diversity measures the distribution of items recommended. Each percentile bucket is represented by a span (min/max values that range between 0 and 100).
                         The items close to 0 are the least popular. For instance, if the percentage value for the 99-100 percentile bucket is 10.6, it means that 10.6 percent of
                         the recommendations returned only the top 1% most popular items. The percentile bucket min value is inclusive, and the max value is exclusive except for 100.</p>
@@ -440,7 +440,7 @@ class Model extends React.Component {
                   <tbody>
                     <tr>
                       <td>
-                        <h3>Precision at K (Item Recommendations)</h3>
+                        <h3>Precision at K (User Recommendations)</h3>
                         <p>K represents the number of recommendations shown to the customer. So, if the Percentage under 5 is 4.94, the table would reads as follows:
                         "if during the test period, only 5 item-based recommendations would have been shown to the customers, 4.94 of the users would have actually
                         purchased at least one recommended item".</p>
