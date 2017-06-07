@@ -1,12 +1,12 @@
 # Getting Started Guide
 
-## Step 1: Deploy the recommendations pre-configured solution
+## Step 1: Deploy the product recommendations solution
 
 If you have not done so already, please deploy the solution to your Azure subscription
 by following the [Deployment Instructions](doc/deployment-instructions.md).
 
 ## Step 2: Collect Data to Train your Model
-The preconfigured solution allows you to create recommendations models by learning 
+The solution allows you to create recommendations models by learning 
 from your past transactions. To train a model you will need to provide two pieces
 of information: a catalog file, and usage data.
 
