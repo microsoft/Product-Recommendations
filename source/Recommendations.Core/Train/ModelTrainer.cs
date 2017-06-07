@@ -95,7 +95,7 @@ namespace Recommendations.Core.Train
             }
             catch (TaskCanceledException ex)
             {
-                _tracer.TraceInformation($"Model training cancelled. {ex}");
+                _tracer.TraceInformation($"Model training canceled. {ex}");
                 throw;
             }
             catch (Exception ex)
@@ -196,7 +196,7 @@ namespace Recommendations.Core.Train
             result.UniqueUsersCount = userIdsIndexMap.Count;
 
             _tracer.TraceInformation($"Found {itemIdsIndexMap.Count} unique items");
-            result.UniqueItemsCount = itemIdsIndexMap.Count;
+            result.UniqueItemsCount = usageEvents.Select(x=>x.ItemId).Distinct().Count();
 
             _tracer.TraceInformation("Extracting the indexed item ids from the item index map");
             string[] itemIdsIndex = itemIdsIndexMap.OrderBy(kvp => kvp.Value).Select(kvp => kvp.Key).ToArray();
@@ -272,7 +272,7 @@ namespace Recommendations.Core.Train
             _tracer.TraceInformation("Training a new model using SAR trainer");
             var sarTrainer = new SarTrainer(_tracer);
             IPredictorModel sarModel = sarTrainer.Train(settings, usageEvents, catalogItems, result.UniqueUsersCount,
-                result.UniqueItemsCount, cancellationToken);
+                result.CatalogItemsCount ?? result.UniqueItemsCount, cancellationToken);
 
             _tracer.TraceInformation("SAR training was completed.");
 

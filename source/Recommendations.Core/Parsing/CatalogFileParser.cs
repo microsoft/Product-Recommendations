@@ -198,28 +198,28 @@ namespace Recommendations.Core.Parsing
                 return null;
             }
 
-            // create a new catalog item
-            var catalogItem = new SarCatalogItem
-            {
-                ItemId = ItemIdsIndex.GetOrAdd(itemId, key => (uint)ItemIdsIndex.Count + 1)
-            };
-
             // for backward compatibility with Cognitive Services' Recommendation service,
             // fields #1 (item name), #2 (category) and #3 (description) are ignored 
 
             // if available, parse features from field #5 forward
+            string[] featureVector = null;
             if (fields.Length > 4)
             {
                 // parse the item's features into a features vector
-                catalogItem.FeatureVector = ParseCatalogItemFeatures(fields.Skip(4), featureNamesIndex);
-                if (catalogItem.FeatureVector == null)
+                featureVector = ParseCatalogItemFeatures(fields.Skip(4), featureNamesIndex);
+                if (featureVector  == null)
                 {
                     parsingError = ParsingErrorReason.MalformedCatalogItemFeature;
                     return null;
                 }
             }
 
-            return catalogItem;
+            // create a new catalog item
+            return new SarCatalogItem
+            {
+                ItemId = ItemIdsIndex.GetOrAdd(itemId, key => (uint) ItemIdsIndex.Count + 1),
+                FeatureVector = featureVector
+            };
         }
 
         /// <summary>
