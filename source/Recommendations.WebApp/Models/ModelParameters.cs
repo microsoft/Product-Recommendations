@@ -30,27 +30,27 @@ namespace Recommendations.WebApp.Models
         public string BlobContainerName { get; set; }
 
         /// <summary>
-        /// Catalog file location relative to the container.
+        /// Catalog file path relative to the container.
         /// </summary>
-        [DisplayName("catalogFileRelativeLocation")]
-        [CustomValidation(typeof(ModelParameters), nameof(ValidateCatalogBlobRelativeLocation))]
-        [JsonProperty("catalogFileRelativeLocation")]
-        public string CatalogFileRelativeLocation { get; set; }
+        [DisplayName("catalogFileRelativePath")]
+        [CustomValidation(typeof(ModelParameters), nameof(ValidateCatalogBlobRelativePath))]
+        [JsonProperty("catalogFileRelativePath")]
+        public string CatalogFileRelativePath { get; set; }
 
         /// <summary>
-        /// Usage file(s) folder location relative to the container.
+        /// Usage file\folder path relative to the container.
         /// </summary>
-        [Required, DisplayName("usageFolderRelativeLocation")]
-        [CustomValidation(typeof(ModelParameters), nameof(ValidateNonEmptyBlobDirectory))]
-        [JsonProperty("usageFolderRelativeLocation")]
-        public string UsageFolderRelativeLocation { get; set; }
+        [Required, DisplayName("usageRelativePath")]
+        [CustomValidation(typeof(ModelParameters), nameof(ValidateBlobExistsOrANonEmptyBlobDirectory))]
+        [JsonProperty("usageRelativePath")]
+        public string UsageRelativePath { get; set; }
 
         /// <summary>
-        /// Optional. Evaluation file(s) folder location relative to the container.
+        /// Optional. Evaluation file\folder path relative to the container.
         /// </summary>
-        [CustomValidation(typeof(ModelParameters), nameof(ValidateNonEmptyBlobDirectory))]
-        [JsonProperty("evaluationUsageFolderRelativeLocation")]
-        public string EvaluationUsageFolderRelativeLocation { get; set; }
+        [CustomValidation(typeof(ModelParameters), nameof(ValidateBlobExistsOrANonEmptyBlobDirectory))]
+        [JsonProperty("evaluationUsageRelativePath")]
+        public string EvaluationUsageRelativePath { get; set; }
 
         /// <summary>
         /// How conservative the model is. Number of co-occurrences of items to be considered for modeling.

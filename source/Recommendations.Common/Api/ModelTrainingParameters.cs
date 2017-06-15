@@ -19,22 +19,22 @@ namespace Recommendations.Common.Api
         public string BlobContainerName { get; set; }
 
         /// <summary>
-        /// Catalog file location relative to the container.
+        /// Catalog file path relative to the container.
         /// </summary>
-        [JsonProperty("catalogFileRelativeLocation")]
-        public string CatalogFileRelativeLocation { get; set; }
+        [JsonProperty("catalogFileRelativePath")]
+        public string CatalogFileRelativePath { get; set; }
 
         /// <summary>
-        /// Usage file(s) folder location relative to the container.
+        /// Usage file\folder path relative to the container.
         /// </summary>
-        [JsonProperty("usageFolderRelativeLocation")]
-        public string UsageFolderRelativeLocation { get; set; }
+        [JsonProperty("usageRelativePath")]
+        public string UsageRelativePath { get; set; }
 
         /// <summary>
-        /// Optional. Evaluation file(s) folder location relative to the container.
+        /// Optional. Evaluation file\folder path relative to the container.
         /// </summary>
-        [JsonProperty("evaluationUsageFolderRelativeLocation")]
-        public string EvaluationUsageFolderRelativeLocation { get; set; }
+        [JsonProperty("evaluationUsageRelativePath")]
+        public string EvaluationUsageRelativePath { get; set; }
 
         /// <summary>
         /// How conservative the model is. Number of co-occurrences of items to be considered for modeling.
@@ -111,9 +111,9 @@ namespace Recommendations.Common.Api
         {
             return
                 $"{nameof(BlobContainerName)}: {BlobContainerName}, " +
-                $"{nameof(CatalogFileRelativeLocation)}: {CatalogFileRelativeLocation}, " +
-                $"{nameof(UsageFolderRelativeLocation)}: {UsageFolderRelativeLocation}, " +
-                $"{nameof(EvaluationUsageFolderRelativeLocation)}: {EvaluationUsageFolderRelativeLocation}, " +
+                $"{nameof(CatalogFileRelativePath)}: {CatalogFileRelativePath}, " +
+                $"{nameof(UsageRelativePath)}: {UsageRelativePath}, " +
+                $"{nameof(EvaluationUsageRelativePath)}: {EvaluationUsageRelativePath}, " +
                 $"{nameof(SupportThreshold)}: {SupportThreshold}, " +
                 $"{nameof(CooccurrenceUnit)}: {CooccurrenceUnit}, " +
                 $"{nameof(SimilarityFunction)}: {SimilarityFunction}, " +

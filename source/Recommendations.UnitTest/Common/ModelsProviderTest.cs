@@ -90,6 +90,50 @@ namespace Recommendations.UnitTest.Common
         }
 
         [TestMethod]
+        [DeploymentItem("TrainingFiles/small", nameof(TrainSmallCatalogAndSingleUsageFileWithSingleEvaluationFileAsyncTest))]
+        public async Task TrainSmallCatalogAndSingleUsageFileWithSingleEvaluationFileAsyncTest()
+        {
+            var modelsContainer = CreateModelContainer();
+            var trainContainer = Substitute.For<IBlobContainer>();
+            var containerProvider = Substitute.For<IBlobContainerProvider>();
+            var catalogSource = Path.Combine(nameof(TrainSmallCatalogAndSingleUsageFileWithSingleEvaluationFileAsyncTest), "catalog.csv");
+            var usageSource = Path.Combine(nameof(TrainSmallCatalogAndSingleUsageFileWithSingleEvaluationFileAsyncTest), "usage");
+            var evaluationSource = Path.Combine(nameof(TrainSmallCatalogAndSingleUsageFileWithSingleEvaluationFileAsyncTest), "evaluation");
+            var trainContainerName = "trainContainer";
+            var modelId = Guid.NewGuid();
+
+            ProvideTrainBlobContainer(trainContainer, usageSource, catalogSource, evaluationSource);
+            containerProvider.GetBlobContainer(ModelsProvider.ModelsBlobContainerName, Arg.Any<bool>()).Returns(modelsContainer);
+            containerProvider.GetBlobContainer(trainContainerName, Arg.Any<bool>()).Returns(trainContainer);
+
+            // create model provider with substitutes
+            var modelProvider = CreateModelProvider(containerProvider);
+
+            // train model
+            var trainingParameters = CreateModelTrainingParameters(trainContainerName, true, true);
+            trainingParameters.UsageRelativePath = Path.Combine(trainingParameters.UsageRelativePath, "usage.csv");
+            trainingParameters.EvaluationUsageRelativePath = Path.Combine(trainingParameters.EvaluationUsageRelativePath, "eval.csv");
+            var trainResult = await modelProvider.TrainAsync(modelId, trainingParameters, null, CancellationToken.None);
+            Assert.IsTrue(trainResult.IsCompletedSuccessfuly, "training failed did not complete successfully");
+
+            // expect the train blobs to be check for existence
+            await trainContainer.Received(1).ExistsAsync(trainingParameters.UsageRelativePath, Arg.Any<CancellationToken>());
+            await trainContainer.Received(1).ExistsAsync(trainingParameters.EvaluationUsageRelativePath, Arg.Any<CancellationToken>());
+
+            // expect the train blobs container to not be listed
+            await trainContainer.Received(0).ListBlobsAsync(UsageFolderRelativeLocation, Arg.Any<CancellationToken>());
+            await trainContainer.Received(0).ListBlobsAsync(EvaluationFolderRelativeLocation, Arg.Any<CancellationToken>());
+
+            // expect every usage blob to be downloaded
+            await ExpectDownloadBlobAsync(trainContainer, CatalogFileRelativeLocation);
+            await ExpectDownloadAllBlobsAsync(trainContainer, UsageFolderRelativeLocation, usageSource);
+            await ExpectDownloadAllBlobsAsync(trainContainer, EvaluationFolderRelativeLocation, evaluationSource);
+
+            // expect a trained model to be uploaded to models container
+            await ExpectUploadModelAsync(modelsContainer, modelId);
+        }
+
+        [TestMethod]
         [DeploymentItem("TrainingFiles/bad", nameof(TrainBadUsageAsyncTest))]
         public async Task TrainBadUsageAsyncTest()
         {
@@ -451,9 +495,9 @@ namespace Recommendations.UnitTest.Common
         {
             var trainingParameters = ModelTrainingParameters.Default;
             trainingParameters.BlobContainerName = containerName;
-            trainingParameters.UsageFolderRelativeLocation = UsageFolderRelativeLocation;
-            trainingParameters.CatalogFileRelativeLocation = hasCatalog ? CatalogFileRelativeLocation : null;
-            trainingParameters.EvaluationUsageFolderRelativeLocation = hasEvaluationFiles
+            trainingParameters.UsageRelativePath = UsageFolderRelativeLocation;
+            trainingParameters.CatalogFileRelativePath = hasCatalog ? CatalogFileRelativeLocation : null;
+            trainingParameters.EvaluationUsageRelativePath = hasEvaluationFiles
                 ? EvaluationFolderRelativeLocation
                 : null;
             trainingParameters.EnableColdItemPlacement = hasCatalog;
@@ -481,6 +525,7 @@ namespace Recommendations.UnitTest.Common
 
         private static void ProvideBlob(IBlobContainer blobContainer, string name, string sourceFilePath)
         {
+            blobContainer.ExistsAsync(name, Arg.Any<CancellationToken>()).Returns(Task.FromResult(true));
             blobContainer.DownloadBlobAsync(name, Arg.Any<string>(), Arg.Any<CancellationToken>())
                 .Returns(args =>
                 {

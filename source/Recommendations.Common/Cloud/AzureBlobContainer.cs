@@ -135,6 +135,28 @@ namespace Recommendations.Common.Cloud
         }
 
         /// <summary>
+        /// Check if a blob exists.
+        /// </summary>
+        /// <param name="blobName">The name of the blob</param>
+        /// <param name="cancellationToken">The cancellation token assigned for the operation</param>
+        /// <returns><value>true</value> is the blob exists, <value>false</value> otherwise</returns>
+        public Task<bool> ExistsAsync(string blobName, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrWhiteSpace(blobName))
+            {
+                throw new ArgumentNullException(nameof(blobName));
+            }
+
+            Trace.TraceVerbose($"Checking if blob '{blobName}' exists");
+
+            // get a reference to the blob
+            CloudBlockBlob blob = _container.GetBlockBlobReference(blobName);
+
+            // check if blob exists
+            return blob.ExistsAsync(cancellationToken);
+        }
+
+        /// <summary>
         /// Lists all the blob names from directly under a directory, excluding subdirectories
         /// </summary>
         /// <param name="directoryName">The name of the directory to list</param>

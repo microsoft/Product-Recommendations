@@ -224,13 +224,11 @@ namespace Recommendations.Common
                 IBlobContainer trainingBlobsContainer =
                     _blobContainerProvider.GetBlobContainer(trainingParameters.BlobContainerName);
 
-                Trace.TraceInformation($"Listing all the usage events blobs under '{trainingParameters.UsageFolderRelativeLocation}'");
-                IList<string> usageEventsBlobNames = await trainingBlobsContainer.ListBlobsAsync(
-                    trainingParameters.UsageFolderRelativeLocation, cancellationToken);
-
-                Trace.TraceInformation($"Downloading all the usage events blobs (Found {usageEventsBlobNames.Count})");
-                foreach (string usageEventsBlobName in usageEventsBlobNames)
+                // check if the provided path represents a single file
+                if (await trainingBlobsContainer.ExistsAsync(trainingParameters.UsageRelativePath, cancellationToken))
                 {
+                    string usageEventsBlobName = trainingParameters.UsageRelativePath;
+
                     // set local usage events file path
                     string usageEventFileName = Path.GetFileName(usageEventsBlobName) ?? string.Empty;
                     string usageFilePath = Path.Combine(trainingFiles.UsageFolderPath, usageEventFileName);
@@ -239,21 +237,41 @@ namespace Recommendations.Common
                     await trainingBlobsContainer.DownloadBlobAsync(usageEventsBlobName, usageFilePath,
                         cancellationToken);
                 }
-                
+                else
+                {
+                    Trace.TraceInformation(
+                        $"Listing all the usage events blobs under '{trainingParameters.UsageRelativePath}'");
+                    IList<string> usageEventsBlobNames = await trainingBlobsContainer.ListBlobsAsync(
+                        trainingParameters.UsageRelativePath, cancellationToken);
+
+                    Trace.TraceInformation(
+                        $"Downloading all the usage events blobs (Found {usageEventsBlobNames.Count})");
+                    foreach (string usageEventsBlobName in usageEventsBlobNames)
+                    {
+                        // set local usage events file path
+                        string usageEventFileName = Path.GetFileName(usageEventsBlobName) ?? string.Empty;
+                        string usageFilePath = Path.Combine(trainingFiles.UsageFolderPath, usageEventFileName);
+
+                        Trace.TraceInformation($"Downloading usage events blob '{usageEventsBlobName}'");
+                        await trainingBlobsContainer.DownloadBlobAsync(usageEventsBlobName, usageFilePath,
+                            cancellationToken);
+                    }
+                }
+
                 // download the catalog file, if provided
-                if (!string.IsNullOrWhiteSpace(trainingParameters.CatalogFileRelativeLocation))
+                if (!string.IsNullOrWhiteSpace(trainingParameters.CatalogFileRelativePath))
                 {
                     // set local catalog file path
-                    var catalogFileName = Path.GetFileName(trainingParameters.CatalogFileRelativeLocation);
+                    var catalogFileName = Path.GetFileName(trainingParameters.CatalogFileRelativePath);
                     trainingFiles.CatalogFilePath = Path.Combine(localRootPath, catalogFileName);
 
                     Trace.TraceInformation($"Downloading catalog blob '{trainingFiles.CatalogFilePath}'");
-                    await trainingBlobsContainer.DownloadBlobAsync(trainingParameters.CatalogFileRelativeLocation,
+                    await trainingBlobsContainer.DownloadBlobAsync(trainingParameters.CatalogFileRelativePath,
                         trainingFiles.CatalogFilePath, cancellationToken);
                 }
 
                 // download the evaluation files if provided
-                if (!string.IsNullOrWhiteSpace(trainingParameters.EvaluationUsageFolderRelativeLocation))
+                if (!string.IsNullOrWhiteSpace(trainingParameters.EvaluationUsageRelativePath))
                 {
                     // set local evaluation folder
                     trainingFiles.EvaluationUsageFolderPath = Path.Combine(localRootPath, EvaluationUsageLocalDirectoryName);
@@ -261,14 +279,12 @@ namespace Recommendations.Common
                     // create the local folder for evaluation usage events files
                     Directory.CreateDirectory(trainingFiles.EvaluationUsageFolderPath);
 
-                    Trace.TraceInformation(
-                        $"Listing all the evaluation usage events blobs under '{trainingParameters.EvaluationUsageFolderRelativeLocation}'");
-                    IList<string> evaluationUsageEventsBlobNames = await trainingBlobsContainer.ListBlobsAsync(
-                        trainingParameters.EvaluationUsageFolderRelativeLocation, cancellationToken);
-
-                    Trace.TraceInformation($"Downloading all the evaluation usage events blobs (Found {evaluationUsageEventsBlobNames.Count})");
-                    foreach (string usageEventsBlobName in evaluationUsageEventsBlobNames)
+                    // check if the provided path represents a single file
+                    if (await trainingBlobsContainer.ExistsAsync(trainingParameters.EvaluationUsageRelativePath,
+                        cancellationToken))
                     {
+                        string usageEventsBlobName = trainingParameters.EvaluationUsageRelativePath;
+
                         // set local usage events file path
                         string usageEventFileName = Path.GetFileName(usageEventsBlobName) ?? string.Empty;
                         string usageFilePath =
@@ -277,6 +293,27 @@ namespace Recommendations.Common
                         Trace.TraceInformation($"Downloading evaluation usage events blob '{usageEventsBlobName}'");
                         await trainingBlobsContainer.DownloadBlobAsync(usageEventsBlobName, usageFilePath,
                             cancellationToken);
+                    }
+                    else
+                    {
+                        Trace.TraceInformation(
+                            $"Listing all the evaluation usage events blobs under '{trainingParameters.EvaluationUsageRelativePath}'");
+                        IList<string> evaluationUsageEventsBlobNames = await trainingBlobsContainer.ListBlobsAsync(
+                            trainingParameters.EvaluationUsageRelativePath, cancellationToken);
+
+                        Trace.TraceInformation(
+                            $"Downloading all the evaluation usage events blobs (Found {evaluationUsageEventsBlobNames.Count})");
+                        foreach (string usageEventsBlobName in evaluationUsageEventsBlobNames)
+                        {
+                            // set local usage events file path
+                            string usageEventFileName = Path.GetFileName(usageEventsBlobName) ?? string.Empty;
+                            string usageFilePath =
+                                Path.Combine(trainingFiles.EvaluationUsageFolderPath, usageEventFileName);
+
+                            Trace.TraceInformation($"Downloading evaluation usage events blob '{usageEventsBlobName}'");
+                            await trainingBlobsContainer.DownloadBlobAsync(usageEventsBlobName, usageFilePath,
+                                cancellationToken);
+                        }
                     }
                 }
 
@@ -290,7 +327,7 @@ namespace Recommendations.Common
                 throw exception;
             }
         }
-
+        
         /// <summary>
         /// Trains a model using the local training files
         /// </summary>

@@ -228,14 +228,14 @@ namespace Recommendations.WebJob
                 // create the catalog parsing report
                 CatalogParsingReport = CreateParsingReport(result.CatalogFilesParsingReport,
                     result.Duration.CatalogParsingDuration,
-                    string.IsNullOrWhiteSpace(parameters.CatalogFileRelativeLocation)
+                    string.IsNullOrWhiteSpace(parameters.CatalogFileRelativePath)
                         ? null
-                        : Path.GetDirectoryName(parameters.CatalogFileRelativeLocation)),
+                        : Path.GetDirectoryName(parameters.CatalogFileRelativePath)),
 
                 // create the usage files parsing report
                 UsageEventsParsingReport = CreateParsingReport(result.UsageFilesParsingReport,
                     result.Duration.UsageFilesParsingDuration,
-                    parameters.UsageFolderRelativeLocation),
+                    parameters.UsageRelativePath),
 
                 // set the number of items in catalog
                 NumberOfCatalogItems = result.CatalogItemsCount,
@@ -258,7 +258,7 @@ namespace Recommendations.WebJob
             };
 
             // set the evaluation statistics if available 
-            if (!string.IsNullOrWhiteSpace(parameters.EvaluationUsageFolderRelativeLocation))
+            if (!string.IsNullOrWhiteSpace(parameters.EvaluationUsageRelativePath))
             {
                 // create evaluation result
                 statistics.EvaluationResult = new ModelEvaluationResult
@@ -273,7 +273,7 @@ namespace Recommendations.WebJob
                     EvaluationUsageEventsParsingReport =
                         CreateParsingReport(result.EvaluationFilesParsingReport,
                             result.Duration.EvaluationUsageFilesParsingDuration,
-                            parameters.EvaluationUsageFolderRelativeLocation)
+                            parameters.EvaluationUsageRelativePath)
                 };
             }
 

@@ -52,7 +52,7 @@ namespace Recommendations.WebApp.Models
         /// <summary>
         /// A custom validation that validates that the catalog block blob exists under the base container, or that cold item placement is disabled
         /// </summary>
-        public static ValidationResult ValidateCatalogBlobRelativeLocation(string catalogBlobRelativeLocation, ValidationContext context)
+        public static ValidationResult ValidateCatalogBlobRelativePath(string catalogBlobRelativePath, ValidationContext context)
         {
             var modelParameters = (ModelParameters)context.ObjectInstance;
 
@@ -64,7 +64,7 @@ namespace Recommendations.WebApp.Models
                     return ValidationResult.Success;
                 }
 
-                if (string.IsNullOrWhiteSpace(catalogBlobRelativeLocation))
+                if (string.IsNullOrWhiteSpace(catalogBlobRelativePath))
                 {
                     return new ValidationResult($"{context.DisplayName} is required since enableColdItemPlacement value is true.");
                 }
@@ -78,7 +78,7 @@ namespace Recommendations.WebApp.Models
                 }
 
                 // validate catalog exists
-                var blockBlob = container.GetBlockBlobReference(catalogBlobRelativeLocation.Replace('\\', '/'));
+                var blockBlob = container.GetBlockBlobReference(catalogBlobRelativePath.Replace('\\', '/').Trim('/'));
                 if (!blockBlob.Exists())
                 {
                     return new ValidationResult($"{context.DisplayName} does not exist under the base container");
@@ -87,21 +87,21 @@ namespace Recommendations.WebApp.Models
             catch (Exception e)
             {
                 // could not verify blob exists, continue anyways
-                Trace.TraceInformation($"Unexpected exception '{e}' - Internal API '{nameof(ValidateCatalogBlobRelativeLocation)}'");
+                Trace.TraceInformation($"Unexpected exception '{e}' - Internal API '{nameof(ValidateCatalogBlobRelativePath)}'");
             }
 
             return ValidationResult.Success;
         }
 
         /// <summary>
-        /// A custom validation that validates that the input (if provided) represents a non-empty Azure blob directory
+        /// A custom validation that validates that the input (if provided) represents either a blob file or a non-empty Azure blob directory
         /// </summary>
-        public static ValidationResult ValidateNonEmptyBlobDirectory(string blobDirectoryRelativeLocation, ValidationContext context)
+        public static ValidationResult ValidateBlobExistsOrANonEmptyBlobDirectory(string blobOrDirectoryRelativePath, ValidationContext context)
         {
             var modelParameters = (ModelParameters)context.ObjectInstance;
             try
             {
-                if (string.IsNullOrWhiteSpace(blobDirectoryRelativeLocation))
+                if (string.IsNullOrWhiteSpace(blobOrDirectoryRelativePath))
                 {
                     return ValidationResult.Success;
                 }
@@ -114,8 +114,16 @@ namespace Recommendations.WebApp.Models
                     return ValidationResult.Success;
                 }
 
+                blobOrDirectoryRelativePath = blobOrDirectoryRelativePath.Replace('\\', '/').Trim('/');
+
+                // check if the input path represents a single blob
+                if (container.GetBlobReference(blobOrDirectoryRelativePath).Exists())
+                {
+                    return ValidationResult.Success;
+                }
+
                 // create a reference to the blob directory
-                CloudBlobDirectory blobDirectory = container.GetDirectoryReference(blobDirectoryRelativeLocation.Replace('\\', '/'));
+                CloudBlobDirectory blobDirectory = container.GetDirectoryReference(blobOrDirectoryRelativePath);
 
                 // list the directory blobs to validate at least one block blob exists
                 BlobResultSegment segment =
@@ -128,7 +136,7 @@ namespace Recommendations.WebApp.Models
             catch (Exception e)
             {
                 // could not verify folder contents, continue anyways
-                Trace.TraceWarning($"Unexpected exception '{e}' - Internal API '{nameof(ValidateNonEmptyBlobDirectory)}'");
+                Trace.TraceWarning($"Unexpected exception '{e}' - Internal API '{nameof(ValidateBlobExistsOrANonEmptyBlobDirectory)}'");
             }
 
             return ValidationResult.Success;
