@@ -74,7 +74,7 @@ Training a new model is an asynchronous operation. The response to this HTTP req
 reference the newly created model, as well as the model in the body of the response.
 You can use the [Get Model API](#get-model-information) to query for the model training status along with other model information.
  
-Optionally model metrics are computed if *evaluationUsageFolderRelativeLocation* is provided. See [Model Evaluation](model-evaluation.md) for more details.
+Optionally model metrics are computed if *evaluationUsageRelativePath* is provided. See [Model Evaluation](model-evaluation.md) for more details.
 
 The **request** body should be a valid [Model Training Parameters](#model-training-parameters-schema) JSON object.
 
@@ -89,9 +89,9 @@ The **response** body will contain a [Model](#model-object-schema) JSON object.
 >{
 >    "description": "Simple recommendations model",
 >    "blobContainerName": "input-files",
->    "usageFolderRelativeLocation": "booksTrainUsage",
->    "catalogFileRelativeLocation": "books.csv",
->    "evaluationUsageFolderRelativeLocation": "booksTestUsage",
+>    "usageRelativePath": "booksTrainUsage",
+>    "catalogFileRelativePath": "books.csv",
+>    "evaluationUsageRelativePath": "booksTestUsage",
 >    "supportThreshold": 6,
 >    "cooccurrenceUnit": "User",
 >    "similarityFunction": "Jaccard",
@@ -562,9 +562,9 @@ The following table specifies the schema of the *model training parameters* JSON
 |---------------|------------|-------------|--------------|--------------
 | description | no | Textual description | string with max length of 256 characters | *null*
 | **blobContainerName**| **yes** |  Name of the container where the catalog, usage data and evaluation data are stored. Note that this container must be in the storage account created by the preconfigured solution | string  | 
-| **usageFolderRelativeLocation** | **yes** |   Relative path to the virtual directory that contains the usage file(s) to be used for training. See [Usage events file format](#usage-events-file-schema) | string |
-| catalogFileRelativeLocation | no |   Relative path to the catalog file. See [Catalog file format](#catalog-file-schema) | string  | *null*
-| evaluationUsageFolderRelativeLocation | no |   Relative path to the virtual directory that contains the usage file(s) to be used for evaluation. See [Usage events file format](#usage-events-file-schema) | string | *null*
+| **usageRelativePath** | **yes** |   Relative path to either a virtual directory that contains the usage file(s) or a specific usage file to be used for training. See [Usage events file format](#usage-events-file-schema) | string |
+| catalogFileRelativePath | no |   Relative path to the catalog file. See [Catalog file format](#catalog-file-schema) | string  | *null*
+| evaluationUsageRelativePath | no |   Relative path to either a virtual directory that contains the usage file(s) or to a specific usage file to be used for evaluation. See [Usage events file format](#usage-events-file-schema) | string | *null*
 | supportThreshold | no |  How conservative the model is. Number of co-occurrences of items to be considered for modeling. | 3-50 | 6
 | cooccurrenceUnit | no |  Indicates how to group usage events before counting co-occurrences. A 'User' cooccurrence unit will consider all items purchased by the same user as occurring together in the same session. A 'Timestamp' cooccurrence unit will consider all items purchased by the same user in the same time as occurring together in the same session. | *User*, *Timestamp* | User
 | similarityFunction| no |  Defines the similarity function to be used by the model. Lift favors serendipity, Co-occurrence favors predictability, and Jaccard is a nice compromise between the two. | *Cooccurrence*, *Lift*, *Jaccard* | Lift

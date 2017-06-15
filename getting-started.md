@@ -22,7 +22,7 @@ You can also checkout the [sample data](http://aka.ms/RecoSampleData).
 
 ## Step 3: Upload Catalog and Usage Events Data to a Blob Container
 
-When you train a model ([step 4](#step_4_train_a_new_recommendations_model)), you need to provide the location of the catalog file and usage **folder** needed for training.
+When you train a model ([step 4](#step_4_train_a_new_recommendations_model)), you need to provide the relative paths of the catalog file and usage folder (or file) needed for training.
 
 There are multiple ways of creating Azure blob containers (and uploading files to it). One popular option is using [Microsoft Azure Storage Explorer](http://storageexplorer.com/).
 Alternatively, you could create containers and upload files directly from the Azure portal, although the experience may be less comfortable. 
@@ -44,14 +44,14 @@ Model training requires at least one usage events file, but you may provide mult
 The usage events folder may be placed directly under the container or in some sub folder.   
 For example, the usage events file(s) could be under a folder named *usage*. 
 
->The usage event file(s) **folder** location (relative to the container) is a required parameters for the train model API
+>The usage event file(s) folder (or file) path (relative to the container) is a required parameters for the train model API
 
 ### 3.3 Upload a catalog file (optional)
 If you choose to use a catalog file when training, the catalog file will need to be uploaded to any place under the container created in the previous step.
 
 The catalog file could be placed directly under the container, or in some sub folder.
 
->The catalog **file** location (relative to the container) is a optional parameters for the train model API 
+>The catalog **file** path (relative to the container) is a optional parameters for the train model API 
 
 ## Step 4: Train a new Recommendations Model
 Now that you have your data in the blob container, we can train the model!

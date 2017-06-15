@@ -2,7 +2,7 @@
 
 The goal of an offline evaluation is to predict precision (the number of users that will purchase one of the recommended items) and the diversity of recommendations (the number of items that are recommended). These also help you tune the various model training parameters and evaluate which one works best.
 
-These metrics will be automatically computed if **evaluation files are provided** as part of model training input - See parameter *evaluationUsageFolderRelativeLocation * in [API Reference](api-reference.md#create-a-model). Common splitting strategies can be found at the end of this document.
+These metrics will be automatically computed if **evaluation files are provided** as part of model training input - See parameter *evaluationUsageRelativePath * in [API Reference](api-reference.md#create-a-model). Common splitting strategies can be found at the end of this document.
 
 ---
 #### Precision-at-k

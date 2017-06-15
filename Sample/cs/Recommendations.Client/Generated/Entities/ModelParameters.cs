@@ -19,17 +19,16 @@ namespace Recommendations.Client.Entities
         /// <summary>
         /// Initializes a new instance of the ModelParameters class.
         /// </summary>
-        /// <param name="usageFolderRelativeLocation">Usage file(s) folder
-        /// location relative to the container.</param>
+        /// <param name="usageRelativePath">Usage file\folder path relative to
+        /// the container.</param>
         /// <param name="description">Model description.</param>
         /// <param name="blobContainerName">The name of a blob container in
         /// the default storage account used by the service that stores the
         /// modeling files.</param>
-        /// <param name="catalogFileRelativeLocation">Catalog file location
-        /// relative to the container.</param>
-        /// <param name="evaluationUsageFolderRelativeLocation">Optional.
-        /// Evaluation file(s) folder location relative to the
-        /// container.</param>
+        /// <param name="catalogFileRelativePath">Catalog file path relative
+        /// to the container.</param>
+        /// <param name="evaluationUsageRelativePath">Optional. Evaluation
+        /// file\folder path relative to the container.</param>
         /// <param name="supportThreshold">How conservative the model is.
         /// Number of co-occurrences of items to be considered for
         /// modeling.</param>
@@ -72,13 +71,13 @@ namespace Recommendations.Client.Entities
         /// <param name="decayPeriodInDays">The decay period in days. The
         /// strength of the signal for events that are that many days old
         /// will be half that of the most recent events.</param>
-        public ModelParameters(string usageFolderRelativeLocation, string description = default(string), string blobContainerName = default(string), string catalogFileRelativeLocation = default(string), string evaluationUsageFolderRelativeLocation = default(string), int? supportThreshold = default(int?), CooccurrenceUnit? cooccurrenceUnit = default(CooccurrenceUnit?), SimilarityFunction? similarityFunction = default(SimilarityFunction?), bool? enableColdItemPlacement = default(bool?), bool? enableColdToColdRecommendations = default(bool?), bool? enableUserAffinity = default(bool?), bool? enableUserToItemRecommendations = default(bool?), bool? allowSeedItemsInRecommendations = default(bool?), bool? enableBackfilling = default(bool?), int? decayPeriodInDays = default(int?))
+        public ModelParameters(string usageRelativePath, string description = default(string), string blobContainerName = default(string), string catalogFileRelativePath = default(string), string evaluationUsageRelativePath = default(string), int? supportThreshold = default(int?), CooccurrenceUnit? cooccurrenceUnit = default(CooccurrenceUnit?), SimilarityFunction? similarityFunction = default(SimilarityFunction?), bool? enableColdItemPlacement = default(bool?), bool? enableColdToColdRecommendations = default(bool?), bool? enableUserAffinity = default(bool?), bool? enableUserToItemRecommendations = default(bool?), bool? allowSeedItemsInRecommendations = default(bool?), bool? enableBackfilling = default(bool?), int? decayPeriodInDays = default(int?))
         {
             Description = description;
             BlobContainerName = blobContainerName;
-            CatalogFileRelativeLocation = catalogFileRelativeLocation;
-            UsageFolderRelativeLocation = usageFolderRelativeLocation;
-            EvaluationUsageFolderRelativeLocation = evaluationUsageFolderRelativeLocation;
+            CatalogFileRelativePath = catalogFileRelativePath;
+            UsageRelativePath = usageRelativePath;
+            EvaluationUsageRelativePath = evaluationUsageRelativePath;
             SupportThreshold = supportThreshold;
             CooccurrenceUnit = cooccurrenceUnit;
             SimilarityFunction = similarityFunction;
@@ -105,24 +104,23 @@ namespace Recommendations.Client.Entities
         public string BlobContainerName { get; set; }
 
         /// <summary>
-        /// Gets or sets catalog file location relative to the container.
+        /// Gets or sets catalog file path relative to the container.
         /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "catalogFileRelativeLocation")]
-        public string CatalogFileRelativeLocation { get; set; }
+        [Newtonsoft.Json.JsonProperty(PropertyName = "catalogFileRelativePath")]
+        public string CatalogFileRelativePath { get; set; }
 
         /// <summary>
-        /// Gets or sets usage file(s) folder location relative to the
+        /// Gets or sets usage file\folder path relative to the container.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty(PropertyName = "usageRelativePath")]
+        public string UsageRelativePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets optional. Evaluation file\folder path relative to the
         /// container.
         /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "usageFolderRelativeLocation")]
-        public string UsageFolderRelativeLocation { get; set; }
-
-        /// <summary>
-        /// Gets or sets optional. Evaluation file(s) folder location relative
-        /// to the container.
-        /// </summary>
-        [Newtonsoft.Json.JsonProperty(PropertyName = "evaluationUsageFolderRelativeLocation")]
-        public string EvaluationUsageFolderRelativeLocation { get; set; }
+        [Newtonsoft.Json.JsonProperty(PropertyName = "evaluationUsageRelativePath")]
+        public string EvaluationUsageRelativePath { get; set; }
 
         /// <summary>
         /// Gets or sets how conservative the model is. Number of
@@ -217,9 +215,9 @@ namespace Recommendations.Client.Entities
         /// </exception>
         public virtual void Validate()
         {
-            if (UsageFolderRelativeLocation == null)
+            if (UsageRelativePath == null)
             {
-                throw new Microsoft.Rest.ValidationException(Microsoft.Rest.ValidationRules.CannotBeNull, "UsageFolderRelativeLocation");
+                throw new Microsoft.Rest.ValidationException(Microsoft.Rest.ValidationRules.CannotBeNull, "UsageRelativePath");
             }
             if (this.Description != null)
             {

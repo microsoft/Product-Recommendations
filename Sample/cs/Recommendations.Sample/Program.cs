@@ -163,9 +163,9 @@ namespace Recommendations.Sample
             var modelParameters = new ModelParameters(
                 description: "Sample created model",
                 blobContainerName: blobContainerName,
-                catalogFileRelativeLocation: sampleCatalogFileName, // the path to the uploaded catalog blob FILE 
-                usageFolderRelativeLocation: usageFolderName, // the path to the blob FOLDER containing the usage file(s)
-                evaluationUsageFolderRelativeLocation: null, // we are not using evaluation usage events files in this model
+                catalogFileRelativePath: sampleCatalogFileName, // the path to the uploaded catalog blob FILE 
+                usageRelativePath: usageFolderName, // the path to the blob folder containing the usage file(s)
+                evaluationUsageRelativePath: null, // we are not using evaluation usage events files in this model
                 supportThreshold: 3,
                 cooccurrenceUnit: CooccurrenceUnit.User,
                 similarityFunction: SimilarityFunction.Jaccard,
