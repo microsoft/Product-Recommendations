@@ -279,7 +279,7 @@ namespace Recommendations.Core.Train
             // create the trained model properties
             var modelProperties = new ModelProperties
             {
-                IncludeHistory = settings.EnableUserAffinity,
+                IncludeHistory = settings.AllowSeedItemsInRecommendations,
                 EnableUserAffinity = settings.EnableUserAffinity,
                 IsUserToItemRecommendationsSupported = settings.EnableUserToItemRecommendations,
                 Decay = TimeSpan.FromDays(settings.DecayPeriodInDays),
