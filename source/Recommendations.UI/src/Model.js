@@ -316,14 +316,14 @@ class Model extends React.Component {
                   <tr><td><b>Blob Container Name</b></td><td><b>Similarity Function</b></td></tr>
                   <tr><td>{display(this.props.model.parameters.blobContainerName)}</td><td>{display(this.props.model.parameters.similarityFunction)}</td></tr>
                   <tr><td></td></tr>
-                  <tr><td><b>Usage Folder Relative Location</b></td><td><b>Enable Cold Item Placement</b></td></tr>
-                  <tr><td>{display(this.props.model.parameters.usageFolderRelativeLocation)}</td><td>{display(this.props.model.parameters.enableColdItemPlacement)}</td></tr>
+                  <tr><td><b>Usage Folder\File Relative Path</b></td><td><b>Enable Cold Item Placement</b></td></tr>
+                  <tr><td>{display(this.props.model.parameters.usageRelativePath)}</td><td>{display(this.props.model.parameters.enableColdItemPlacement)}</td></tr>
                   <tr><td></td></tr>
-                  <tr><td><b>Catalog File Relative Location</b></td><td><b>Enable Cold to Cold Recommendations</b></td></tr>
-                  <tr><td>{display(this.props.model.parameters.catalogFileRelativeLocation)}</td><td>{display(this.props.model.parameters.enableColdToColdRecommendations)}</td></tr>
+                  <tr><td><b>Catalog File Relative Path</b></td><td><b>Enable Cold to Cold Recommendations</b></td></tr>
+                  <tr><td>{display(this.props.model.parameters.catalogFileRelativePath)}</td><td>{display(this.props.model.parameters.enableColdToColdRecommendations)}</td></tr>
                   <tr><td></td></tr>
-                  <tr><td><b>Evaluation Usage Folder Relative Location</b></td><td><b>Enable User Affinity</b></td></tr>
-                  <tr><td>{display(this.props.model.parameters.evaluationUsageFolderRelativeLocation)}</td><td>{display(this.props.model.parameters.enableUserAffinity)}</td></tr>
+                  <tr><td><b>Evaluation Usage Folder\File Relative Path</b></td><td><b>Enable User Affinity</b></td></tr>
+                  <tr><td>{display(this.props.model.parameters.evaluationUsageRelativePath)}</td><td>{display(this.props.model.parameters.enableUserAffinity)}</td></tr>
                   <tr><td></td></tr>
                   <tr><td><b>Support Threshold</b></td><td><b>Allow Seed Items in Recommendations</b></td></tr>
                   <tr><td>{display(this.props.model.parameters.supportThreshold)}</td><td>{display(this.props.model.parameters.allowSeedItemsInRecommendations)}</td></tr>

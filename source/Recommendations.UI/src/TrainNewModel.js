@@ -16,9 +16,9 @@ let convertModelArgs = strArgs => {
     return {
       description:                              nullableString(strArgs.description),
       blobContainerName:                                       strArgs.blobContainerName,
-      catalogFileRelativeLocation:              nullableString(strArgs.catalogFileRelativeLocation),
-      usageFolderRelativeLocation:                             strArgs.usageFolderRelativeLocation,
-      evaluationUsageFolderRelativeLocation:    nullableString(strArgs.evaluationUsageFolderRelativeLocation),
+      catalogFileRelativePath:              nullableString(strArgs.catalogFileRelativePath),
+      usageRelativePath:                             strArgs.usageRelativePath,
+      evaluationUsageRelativePath:    nullableString(strArgs.evaluationUsageRelativePath),
       supportThreshold:                         nullableInt   (strArgs.supportThreshold),
       cooccurrenceUnit:                         nullableString(strArgs.cooccurrenceUnit),
       similarityFunction:                       nullableString(strArgs.similarityFunction),
@@ -39,9 +39,9 @@ class TrainNewModel extends React.Component {
       args: {
         description: '',
         blobContainerName: '',
-        catalogFileRelativeLocation: '',
-        usageFolderRelativeLocation: '',
-        evaluationUsageFolderRelativeLocation: '',
+        catalogFileRelativePath: '',
+        usageRelativePath: '',
+        evaluationUsageRelativePath: '',
         supportThreshold: '6',
         cooccurrenceUnit: 'User',
         similarityFunction: 'Jaccard',
@@ -66,7 +66,7 @@ class TrainNewModel extends React.Component {
     };
     let argsAreValid = () => {
       return (isNotEmpty(this.state.args.blobContainerName)
-        && isNotEmpty(this.state.args.usageFolderRelativeLocation)
+        && isNotEmpty(this.state.args.usageRelativePath)
         && isNullableInt(this.state.args.supportThreshold)
         && isNullableInt(this.state.args.decayPeriodInDays));
     };
@@ -166,13 +166,13 @@ class TrainNewModel extends React.Component {
                 </tr>
                 
                 <tr>
-                  <td className='align-bottom'><ControlLabel>Usage Folder Relative Location <span className='normal'>(required)</span></ControlLabel></td>
+                  <td className='align-bottom'><ControlLabel>Usage Folder\File Relative Path<span className='normal'>(required)</span></ControlLabel></td>
                   <td className='align-bottom'><ControlLabel>Enable Cold to Cold Recommendations</ControlLabel></td>
                 </tr>
                 <tr>
                   <td>
-                    <FormGroup controlId='usageFolderRelativeLocation' validationState={validateIsNotEmpty(this.state.args.usageFolderRelativeLocation)}>
-                      <FormControl value={this.state.args.usageFolderRelativeLocation} componentClass='input' placeholder='Usage Folder Path in Blob Container' onChange={changeHandler} tabIndex='3' />
+                    <FormGroup controlId='usageRelativePath' validationState={validateIsNotEmpty(this.state.args.usageRelativePath)}>
+                      <FormControl value={this.state.args.usageRelativePath} componentClass='input' placeholder='Usage Folder\File Path in Blob Container' onChange={changeHandler} tabIndex='3' />
                     </FormGroup>
                   </td>
                   <td>
@@ -186,13 +186,13 @@ class TrainNewModel extends React.Component {
                 </tr>
                 
                 <tr>
-                  <td className='align-bottom'><ControlLabel>Evaluation Usage Folder Relative Location</ControlLabel></td>
+                  <td className='align-bottom'><ControlLabel>Evaluation Usage Folder\File Relative Path</ControlLabel></td>
                   <td className='align-bottom'><ControlLabel>Enable User Affinity</ControlLabel></td>
                 </tr>
                 <tr>
                   <td>
-                    <FormGroup controlId='evaluationUsageFolderRelativeLocation'>
-                      <FormControl value={this.state.args.evaluationUsageFolderRelativeLocation} componentClass='input' placeholder='Evaluation Usage Folder Path in Blob Container (Optional)' onChange={changeHandler} tabIndex='4' />
+                    <FormGroup controlId='evaluationUsageRelativePath'>
+                      <FormControl value={this.state.args.evaluationUsageRelativePath} componentClass='input' placeholder='Evaluation Usage Folder\File Path in Blob Container (Optional)' onChange={changeHandler} tabIndex='4' />
                     </FormGroup>
                   </td>
                   <td>
@@ -206,13 +206,13 @@ class TrainNewModel extends React.Component {
                 </tr>
                 
                 <tr>
-                  <td className='align-bottom'><ControlLabel>Catalog File Relative Location</ControlLabel></td>
+                  <td className='align-bottom'><ControlLabel>Catalog File Relative Path</ControlLabel></td>
                   <td className='align-bottom'><ControlLabel>Enable User to Item Recommendations</ControlLabel></td>
                 </tr>
                 <tr>
                   <td>
-                    <FormGroup controlId='catalogFileRelativeLocation'>
-                      <FormControl value={this.state.args.catalogFileRelativeLocation} componentClass='input' placeholder='Catalog File Path in Blob Container (Optional)' onChange={changeHandler} tabIndex='5' />
+                    <FormGroup controlId='catalogFileRelativePath'>
+                      <FormControl value={this.state.args.catalogFileRelativePath} componentClass='input' placeholder='Catalog File Path in Blob Container (Optional)' onChange={changeHandler} tabIndex='5' />
                     </FormGroup>
                   </td>
                   <td>
