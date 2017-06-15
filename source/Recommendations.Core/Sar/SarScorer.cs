@@ -96,6 +96,7 @@ namespace Recommendations.Core.Sar
                 {new RoleMappedSchema.ColumnRole("User"), "user"}
             };
 
+            string weightColumn = null;
             if (sarScoringArguments.ReferenceDate.HasValue)
             {
                 // rounding the reference date to the beginning of next day to optimize engine cache
@@ -107,7 +108,7 @@ namespace Recommendations.Core.Sar
                 }
 
                 dataColumnMapping.Add(new RoleMappedSchema.ColumnRole("Date"), "date");
-                dataColumnMapping.Add(RoleMappedSchema.ColumnRole.Weight, "weight");
+                weightColumn = "weight";
             }
 
             // create an engine cache key
@@ -119,7 +120,7 @@ namespace Recommendations.Core.Sar
             {
                 _tracer.TraceInformation("Engine is not cached - creating a new engine");
                 IDataView pipeline = _environment.CreateDataView(usageItems, _usageDataSchema);
-                RoleMappedData usageDataMappedData = _environment.CreateExamples(pipeline, null, custom: dataColumnMapping);
+                RoleMappedData usageDataMappedData = _environment.CreateExamples(pipeline, null, weight: weightColumn, custom: dataColumnMapping);
                 ISchemaBindableMapper mapper = RecommenderScorerTransform.Create(_environment, arguments, _recommender);
                 ISchemaBoundMapper boundMapper = mapper.Bind(_environment, usageDataMappedData.Schema);
                 IDataScorerTransform scorer = RecommenderScorerTransform.Create(

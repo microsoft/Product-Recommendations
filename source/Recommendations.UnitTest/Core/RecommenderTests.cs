@@ -72,6 +72,7 @@ namespace Recommendations.UnitTest.Core
             var trainingParameters = ModelTrainingParameters.Default;
             trainingParameters.EnableBackfilling = false;
             trainingParameters.EnableUserToItemRecommendations = true;
+            trainingParameters.AllowSeedItemsInRecommendations = true;
 
             Dictionary<string, Document> userHistory = null;
             IDocumentStore documentStore = Substitute.For<IDocumentStore>();

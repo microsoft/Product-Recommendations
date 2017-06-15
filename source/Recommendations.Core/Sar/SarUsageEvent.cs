@@ -35,7 +35,7 @@ namespace Recommendations.Core.Sar
         /// The event weight
         /// </summary>
         [ColumnName("weight")]
-        public float Weight = 0;
+        public float Weight = 1;
 
         /// <summary>
         /// Used only for JSON serialization

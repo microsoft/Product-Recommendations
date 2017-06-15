@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendations.Core", "Recommendations.Core\Recommendations.Core.csproj", "{223B4B0A-CD77-44EA-B155-638003D98562}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendations.WebApp", "Recommendations.WebApp\Recommendations.WebApp.csproj", "{275437D7-B041-4DEC-815C-A7ABD7CB9564}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EE593122-C23F-419B-9043-9FA9DDCAD781} = {EE593122-C23F-419B-9043-9FA9DDCAD781}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendations.Common", "Recommendations.Common\Recommendations.Common.csproj", "{F9CB9075-297F-4E65-A8DF-F30B3B3F8C04}"
 EndProject
