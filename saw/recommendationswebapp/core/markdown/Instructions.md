@@ -1,6 +1,6 @@
 ## Next Steps
 
-Congratulations, the Recommendations pre-configured solution has been deployed to your Azure subscription!!
+Congratulations, the Recommendations solution has been deployed to your Azure subscription!!
 You can use this service to train recommendation models and to get product recommendations.
 
 ### Deployment information

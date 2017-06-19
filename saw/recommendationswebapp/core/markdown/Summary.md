@@ -1,4 +1,4 @@
-# Recommendations Preconfigured Solution
+# Recommendations Solution
 
 This solution enables you to create product recommendations predictive models based on historical transaction data and information on the product catalog.
 At a high level, the solution exposes mechanisms to:

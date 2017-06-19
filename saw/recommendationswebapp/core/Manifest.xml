@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Template>
   <Category>DesignPattern</Category>
-  <Title>Recommendations Preconfigured Solution</Title>
+  <Title>Recommendations Solution</Title>
   <Owner displayname="Recommendations" email="mlapi@microsoft.com"/>
   <PublishedOn>04/14/2017</PublishedOn>
   <ImageUrl>{PatternAssetBaseUrl}/reco-pcs-logo.png</ImageUrl>
