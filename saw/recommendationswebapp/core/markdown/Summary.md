@@ -20,3 +20,5 @@ This solution creates the Azure resources necessary and connects them to generat
 
 
 ![Diagram]({PatternAssetBaseUrl}/highlevelarch.png)
+
+Learn more about the Recommendations Solution [here](http://github.com/Microsoft/Product-Recommendations).
