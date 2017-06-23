@@ -17,7 +17,7 @@ Clicking on the **Search** tab will expose all the service telemetry, including 
 
 ![Application Insights Search](../images/application-insights-search-page.png)
 
-Althogt you can search for traces\events directly from the *search* screen, consider clicking on the **Analytics** button - you'll be redirected to the analytics site where you'll get the full flexible search capability:
+Although you can search for traces\events directly from the *search* screen, consider clicking on the **Analytics** button - you'll be redirected to the analytics site where you'll get the full flexible search capability:
 
 ![Application Insights Analytics](../images/application-insights-analytics.png)
 
@@ -25,6 +25,11 @@ Althogt you can search for traces\events directly from the *search* screen, cons
 > ```` 
 > traces | where timestamp >= ago(1h) | sort by timestamp desc
 > ````
+> Also, if you want to see only warnings and errors, you could further filter as follow:
+> ```` 
+> traces | where severityLevel > 1 | where timestamp >= ago(1h) | sort by timestamp desc
+> ````
+>
  
 You can learn more about [Application Insights here](https://azure.microsoft.com/en-us/services/application-insights/).
 
