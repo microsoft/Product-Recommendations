@@ -31,11 +31,12 @@ namespace Recommendations.UnitTest.Core
 
             // create catalog items
             IList<SarCatalogItem> catalogItems;
+            string[] featureNames;
             string catalogFilePath = Path.Combine(baseFolder, "catalog.csv");
             generator.CreateCatalogFile(catalogFilePath);
             var itemIdsIndex = new ConcurrentDictionary<string, uint>();
             var catalogParser = new CatalogFileParser(0, itemIdsIndex);
-            var parsingReport = catalogParser.ParseCatalogFile(catalogFilePath, CancellationToken.None, out catalogItems);
+            var parsingReport = catalogParser.ParseCatalogFile(catalogFilePath, CancellationToken.None, out catalogItems, out featureNames);
             Assert.IsTrue(parsingReport.IsCompletedSuccessfuly);
             
             // create usage items
@@ -50,9 +51,10 @@ namespace Recommendations.UnitTest.Core
             
             int count = 0;
             var sarTrainer = new SarTrainer();
+            IDictionary<string, double> catalogFeatureWeights;
             foreach (IModelTrainerSettings settings in GetAllModelTrainingParameters())
             {
-                IPredictorModel model = sarTrainer.Train(settings, usageEvents, catalogItems, userIdsIndex.Count, itemIdsIndex.Count);
+                IPredictorModel model = sarTrainer.Train(settings, usageEvents, catalogItems, featureNames, userIdsIndex.Count, itemIdsIndex.Count, out catalogFeatureWeights);
                 Assert.IsNotNull(model, $"Expected training to complete successfully when using settings#{count}: {settings}");
                 count++;
             }

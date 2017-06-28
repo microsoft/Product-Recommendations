@@ -593,7 +593,7 @@ The following table specifies the schema of the *model training statistics* JSON
 | numberOfUsageItems | number | The total number of valid (which are present in catalog if provided) unique items found in usage file(s)
 | catalogCoverage | number | The ratio of unique items found in usage file(s) and total items in catalog
 | evaluation | [Model Evaluation Schema](#model-evaluation-schema) | The model evaluation metrics
-| catalogFeatureWeights | Array of numbers | The calculated catalog feature's weights
+| catalogFeatureWeights | [Catalog Feature Weights Schema](#catalog-feature-weights-schema) | The calculated catalog feature's weights
 
 ## Parsing Report Schema
 
@@ -672,6 +672,15 @@ The following table specifies the schema of the *model diversity percentile buck
 | min | number | The beginning percentile of the popularity bucket (inclusive)
 | max | number | The ending percentile of the popularity bucket (exclusive)
 | percentage | number | The fraction of all recommended users that belong to the specified popularity bucket
+
+## Catalog Feature Weights Schema
+
+The following table specifies the schema of the *catalog feature weights* JSON object:
+
+| Property Name  | Type   | Description |
+|----------------|--------|-------------|
+| feature name   | string | Feature name as appeared in the catalog items features. See [Feature List Schema](#schema-details)
+| feature weight | number | The calculated weight of the feature. Features with higher **absolute** value indicate greater significance in the model when determining cold items correlations (cold items are catalog items that have no usage events). Negative weights indicate a reverse correlation, i.e. items that share the same value of a feature with a negative weight are considered less correlated
 
 ## Get Recommendations Usage Event
 

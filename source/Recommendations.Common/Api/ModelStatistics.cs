@@ -3,6 +3,7 @@
 
 using System;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Recommendations.Common.Api
 {
@@ -75,6 +76,6 @@ namespace Recommendations.Common.Api
         /// The calculated catalog feature weights
         /// </summary>
         [JsonProperty("catalogFeatureWeights")]
-        public double[] CatalogFeatureWeights { get; set; }
+        public IDictionary<string, double> CatalogFeatureWeights { get; set; }
     }
 }

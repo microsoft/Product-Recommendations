@@ -421,3 +421,8 @@ table.modal-data > tbody > tr > td {
   display: inline-block;
   padding: 10px 20px;
 }
+
+.feature-weight {
+  display: inline-block;
+  padding: 5px 5px;
+}

@@ -21,7 +21,7 @@ namespace Recommendations.Core.Sar
         /// Gets the features weights as calculated by the training process or empty list 
         /// if no features were found
         /// </summary>
-        public double[] FeatureWeights => _detectedFeatureWeights?.ToArray();
+        public IDictionary<string, double> FeatureWeights { get; private set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="SarTrainer"/> class.
@@ -38,16 +38,20 @@ namespace Recommendations.Core.Sar
         /// <param name="settings">The training settings</param>
         /// <param name="usageEvents">The usage events to use for training</param>
         /// <param name="catalogItems">The catalog items to use for training</param>
+        /// <param name="featureNames">The names of the catalog items features, in the same order as the feature values in the catalog</param>
         /// <param name="uniqueUsersCount">The number of users in the user id index file.</param>
         /// <param name="uniqueUsageItemsCount">The number of usage items in the item id index file</param>
+        /// <param name="catalogFeatureWeights">The computed catalog items features weights (if relevant)</param>
         public IPredictorModel Train(ITrainingSettings settings,
             IList<SarUsageEvent> usageEvents,
             IList<SarCatalogItem> catalogItems,
+            string[] featureNames,
             int uniqueUsersCount,
-            int uniqueUsageItemsCount)
+            int uniqueUsageItemsCount,
+            out IDictionary<string, double> catalogFeatureWeights)
         {
-            return Train(settings, usageEvents, catalogItems, uniqueUsersCount, uniqueUsageItemsCount,
-                CancellationToken.None);
+            return Train(settings, usageEvents, catalogItems, featureNames, uniqueUsersCount, uniqueUsageItemsCount,
+                out catalogFeatureWeights, CancellationToken.None);
         }
 
         /// <summary>
@@ -56,14 +60,18 @@ namespace Recommendations.Core.Sar
         /// <param name="settings">The training settings</param>
         /// <param name="usageEvents">The usage events to use for training</param>
         /// <param name="catalogItems">The catalog items to use for training</param>
+        /// <param name="featureNames">The names of the catalog items features, in the same order as the feature values in the catalog</param>
         /// <param name="uniqueUsersCount">The number of users in the user id index file.</param>
         /// <param name="uniqueUsageItemsCount">The number of usage items in the item id index file</param>
+        /// <param name="catalogFeatureWeights">The computed catalog items features weights (if relevant)</param>
         /// <param name="cancellationToken">A cancellation token</param>
         public IPredictorModel Train(ITrainingSettings settings,
             IList<SarUsageEvent> usageEvents,
             IList<SarCatalogItem> catalogItems,
+            string[] featureNames,
             int uniqueUsersCount,
             int uniqueUsageItemsCount,
+            out IDictionary<string, double> catalogFeatureWeights,
             CancellationToken cancellationToken)
         {
             if (settings == null)
@@ -109,8 +117,20 @@ namespace Recommendations.Core.Sar
                     using (cancellationToken.Register(() => { environmentHost.StopExecution(); }))
                     {
                         _tracer.TraceInformation("Starting training model using SAR");
-                        return TrainModel(environmentHost, settings, usageEvents, catalogItems, uniqueUsersCount,
+                        IPredictorModel model = TrainModel(environmentHost, settings, usageEvents, catalogItems, uniqueUsersCount,
                             uniqueUsageItemsCount);
+
+                        catalogFeatureWeights = new Dictionary<string, double>();
+                        if (_detectedFeatureWeights != null && featureNames != null &&
+                            _detectedFeatureWeights.Length == featureNames.Length)
+                        {
+                            for(int i = 0; i < featureNames.Length; i++)
+                            {
+                                catalogFeatureWeights[featureNames[i]] = _detectedFeatureWeights[i];
+                            }
+                        }
+
+                        return model;
                     }
                 }
                 finally
@@ -236,7 +256,7 @@ namespace Recommendations.Core.Sar
                 }
             }
         }
-        
+
         private double[] _detectedFeatureWeights;
         private readonly ITracer _tracer;
     }

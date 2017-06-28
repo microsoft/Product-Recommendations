@@ -3,6 +3,7 @@
 
 using Recommendations.Core.Evaluate;
 using Recommendations.Core.Parsing;
+using System.Collections.Generic;
 
 namespace Recommendations.Core.Train
 {
@@ -69,6 +70,6 @@ namespace Recommendations.Core.Train
         /// <summary>
         /// Gets or sets the calculated catalog feature weights
         /// </summary>
-        public double[] CatalogFeatureWeights { get; set; }
+        public IDictionary<string, double> CatalogFeatureWeights { get; set; }
     }
 }

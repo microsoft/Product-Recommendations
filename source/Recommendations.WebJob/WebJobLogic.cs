@@ -250,11 +250,11 @@ namespace Recommendations.WebJob
                 CatalogCoverage =
                     result.CatalogItemsCount != null &&
                     result.CatalogItemsCount != 0
-                        ? (double) result.UniqueItemsCount/ result.CatalogItemsCount
+                        ? (double)result.UniqueItemsCount / result.CatalogItemsCount
                         : null,
 
                 // set the catalog features weights, if calculated
-                CatalogFeatureWeights = result.CatalogFeatureWeights
+                CatalogFeatureWeights = result.CatalogFeatureWeights?.Count > 0 ? result.CatalogFeatureWeights : null
             };
 
             // set the evaluation statistics if available 

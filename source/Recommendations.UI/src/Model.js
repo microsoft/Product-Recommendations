@@ -92,6 +92,25 @@ function toPrecisionTable(src) {
   };
 }
 
+function objToPropertiesArray(obj) {
+    var properties = [];
+    let type = typeof(obj);
+    if (type === 'object') {
+        if (obj.constructor === Array) {
+            var len = obj.length;
+            for (var i = 0; i < len; i++) {
+                properties.push({ name: '', value: obj[i]});
+            }
+        } else {
+            for (var key in obj) {
+                properties.push({ name: key, value: obj[key]});
+            }        
+        }
+    }
+    
+    return properties;
+}
+
 class Model extends React.Component {
   constructor(props) {
     super(props);
@@ -240,8 +259,8 @@ class Model extends React.Component {
                             rows.push(<tr key='usageEventsParsingLinesParsedTitle'><td><b>Usage Lines Parsed</b></td><td><b>Usage Parsing Duration</b></td></tr>);
                             rows.push(<tr key='usageEventsParsingLinesParsedValue'><td>{display(this.props.model.statistics.usageEventsParsing.totalLinesCount)}</td><td>{display(this.props.model.statistics.usageEventsParsing.duration)}</td></tr>);
                             rows.push(<tr key='usageEventsParsingLinesParsedSpacer'><td></td></tr>);
-                            rows.push(<tr key='usageEventsParsingSuccessfulLinesTitle'><td><b>Successful Usage Lines</b></td><td><b></b></td></tr>);
-                            rows.push(<tr key='usageEventsParsingSuccessfulLinesValue'><td>{display(this.props.model.statistics.usageEventsParsing.successfulLinesCount)}</td><td></td></tr>);
+                            rows.push(<tr key='usageEventsParsingSuccessfulLinesTitle'><td><b>Successful Usage Lines</b></td><td><b>Number of Catalog Items</b></td></tr>);
+                            rows.push(<tr key='usageEventsParsingSuccessfulLinesValue'><td>{display(this.props.model.statistics.usageEventsParsing.successfulLinesCount)}</td><td>{display(this.props.model.statistics.numberOfCatalogItems)}</td></tr>);
                             rows.push(<tr key='usageEventsParsingSuccessfulLinesSpacer'><td></td></tr>);
                             
                             if (!!this.props.model.statistics.usageEventsParsing.errors && this.props.model.statistics.usageEventsParsing.errors.length > 0) {
@@ -268,21 +287,30 @@ class Model extends React.Component {
                           let rows = [];
                           if (!!this.props.model.statistics.catalogParsing) {
                             if (!!this.props.model.statistics.numberOfCatalogItems) {
-                              rows.push(<tr key='catalogItemsTitle'><td><b>Number of Catalog Items</b></td><td><b>Catalog Coverage</b></td></tr>);
-                              rows.push(<tr key='catalogItemsValue'><td>{display(this.props.model.statistics.numberOfCatalogItems)}</td><td>{display((this.props.model.statistics.catalogCoverage*100)+'%')}</td></tr>);
+                              rows.push(<tr key='catalogItemsTitle'><td><b>Catalog Lines Parsed</b></td><td><b>Catalog Coverage</b></td></tr>);
+                              rows.push(<tr key='catalogItemsValue'><td>{display(this.props.model.statistics.catalogParsing.totalLinesCount)}</td><td>{display((this.props.model.statistics.catalogCoverage*100)+'%')}</td></tr>);
                               rows.push(<tr key='catalogItemsSpacer'><td></td></tr>);
                             }
-                            if (!!this.props.model.statistics.catalogFeatureWeights && this.props.model.statistics.catalogFeatureWeights.length > 0) {
+
+                            rows.push(<tr key='catalogParsingReportTitle1'><td><b>Successful Catalog Lines</b></td><td><b>Catalog Parsing Duration</b></td></tr>);
+                            rows.push(<tr key='catalogParsingReportValue1'><td>{display(this.props.model.statistics.catalogParsing.successfulLinesCount)}</td><td>{display(this.props.model.statistics.catalogParsing.duration)}</td></tr>);
+                            rows.push(<tr key='catalogParsingReportSpacer1'><td></td></tr>);
+                            
+                            if (!!this.props.model.statistics.catalogFeatureWeights) {
                               rows.push(<tr key='catalogFeatureWeightsTitle'><td colSpan={2}><b>Catalog Feature Weights</b></td></tr>);
-                              rows.push(<tr key='catalogFeatureWeightsValue'><td colSpan={2}>{display(this.props.model.statistics.catalogFeatureWeights)}</td></tr>);
+                              rows.push(<tr key='catalogFeatureWeightsValue'>
+                                <td colSpan={2}>
+                                  {objToPropertiesArray(this.props.model.statistics.catalogFeatureWeights)
+                                  .sort(function(f1, f2){return Math.abs(f2.value) - Math.abs(f1.value)})
+                                  .map(feature => (
+                                    <div key={feature.name} className='feature-weight'>
+                                      <b>{feature.name}</b>: {feature.value}
+                                    </div>
+                                  ))}
+                                </td></tr>);
                               rows.push(<tr key='catalogFeatureWeightsSpacer'><td></td></tr>);
                             }
-                            rows.push(<tr key='catalogParsingReportTitle1'><td><b>Catalog Lines Parsed</b></td><td><b>Catalog Parsing Duration</b></td></tr>);
-                            rows.push(<tr key='catalogParsingReportValue1'><td>{display(this.props.model.statistics.catalogParsing.totalLinesCount)}</td><td>{display(this.props.model.statistics.catalogParsing.duration)}</td></tr>);
-                            rows.push(<tr key='catalogParsingReportSpacer1'><td></td></tr>);
-                            rows.push(<tr key='catalogParsingReportTitle2'><td><b>Successful Catalog Lines</b></td><td><b></b></td></tr>);
-                            rows.push(<tr key='catalogParsingReportValue2'><td>{display(this.props.model.statistics.catalogParsing.successfulLinesCount)}</td><td></td></tr>);
-                            rows.push(<tr key='catalogParsingReportSpacer2'><td></td></tr>);
+
                             if (!!this.props.model.statistics.catalogParsing.errors && this.props.model.statistics.catalogParsing.errors.length > 0) {
                               rows.push(<tr key='catalogParsingErrorsTitle'><td colSpan={2}><b>Catalog Parsing Errors</b></td></tr>);
                               rows.push(<tr key='catalogParsingErrorsValue'>

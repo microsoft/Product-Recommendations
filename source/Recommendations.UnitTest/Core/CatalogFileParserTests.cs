@@ -26,9 +26,10 @@ namespace Recommendations.UnitTest.Core
             generator.CreateCatalogFile(catalogFile);
 
             IList<SarCatalogItem> catalogItems;
+            string[] featureNames;
             var parser = new CatalogFileParser();
             FileParsingReport report =
-                parser.ParseCatalogFile(catalogFile, CancellationToken.None, out catalogItems);
+                parser.ParseCatalogFile(catalogFile, CancellationToken.None, out catalogItems, out featureNames);
 
             Assert.IsNotNull(report);
             Assert.IsTrue(report.IsCompletedSuccessfuly);

@@ -40,7 +40,7 @@ namespace Recommendations.Client.Entities
         /// <param name="evaluation">The model evaluation report</param>
         /// <param name="catalogFeatureWeights">The calculated catalog feature
         /// weights</param>
-        public ModelStatistics(string totalDuration = default(string), string trainingDuration = default(string), string storingUserHistoryDuration = default(string), ParsingReport catalogParsing = default(ParsingReport), ParsingReport usageEventsParsing = default(ParsingReport), int? numberOfCatalogItems = default(int?), int? numberOfUsageItems = default(int?), int? numberOfUsers = default(int?), double? catalogCoverage = default(double?), ModelEvaluationResult evaluation = default(ModelEvaluationResult), System.Collections.Generic.IList<double?> catalogFeatureWeights = default(System.Collections.Generic.IList<double?>))
+        public ModelStatistics(string totalDuration = default(string), string trainingDuration = default(string), string storingUserHistoryDuration = default(string), ParsingReport catalogParsing = default(ParsingReport), ParsingReport usageEventsParsing = default(ParsingReport), int? numberOfCatalogItems = default(int?), int? numberOfUsageItems = default(int?), int? numberOfUsers = default(int?), double? catalogCoverage = default(double?), ModelEvaluationResult evaluation = default(ModelEvaluationResult), System.Collections.Generic.IDictionary<string, double?> catalogFeatureWeights = default(System.Collections.Generic.IDictionary<string, double?>))
         {
             TotalDuration = totalDuration;
             TrainingDuration = trainingDuration;
@@ -122,7 +122,7 @@ namespace Recommendations.Client.Entities
         /// Gets or sets the calculated catalog feature weights
         /// </summary>
         [Newtonsoft.Json.JsonProperty(PropertyName = "catalogFeatureWeights")]
-        public System.Collections.Generic.IList<double?> CatalogFeatureWeights { get; set; }
+        public System.Collections.Generic.IDictionary<string, double?> CatalogFeatureWeights { get; set; }
 
     }
 }

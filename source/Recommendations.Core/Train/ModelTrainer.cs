@@ -134,6 +134,7 @@ namespace Recommendations.Core.Train
             
             // parse the catalog file
             IList<SarCatalogItem> catalogItems = null;
+            string[] catalogFeatureNames = null;
             if (!string.IsNullOrWhiteSpace(catalogFilePath) && File.Exists(catalogFilePath))
             {
                 // report progress
@@ -144,7 +145,7 @@ namespace Recommendations.Core.Train
 
                 // parse the catalog file
                 result.CatalogFilesParsingReport = catalogParser.ParseCatalogFile(catalogFilePath, cancellationToken,
-                    out catalogItems);
+                    out catalogItems, out catalogFeatureNames);
 
                 // record the catalog parsing duration
                 duration.SetCatalogParsingDuration();
@@ -270,9 +271,10 @@ namespace Recommendations.Core.Train
             _progressMessageReportDelegate("Core Training");
 
             _tracer.TraceInformation("Training a new model using SAR trainer");
+            IDictionary<string, double> catalogFeatureWeights;
             var sarTrainer = new SarTrainer(_tracer);
-            IPredictorModel sarModel = sarTrainer.Train(settings, usageEvents, catalogItems, result.UniqueUsersCount,
-                result.CatalogItemsCount ?? result.UniqueItemsCount, cancellationToken);
+            IPredictorModel sarModel = sarTrainer.Train(settings, usageEvents, catalogItems, catalogFeatureNames, result.UniqueUsersCount,
+                result.CatalogItemsCount ?? result.UniqueItemsCount, out catalogFeatureWeights, cancellationToken);
 
             _tracer.TraceInformation("SAR training was completed.");
 
@@ -291,7 +293,7 @@ namespace Recommendations.Core.Train
             result.Model = new TrainedModel(sarModel, modelProperties, itemIdsIndex);
 
             // set the catalog features weights
-            result.CatalogFeatureWeights = sarTrainer.FeatureWeights;
+            result.CatalogFeatureWeights = catalogFeatureWeights;
 
             // record the core training duration
             duration.SetTrainingDuration();

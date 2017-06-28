@@ -38,11 +38,13 @@ namespace Recommendations.Core.Parsing
         /// <param name="catalogFilePath">The file to parse</param>
         /// <param name="cancellationToken">A cancellation token used to abort the operation</param>
         /// <param name="catalogItems">The parsed catalog items</param>
+        /// <param name="featureNames">The parsed names of the catalog items features, in the same order as the feature values in the catalog</param>
         /// <returns>The parsing report</returns>
         public FileParsingReport ParseCatalogFile(
             string catalogFilePath,
             CancellationToken cancellationToken,
-            out IList<SarCatalogItem> catalogItems)
+            out IList<SarCatalogItem> catalogItems,
+            out string[] featureNames)
         {
             if (string.IsNullOrWhiteSpace(catalogFilePath))
             {
@@ -63,6 +65,7 @@ namespace Recommendations.Core.Parsing
             if (!parsingReport.IsCompletedSuccessfuly)
             {
                 catalogItems = new List<SarCatalogItem>(0);
+                featureNames = new string[0];
                 _tracer.TraceError("Failed parsing catalog file");
                 return parsingReport;
             }
@@ -70,10 +73,11 @@ namespace Recommendations.Core.Parsing
             cancellationToken.ThrowIfCancellationRequested();
             
             // clear the feature index as it is no longer needed
-            int numberOfFeatures = featureNamesIndex.Count;
+            featureNames = featureNamesIndex.OrderBy(kvp => kvp.Value).Select(kvp => kvp.Key).ToArray();
             featureNamesIndex.Clear();
 
             // inflate feature vectors
+            int numberOfFeatures = featureNames.Length;
             catalogItems = parsedCatalogItems.Select(item => InflateFeaturesVector(item, numberOfFeatures)).ToList();
 
             _tracer.TraceInformation("Finished catalog file parsing");
