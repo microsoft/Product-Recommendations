@@ -121,12 +121,19 @@ namespace Recommendations.Core.Sar
                             uniqueUsageItemsCount);
 
                         catalogFeatureWeights = new Dictionary<string, double>();
-                        if (_detectedFeatureWeights != null && featureNames != null &&
-                            _detectedFeatureWeights.Length == featureNames.Length)
+                        if (_detectedFeatureWeights != null && featureNames != null)
                         {
-                            for(int i = 0; i < featureNames.Length; i++)
+                            if ( _detectedFeatureWeights.Length == featureNames.Length)
                             {
-                                catalogFeatureWeights[featureNames[i]] = _detectedFeatureWeights[i];
+                                for (int i = 0; i < featureNames.Length; i++)
+                                {
+                                    catalogFeatureWeights[featureNames[i]] = _detectedFeatureWeights[i];
+                                }
+                            }
+                            else
+                            {
+                                _tracer.TraceWarning(
+                                    $"Found a mismatch between number of feature names ({featureNames.Length}) and the number of feature weights ({_detectedFeatureWeights.Length})");
                             }
                         }
 
@@ -242,17 +249,15 @@ namespace Recommendations.Core.Sar
                 int featureWeightsIndex = channelMessage.Message.LastIndexOf(featureWeightsPrefix, StringComparison.InvariantCultureIgnoreCase);
                 if (featureWeightsIndex > 0)
                 {
-                    double[] featureWeights =
+                    _detectedFeatureWeights =
                         channelMessage.Message?.Substring(featureWeightsIndex + featureWeightsPrefix.Length)
-                            .Split(',').Select(str =>
+                            .Split(',')
+                            .Select(str =>
                             {
                                 double weight;
                                 return double.TryParse(str, out weight) ? weight : -1;
-                            }).ToArray();
-                    if (featureWeights.All(weight => weight > 0))
-                    {
-                        _detectedFeatureWeights = featureWeights;
-                    }
+                            })
+                            .ToArray();
                 }
             }
         }
