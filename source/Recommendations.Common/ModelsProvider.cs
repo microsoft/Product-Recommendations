@@ -258,8 +258,8 @@ namespace Recommendations.Common
                     }
                 }
 
-                // download the catalog file, if provided
-                if (!string.IsNullOrWhiteSpace(trainingParameters.CatalogFileRelativePath))
+                // download the catalog file, if required and provided
+                if (trainingParameters.EnableColdItemPlacement && !string.IsNullOrWhiteSpace(trainingParameters.CatalogFileRelativePath))
                 {
                     // set local catalog file path
                     var catalogFileName = Path.GetFileName(trainingParameters.CatalogFileRelativePath);

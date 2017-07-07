@@ -67,7 +67,7 @@ namespace Recommendations.WebJob
             }
             catch (Exception exception)
             {
-                string errorMessage = $"Training of model failed with exception: '{exception}'";
+                string errorMessage = $"Training #{dequeueCount} out of {MaxDequeueCount} failed with exception: '{exception}'";
                 Trace.TraceWarning(errorMessage);
 
                 Trace.TraceInformation($"Updating model '{modelId}' status message with the error message: '{errorMessage}'");
