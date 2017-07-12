@@ -344,14 +344,14 @@ The response body will be a JSON array of [Recommendation Objects](#recommendati
 >    },
 >    {
 >       "itemId": "ItemId456",
->       "eventType": "Purchase",
+>       "eventType": "Purchase"
 >    },
 >    {
 >       "itemId": "ItemId789",
->       "weight": 2.3,
+>       "weight": 2.3
 >    },
 >    {
->       "itemId": "ItemId135",
+>       "itemId": "ItemId135"
 >    }
 >]
 >```
