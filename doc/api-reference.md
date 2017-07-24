@@ -118,6 +118,14 @@ The **response** body will contain a [Model](#model-object-schema) JSON object.
 >}
 >```
 
+If you would like to train a "Frequently Bought Together" model:
+
+-	Set “enableUserAffinity” to false since you don’t need the time of the event or the event type to be used as inputs into the recommendation request.
+-	Set the “supportThreshold” based on the minimum number of co-occurrences that you want items to appear together in a transaction to be used in the model.
+-	Set “cooccurrenceUnit”. You can set to “Timestamp” if you want baskets to be modelled based on transactions that occurred at the same time in the check-out. If that is too strict, you can set to “User”.
+-	Set the “similarityFunction” desired. We would recommend starting with Jaccard. 
+
+
 ### Catalog File Schema
 The catalog file contains information about the items you are offering to your customer.
 The catalog data should follow the following format:
