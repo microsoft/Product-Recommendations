@@ -125,3 +125,7 @@ Application Insights can simply be disabled by removing the key/value - *Applica
 #### Q. How can I deploy a code change?
 
 See [Post Deployments](deployment-instructions.md#post-deployments).
+
+#### Q. How can I access the recommendations UI/Portal?
+
+*<endpoint>\ui* will open the portal. The *adminKey* will be needed to access it.
