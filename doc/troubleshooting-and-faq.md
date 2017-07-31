@@ -83,7 +83,6 @@ As explained in the *High Level Architecture section* of [README](../README.md),
 | tableClientLinearRetryDeltaBackoffSeconds | 0.5 seconds | Back-off interval between retries.  |
 | tableClientLinearRetryMaxAttempts | 5 | Maximum retry attempts. |
 
-
 If desired, these values can be over-written by adding the above parameter in *Application Settings* of the *App Service.*
 
 ![App Settings Configuration](../images/app-settings-configuration.png)
@@ -128,4 +127,4 @@ See [Post Deployments](deployment-instructions.md#post-deployments).
 
 #### Q. How can I access the recommendations UI/Portal?
 
-*<endpoint>\ui* will open the portal. The *adminKey* will be needed to access it.
+*endpoint\ui* will open the portal. The *adminKey* will be needed to access it.
