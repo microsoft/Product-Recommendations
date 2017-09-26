@@ -94,6 +94,10 @@ There are two possible scenarios where scoring latency could be degraded.
 One idea is to [deploy](deployment-instructions.md) two instances  of the service, reconfigure the second service to have the same  *Application Settings*, specifically the two *Connection Strings* - *AzureWebJobsDashboard* and *AzureWebJobsStorage*. Use first deployment exclusively for training and second exclusively for scoring. This would ensure that training doesn't effect scoring.
 ![App Settings Connectionstrings](../images/app-settings-connectionstrings.png)
 
+#### 9. Cannot open UI when running locally - HTTP Error 500.19 - Internal Server Error
+To fix that, edit **RecommendationCore\source\.vs\config\applicationhost.config** file and  
+update **system.webServer -> sercurity -> access -> overrideModeDefault** from **Deny** to **Allow**
+
 
 ## Frequently Asked Questions:
 
