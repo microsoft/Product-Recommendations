@@ -184,8 +184,8 @@ A usage file is a CSV (comma separated value) file where each row in a usage fil
 | User Id |Yes |[A-z], [a-z], [0-9], [_] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br/> Max length: 255 |Unique identifier of a user. |
 | Item Id |Yes |[A-z], [a-z], [0-9], [&#95;] &#40;Underscore&#41;, [-] &#40;Dash&#41;<br/> Max length: 450 |Unique identifier of an item. |
 | Time |Yes |Date in ISO 8601 format:<br/>**yyyy-MM-ddTHH:mm:ss**<br/>(e.g. 2017-04-20T18:00:00) |The time of the event |
-| Event Type<br/><br/><br/>*only used in [model evaluation](#model-evaluation.md) |No |One of the following:<br/> **Click** (=weight of 1)<br/>**RecommendationClick** (=weight of 2)<br/>**AddShopCart** (=weight of 3)<br/>**RemoveShopCart** (=weight of -1)<br/>**Purchase** (=weight of 4)<br/> (defaults to **Click**)|The type of transaction. <br/>This will be used to determain the event strength. <br/><br/> *used only if *Custom Event Weight* is not provided. | 
-| Custom Event Weight <br/><br/>*only used in [model evaluation](#model-evaluation.md)|No |number | The trasaction strength.<br/><br/>*if provided, *Evnet Type* will be ignored. | 
+| Event Type<br/><br/><br/>*only used in [model evaluation](#model-evaluation.md) |No |One of the following:<br/> **Click** (=weight of 1)<br/>**RecommendationClick** (=weight of 2)<br/>**AddShopCart** (=weight of 3)<br/>**RemoveShopCart** (=weight of -1)<br/>**Purchase** (=weight of 4)<br/> (defaults to **Click**)|The type of transaction. <br/>This will be used to determine the event strength. <br/><br/> *used only if *Custom Event Weight* is not provided. | 
+| Custom Event Weight <br/><br/>*only used in [model evaluation](#model-evaluation.md)|No |number | The trasaction strength.<br/><br/>*if provided, *Event Type* will be ignored. | 
 
 #### Sample Rows in a Usage File
     00037FFEA61FCA16,288186200,2015-08-14T11:02:52,Click 
@@ -699,7 +699,7 @@ The following table specifies the schema of the *usage event* JSON object used i
 | **itemId** | string | An item id to get recommendations for | 
 | timestamp |  ISO 8601 format:<br/>**yyyy-MM-ddTHH:mm:ss**<br/> | The timestamp of event | Current UTC date and time
 | eventType | One of the following string values:<br/>**Click** (=weight of 1)<br/>**RecommendationClick** (=weight of 2)<br/>**AddShopCart** (=weight of 3)<br/>**RemoveShopCart** (=weight of -1)<br/>**Purchase** (=weight of 4)<br/> | The event type. This will determain the event strength **only if _weight_** is not provided | Click
-| weight | number | Custom event strength. If provided, **_evnetType_ will be ignored** | 1.0
+| weight | number | Custom event strength. If provided, **_eventType_ will be ignored** | 1.0
 
 ## Recommendation Object Schema
 
