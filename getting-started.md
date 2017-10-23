@@ -108,7 +108,7 @@ The response will look something like this:
 You can learn more about this API call use this [API Reference](doc/api-reference.md#get-item-to-item-recommendations).
 
 If you want to get personalized recommendations you will need to pass the list of recent transactions for a particular user as part of the body. 
-For instance, the request below is for getting recommendations for a customer that purchased item 316569321 in Febrary, and then clicked item 6480764 in March.
+For instance, the request below is for getting recommendations for a customer that purchased item 316569321 in February, and then clicked item 6480764 in March.
 
 ```
 POST https://<service_name>.azurewebsites.net/swagger/api/models/e16198c0-3a72-4f4d-b8ab-e4c07c9bccdb/recommend HTTP/1.1
