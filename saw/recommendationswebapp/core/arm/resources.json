@@ -25,7 +25,10 @@
         "S3",
         "P1",
         "P2",
-        "P3"
+        "P3",
+        "P1v2",
+        "P2v2",
+        "P3v2"
       ],
       "defaultValue": "S2",
       "metadata": {

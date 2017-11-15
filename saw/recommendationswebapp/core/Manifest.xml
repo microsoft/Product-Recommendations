@@ -2,7 +2,10 @@
 <Template>
   <Category>DesignPattern</Category>
   <Title>Recommendations Solution</Title>
-  <Owner displayname="Recommendations" email="mlapi@microsoft.com"/>
+  <Owners>
+    <Owner displayname="Recommendations" email="mlapi@microsoft.com"/>
+    <Owner displayname="Nati Nimni" email="natinimn@microsoft.com" />
+  </Owners>
   <PublishedOn>04/14/2017</PublishedOn>
   <ImageUrl>{PatternAssetBaseUrl}/reco-pcs-logo.png</ImageUrl>
   <Description>This solution enables you to create product recommendations predictive models based on historical transaction data and information on the product catalog. The solution exposes mechanisms to train models and request recommendations from those models.</Description> 
@@ -16,7 +19,7 @@
       <Instructions src="markdown\AppService.md" format="markdown" />
       <Parameters>
         <Parameter name="hostingPlanSku">
-          <ExtraDescription>(B=Basic, S=Standard, P=Premium)</ExtraDescription>
+          <ExtraDescription>(B=Basic, S=Standard, P=Premium, Pv2=PremiumV2)</ExtraDescription>
         </Parameter>
         <Parameter name="accountType" hidden="true"/>
         <Parameter name="appInsightsLocation" hidden="true" />
