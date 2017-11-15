@@ -280,9 +280,8 @@ namespace Recommendations.Core.Parsing
         private bool TryParseFeatureString(string featureString, out string featureName, out string featureValue)
         {
             featureName = featureValue = null;
-            string[] nameAndValue =
-                (featureString ?? string.Empty).Split(new[] {'='}, 2, StringSplitOptions.RemoveEmptyEntries);
-            if (nameAndValue.Length != 2)
+            string[] nameAndValue = (featureString ?? string.Empty).Split('=');
+            if (nameAndValue.Length != 2 || string.IsNullOrWhiteSpace(nameAndValue[0]))
             {
                 return false;
             }
@@ -291,7 +290,7 @@ namespace Recommendations.Core.Parsing
             featureValue = nameAndValue[1].Trim().ToLowerInvariant();
             return true;
         }
-        
+
         private readonly uint _maximumParsingErrorsCount;
         private readonly ITracer _tracer;
     }
