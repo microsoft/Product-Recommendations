@@ -202,6 +202,32 @@ namespace Recommendations.Core.Train
             _tracer.TraceInformation("Extracting the indexed item ids from the item index map");
             string[] itemIdsIndex = itemIdsIndexMap.OrderBy(kvp => kvp.Value).Select(kvp => kvp.Key).ToArray();
 
+            _tracer.TraceInformation($"Sorting the usage events based on the cooccurrenceUnit unit ({settings.CooccurrenceUnit})");
+            switch (settings.CooccurrenceUnit)
+            {
+                case CooccurrenceUnit.User:
+                    usageEvents = usageEvents.OrderBy(x => x.UserId).ToArray();
+                    break;
+                case CooccurrenceUnit.Timestamp:
+                    usageEvents = usageEvents.OrderBy(x => x.Timestamp).ThenBy(x => x.UserId).ToArray();
+                    break;
+            }
+
+            _tracer.TraceInformation("Finished sorting usage events.");
+
+            Stopwatch storeUserHistoryDuration = null;
+            Task storeUserHistoryTask = null;
+            if (settings.EnableUserToItemRecommendations && _userHistoryStore != null)
+            {
+                storeUserHistoryDuration = Stopwatch.StartNew();
+                _tracer.TraceInformation($"Extracting the indexed user ids from the user index map ({userIdsIndexMap.Count:N} users)");
+                string[] userIdsIndex = userIdsIndexMap.OrderBy(kvp => kvp.Value).Select(kvp => kvp.Key).ToArray();
+
+                _tracer.TraceInformation($"Asynchronously starting to store usage events per user (total of {usageEvents.Count:N} items)");
+                storeUserHistoryTask = Task.Run(() =>
+                    _userHistoryStore.StoreUserHistoryEventsAsync(usageEvents, userIdsIndex, cancellationToken), cancellationToken);
+            }
+
             // if provided, parse the evaluation usage event files 
             int evaluationUsageEventsCount = 0;
             string parsedEvaluationUsageEventsFilePath = null;
@@ -235,37 +261,11 @@ namespace Recommendations.Core.Train
                 _tracer.TraceInformation($"Evaluation usage file(s) parsing completed in {duration.EvaluationUsageFilesParsingDuration.TotalMinutes} minutes");
             }
 
-            cancellationToken.ThrowIfCancellationRequested();
-
-            _tracer.TraceInformation($"Sorting the usage events based on the cooccurrenceUnit unit ({settings.CooccurrenceUnit})");
-            switch (settings.CooccurrenceUnit)
-            {
-                case CooccurrenceUnit.User:
-                    usageEvents = usageEvents.OrderBy(x => x.UserId).ToArray();
-                    break;
-                case CooccurrenceUnit.Timestamp:
-                    usageEvents = usageEvents.OrderBy(x => x.Timestamp).ThenBy(x => x.UserId).ToArray();
-                    break;
-            }
-
-            _tracer.TraceInformation("Finished sorting usage events.");
-
-            Stopwatch storeUserHistoryDuration = null;
-            Task storeUserHistoryTask = null;
-            if (settings.EnableUserToItemRecommendations && _userHistoryStore != null)
-            {
-                storeUserHistoryDuration = Stopwatch.StartNew();
-                _tracer.TraceInformation($"Extracting the indexed user ids from the user index map ({userIdsIndexMap.Count:N} users)");
-                string[] userIdsIndex = userIdsIndexMap.OrderBy(kvp => kvp.Value).Select(kvp => kvp.Key).ToArray();
-                
-                _tracer.TraceInformation($"Asynchronously starting to store usage events per user (total of {usageEvents.Count:N} items)");
-                storeUserHistoryTask = Task.Run(() =>
-                    _userHistoryStore.StoreUserHistoryEventsAsync(usageEvents, userIdsIndex, cancellationToken), cancellationToken);
-            }
-
             // clear the indices maps as they are no longer needed
             userIdsIndexMap.Clear();
             itemIdsIndexMap.Clear();
+
+            cancellationToken.ThrowIfCancellationRequested();
 
             // report progress
             _progressMessageReportDelegate("Core Training");
