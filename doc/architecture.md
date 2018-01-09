@@ -72,7 +72,7 @@ as *Failed* in [Model Registry](#model-registry).
 <img src="../images/architecture/azure-queue-storage.png" align="left" height="85px">
 
 The Delete Model Queue is an [Azure Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues) used by the [Web App](#recommendations-web-app) 
-to signal the [Web Job](#recommendations-web-job) to stop model training (if in progress) and delete the trained model resources from Azure Blob Storage (is exists).
+to signal the [Web Job](#recommendations-web-job) to stop model training (if in progress) and delete the trained model resources from Azure Blob Storage (if exists).
 
 
 ## Model Training Flow
@@ -81,7 +81,7 @@ to signal the [Web Job](#recommendations-web-job) to stop model training (if in 
 
 Recommendations model training is the process of processing an input of usage events, catalog (optional) and configuration settings ("training parameters") and yielding a binary that could be used to get item recommendations. 
 
-If provided, a **catalog** is basically a list of items, where every item has an item id (string) and a set of *features* (key-value pairs) that describes the item. One example is a books catalog, where every boon is an item with features such as published year and\or genre. 
+If provided, a **catalog** is basically a list of items, where every item has an item id (string) and a set of *features* (key-value pairs) that describes the item. One example is a books catalog, where every book is an item with features such as published year and\or genre. 
 
 **Usage events** are a record of how the items were used. At its basic form, a usage event is comprised out of a user id (string) and an item id (string). In addition, usage event may also provide a timestamp value. Usage events are essential for the recommendation algorithm which looks for correlations between the different users usage patterns (see [SAR algorithm](sar.md)).
 
@@ -112,7 +112,7 @@ The quality of a trained model could be evaluated by using [Model Evaluation](mo
  TLC-trained model and additional required contracts (e.g. a map between 'external' string catalog items ids and the 'internal' numeric ids).
  The Recommender class can use that in-memory trainer model class and some parameters to compute recommendations.
  
- Above this layer, we find the [Model Provider](#model-provider), which can downloads catalog & usage events Azure blob files to local disk, to be used by the Model Trainer.
+ Above this layer, we find the [Model Provider](#model-provider), which can download catalog & usage events Azure blob files to local disk, to be used by the Model Trainer.
  In addition, the [Model Provider](#model-provider) is responsible for [caching](#caching) Recommender objects for better performance.
 
  At the top most layer we find the [Web App](#recommendations-web-app) and the [Recommendations Web Job](#recommendations-web-job) that utilize the [Model Provider](#model-provider)
