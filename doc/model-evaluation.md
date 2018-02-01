@@ -16,12 +16,8 @@ The following table represents the output of the precision-at-k offline evaluati
 | 4 | 24.31 | 10,000
 | 5 | 26.61 | 10,000
 
-In the preceding table, k represents the number of recommendations shown to the customer. The table reads as follows: ìIf during the test period, only one recommendation was shown to the customers, only 13.75 of the users would have purchased that recommendation.î This statement is based on the assumption that the model was trained with purchase data. Another way to say this is that the precision at 1 is 13.75.
-
-You will notice that as more items are shown to the customer, the likelihood of the customer purchasing a recommended item goes up. For the preceding experiment, the probability almost doubles to 26.61 percent when 5 items are recommended.
-
 ##### k
-In the preceding table, k represents the number of recommendations shown to the customer. The table reads as follows: ìIf during the test period, only one recommendation was shown to the customers, only 13.75 of the users would have purchased that recommendation.î This statement is based on the assumption that the model was trained with purchase data. Another way to say this is that the precision at 1 is 13.75.
+In the preceding table, k represents the number of recommendations shown to the customer. The table reads as follows: ‚ÄúIf during the test period, only one recommendation was shown to the customers, only 13.75 of the users would have purchased that recommendation.‚Äù This statement is based on the assumption that the model was trained with purchase data. Another way to say this is that the precision at 1 is 13.75.
 
 You will notice that as more items are shown to the customer, the likelihood of the customer purchasing a recommended item goes up. For the preceding experiment, the probability almost doubles to 26.61 percent when 5 items are recommended.
 
@@ -60,6 +56,6 @@ The total items recommended metric shows the number of items recommended. Some m
 
 These are the three common splitting strategies that can be used to split usage data into train and test set. For a good evaluation atleast a 1000 and atmost a 10,000 users are recommended to be present in test data.
 
-1. **Random** ñ for each *User* with at least 3 unique Items, randomly put 1 of the Items in Test, the remaining in Train. If more than 10,000 such Users, randomly select 10,000.
-2. **Last Event** ñ for each *User* with at least 3 unique Items, take the Item with the latest time stamp and put it in Test (in case of ties, randomly take 1 Item from the ones with the same latest timestamp), the remaining in Train. If more than 10,000 such Users, randomly select 10,000 and put the LastEvent of the remaining back in Train.
-3. **Fixed Date** ñ for each *User*, put all events before the date in Train, and all events after the date in Test.
+1. **Random** ‚Äì for each *User* with at least 3 unique Items, randomly put 1 of the Items in Test, the remaining in Train. If more than 10,000 such Users, randomly select 10,000.
+2. **Last Event** ‚Äì for each *User* with at least 3 unique Items, take the Item with the latest time stamp and put it in Test (in case of ties, randomly take 1 Item from the ones with the same latest timestamp), the remaining in Train. If more than 10,000 such Users, randomly select 10,000 and put the LastEvent of the remaining back in Train.
+3. **Fixed Date** ‚Äì for each *User*, put all events before the date in Train, and all events after the date in Test.
