@@ -62,7 +62,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ManagedBlingSigned, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\lib\net40\ManagedBlingSigned.dll</HintPath>
+      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\lib\net40\ManagedBlingSigned.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -82,7 +82,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="microsoft.naturallanguage.runtime.managed, Version=16.0.0.0, Culture=neutral, PublicKeyToken=94de0004b6e3fcc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\lib\net40\microsoft.naturallanguage.runtime.managed.dll</HintPath>
+      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\lib\net40\microsoft.naturallanguage.runtime.managed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -104,7 +104,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="TLCRecommendations, Version=3.8.51.1475, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\lib\net40\TLCRecommendations.dll</HintPath>
+      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\lib\net40\TLCRecommendations.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -136,7 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="TrainingFiles\small\catalog.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -208,12 +210,12 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\Microsoft.MachineLearning.TLCRecommendations.targets" Condition="Exists('..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\Microsoft.MachineLearning.TLCRecommendations.targets')" />
+  <Import Project="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\Microsoft.MachineLearning.TLCRecommendations.targets" Condition="Exists('..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\Microsoft.MachineLearning.TLCRecommendations.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\Microsoft.MachineLearning.TLCRecommendations.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\Microsoft.MachineLearning.TLCRecommendations.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\Microsoft.MachineLearning.TLCRecommendations.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\Microsoft.MachineLearning.TLCRecommendations.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
