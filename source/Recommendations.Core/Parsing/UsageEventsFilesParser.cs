@@ -30,11 +30,6 @@ namespace Recommendations.Core.Parsing
         public ConcurrentDictionary<string, uint> UserIdsIndex { get; }
 
         /// <summary>
-        /// Gets the default event timestamp used if a timestamp field is missing 
-        /// </summary>
-        public DateTime DefaultEventTimestamp { get; private set; }
-
-        /// <summary>
         /// Gets the most recent timestamp in the parsed usage events
         /// </summary>
         public DateTime MostRecentEventTimestamp { get; private set; }
@@ -83,10 +78,10 @@ namespace Recommendations.Core.Parsing
 
             _tracer.TraceInformation("Starting usage files parsing");
 
-            DefaultEventTimestamp = DateTime.UtcNow;
-            MostRecentEventTimestamp = DefaultEventTimestamp;
+            var defaultEventTimestamp = DateTime.UtcNow;
+            MostRecentEventTimestamp = DateTime.MinValue;
             var parsingReport = new FileParsingReport();
-            usageEvents = ParseUsageEventFilesInternal(usageFolder, parsingReport, cancellationToken).ToList();
+            usageEvents = ParseUsageEventFilesInternal(usageFolder, parsingReport, defaultEventTimestamp, cancellationToken).ToList();
 
             _tracer.TraceInformation("Finished usage files parsing");
             return parsingReport;
@@ -96,14 +91,14 @@ namespace Recommendations.Core.Parsing
         /// Parses each file found in the input folder into usage events, 
         /// while indexing the found user ids and item ids.
         /// </summary>
-        private IEnumerable<SarUsageEvent> ParseUsageEventFilesInternal(string usageFolder, FileParsingReport parsingReport, CancellationToken cancellationToken)
+        private IEnumerable<SarUsageEvent> ParseUsageEventFilesInternal(string usageFolder, FileParsingReport parsingReport, DateTime defaultEventTimestamp, CancellationToken cancellationToken)
         {
             foreach (string usageFile in Directory.GetFiles(usageFolder))
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 _tracer.TraceInformation($"Parsing file {Path.GetFileName(usageFile)} ({(double)new FileInfo(usageFile).Length/(1024*1024):F2} MB)");
 
-                foreach (SarUsageEvent sarUsageEvent in ParseUsageEventsFile(usageFile, parsingReport))
+                foreach (SarUsageEvent sarUsageEvent in ParseUsageEventsFile(usageFile, parsingReport, defaultEventTimestamp))
                 {
                     yield return sarUsageEvent;
                 }
@@ -123,7 +118,7 @@ namespace Recommendations.Core.Parsing
         /// Parse a usage events file into usage events items.
         /// Expected format is userId,itemId,timestamp[,event-type[,event-weight]
         /// </summary>
-        private IEnumerable<SarUsageEvent> ParseUsageEventsFile(string usageFile, FileParsingReport parsingReport)
+        private IEnumerable<SarUsageEvent> ParseUsageEventsFile(string usageFile, FileParsingReport parsingReport, DateTime defaultEventTimestamp)
         {
             using (var reader = new TextFieldParser(usageFile) { Delimiters = new[] { "," } })
             {
@@ -149,7 +144,7 @@ namespace Recommendations.Core.Parsing
 
                     ParsingErrorReason? parsingError;
                     ParsingErrorReason? parsingWarning;
-                    SarUsageEvent usageEvent = ParseUsageEvent(fields, out parsingError, out parsingWarning);
+                    SarUsageEvent usageEvent = ParseUsageEvent(fields, defaultEventTimestamp, out parsingError, out parsingWarning);
                     if (parsingError.HasValue)
                     {
                         if (ShouldContinueAfterError(parsingError.Value,
@@ -178,7 +173,7 @@ namespace Recommendations.Core.Parsing
         /// <summary>
         /// Parse a usage events file into usage events items.
         /// </summary>
-        private SarUsageEvent ParseUsageEvent(string[] fields, out ParsingErrorReason? parsingError, out ParsingErrorReason? parsingWarning)
+        private SarUsageEvent ParseUsageEvent(string[] fields, DateTime defaultEventTimestamp, out ParsingErrorReason? parsingError, out ParsingErrorReason? parsingWarning)
         {
             parsingError = null;
             parsingWarning = null;
@@ -190,7 +185,7 @@ namespace Recommendations.Core.Parsing
             }
 
             // parse the timestamp (if provided) or use the default value
-            DateTime timestamp = DefaultEventTimestamp;
+            DateTime timestamp = defaultEventTimestamp;
             if (fields.Length > 2 && !DateTime.TryParse(fields[2], out timestamp))
             {
                 parsingError = ParsingErrorReason.BadTimestampFormat;
