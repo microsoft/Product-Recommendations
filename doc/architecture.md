@@ -127,3 +127,8 @@ Every Recommender object is associated with a specific model. Recommender object
 
 At a lower lever, Recommender objects keep an internal cache of an even lower level *Scoring Engine* objects. 
 Scoring Engine is the underlying TLC's object that is used to "score" (get recommendation) items. A Scoring Engine object is a combination of a trained model and scoring-time arguments (e.g. the number of requested recommendations, the latest usage event's timestamp). For that reason, it is likely for a single model to have multiple Scoring Engines, and that is why Recommender objects keep a cache. Similarly to the top level cache, Scoring Engine objects leave the cache is not used after one day. 
+
+## Microsoft.MachineLearning.TLCRecommendations.dll
+
+The core algorithm that produces the models and is used to score the models is a black-box DLL. (Microsoft.MachineLearning.TLCRecommendations.dll). This DLL is not meant to be consumed and/or supported outside of this solution template. As such, the DLL is not publicly documented.
+
