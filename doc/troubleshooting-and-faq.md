@@ -17,6 +17,7 @@ Clicking on the **Search** tab will expose all the service telemetry, including 
 
 ![Application Insights Search](../images/application-insights-search-page.png)
 
+#### Using the Analytics Portal to View Trace Messages
 Although you can search for traces\events directly from the *search* screen, consider clicking on the **Analytics** button - you'll be redirected to the analytics site where you'll get the full flexible search capability:
 
 ![Application Insights Analytics](../images/application-insights-analytics.png)
