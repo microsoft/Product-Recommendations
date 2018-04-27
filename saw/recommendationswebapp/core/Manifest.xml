@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Template>
-  <Category>DesignPattern</Category>
+  <Category>Solution</Category>
   <Title>Recommendations Solution</Title>
   <Owners>
     <Owner displayname="Recommendations" email="mlapi@microsoft.com"/>
