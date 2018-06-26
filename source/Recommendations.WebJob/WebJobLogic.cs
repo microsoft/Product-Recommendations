@@ -21,7 +21,7 @@ namespace Recommendations.WebJob
     internal class WebJobLogic
     {
         /// <summary>
-        /// Creates  anew instance of the <see cref="WebJobLogic"/> class.
+        /// Creates a new instance of the <see cref="WebJobLogic"/> class.
         /// </summary>
         /// <param name="modelsProvider">A models provider</param>
         /// <param name="modelsRegistry">A model registry</param>
