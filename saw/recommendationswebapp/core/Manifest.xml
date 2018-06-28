@@ -2,6 +2,7 @@
 <Template>
   <Category>Solution</Category>
   <Title>Recommendations Solution</Title>
+  <IsLegacyTemplate>true</IsLegacyTemplate>  
   <Owners>
     <Owner displayname="Recommendations" email="mlapi@microsoft.com"/>
     <Owner displayname="Nati Nimni" email="natinimn@microsoft.com" />
