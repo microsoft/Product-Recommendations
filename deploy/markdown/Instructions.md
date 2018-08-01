@@ -1,4 +1,10 @@
-## Next Steps
+## Deployment Instructions
+
+Before proceding, please ensure that you have an active Azure Subscription. If you do not, create one by visitng the [Azure Portal](https://portal.azure.com/). Once this is complete, click on the Deploy To Azure button above. The default parameters should suffice. If you wish to change them, you may go ahead and select a different value from the dropdown for the Account Type, Hosting Plan Sku, and the App Insights Location. We recommend leaving the Deploy Package Uri to its default value.
+
+Once your deployment is complete, please return here to read the Next steps.
+
+## Next Steps post deployment
 
 Congratulations, the Recommendations solution has been deployed to your Azure subscription!!
 You can use this service to train recommendation models and to get product recommendations.
@@ -8,20 +14,23 @@ You can use this service to train recommendation models and to get product recom
 Please take note of the following pieces of information so you can use them to access the newly created RESTful endpoint that you can use to train models, and get product recommendations from
 those models. 
 
+To get the following values, you must go to the Deployment page for the deployment which you just created in the Azure Portal. This can be found in the resource group that was just created (under the deployments section). Once here, please click on Outputs to see the deployments outputs which you'll need to get the values in the table below. This screenshot should help you find the deployment outputs.
+
+![Diagram](deploymentOutputs.PNG)
 
 | | |
 |:---|:---|
-|**End Point**| &nbsp;&nbsp;[{Outputs.websiteUrl}]({Outputs.websiteUrl}) |
+|**End Point (WEBSITEURL)**| &nbsp;&nbsp;WEBSITEURL Output |
 |&nbsp;||
-|**Admin Key**| &nbsp;&nbsp;{Outputs.adminPrimaryKey} |
+|**Admin Key (Primary)**| &nbsp;&nbsp;ADMINPRIMARYKEY Output |
 |&nbsp;||
-|**Recommender Key** | &nbsp;&nbsp;{Outputs.recommendPrimaryKey} |
+|**Recommender Key** | &nbsp;&nbsp;RECOMMENDPRIMARYKEY Output |
 |&nbsp;||
-|**Recommendations UI**| &nbsp;&nbsp;[{Outputs.websiteUrl}/ui]({Outputs.websiteUrl}/ui) |
+|**Recommendations UI**| &nbsp;&nbsp; {WEBSITEURL}/ui |
 |&nbsp;||
-|**Swagger**| &nbsp;&nbsp;[{Outputs.websiteUrl}/swagger]({Outputs.websiteUrl}/swagger) |
+|**Swagger**| &nbsp;&nbsp;{WEBSITEURL}/swagger |
 |&nbsp;||
-|**Storage Account Connection String** | &nbsp;&nbsp;{Outputs.storageConnectionString} |
+|**Storage Account Connection String** | &nbsp;&nbsp;STORAGECONNECTIONSTRING Output |
 
 &nbsp;
   
@@ -43,7 +52,7 @@ Learn about the APIs exposed by the endpoint. You can also take a look at the [S
 Train your first model and get recommendations using the [sample code](https://go.microsoft.com/fwlink/?linkid=847717&pc=c-sharp-sample). For your convenience, you can simply replace the below code snippet in the sample to get it working with this deployment:
 
 ```
-string recommendationsEndPointUri = @"{Outputs.websiteUrl}";  
-string apiAdminKey = @"{Outputs.adminPrimaryKey}";
-string connectionString = @"{Outputs.storageConnectionString}";
+string recommendationsEndPointUri = @"{WEBSITEURL Output}";  
+string apiAdminKey = @"{ADMINPRIMARYKEY Output}";
+string connectionString = @"{STORAGECONNECTIONSTRING Output}";
 ```
