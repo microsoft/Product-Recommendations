@@ -49,7 +49,11 @@
       }
     },
     "deployPackageUri": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "https://github.com/bazzdg/Product-Recommendations/blob/master/deploy/Recommendations.WebApp.zip?raw=true",
+      "metadata": {
+        "description": "Uri of the WebApp zip."
+      }
     }
   },
 
