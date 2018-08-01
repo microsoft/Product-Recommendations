@@ -24,14 +24,14 @@ To get the following values, you must go to the Deployment page for the deployme
 
 ![Diagram](deploymentOutputs.PNG)
 
-| Output Description | Output parameter in Deployment Outputs |
+|*Output Description* |*Output parameter in Deployment Outputs*|
 |-----------|----------|
-|**End Point (WEBSITEURL)**| &nbsp;&nbsp;WEBSITEURL Output |
-|**Admin Key (Primary)**| &nbsp;&nbsp;ADMINPRIMARYKEY Output |
-|**Recommender Key** | &nbsp;&nbsp;RECOMMENDPRIMARYKEY Output |
-|**Recommendations UI**| &nbsp;&nbsp; {WEBSITEURL Output}/ui |
-|**Swagger**| &nbsp;&nbsp;{WEBSITEURL Output}/swagger |
-|**Storage Account Connection String** | &nbsp;&nbsp;STORAGECONNECTIONSTRING Output |
+|**End Point (WEBSITEURL)**|WEBSITEURL Output |
+|**Admin Key (Primary)**|ADMINPRIMARYKEY Output |
+|**Recommender Key** |RECOMMENDPRIMARYKEY Output |
+|**Recommendations UI**|{WEBSITEURL Output}/ui |
+|**Swagger**|{WEBSITEURL Output}/swagger |
+|**Storage Account Connection String**|STORAGECONNECTIONSTRING Output |
 
 &nbsp;
   
