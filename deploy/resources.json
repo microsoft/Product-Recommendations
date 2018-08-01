@@ -52,7 +52,7 @@
       "type": "string",
       "defaultValue": "https://github.com/bazzdg/Product-Recommendations/blob/master/deploy/Recommendations.WebApp.zip?raw=true",
       "metadata": {
-        "description": "Uri of the WebApp zip."
+        "description": "Uri of the WebApp zip file. The default value should properly work. If it does not, go to the github repo where you hit deploy. Navigate to Recommendations.WebApp.zip under the deploy folder and copy the file url. Append ?raw=true to the end of the url."
       }
     }
   },
