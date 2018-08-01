@@ -24,18 +24,13 @@ To get the following values, you must go to the Deployment page for the deployme
 
 ![Diagram](deploymentOutputs.PNG)
 
-| | |
+| Output Description | Output parameter in Deployment Outputs |
 |-----------|----------|
 |**End Point (WEBSITEURL)**| &nbsp;&nbsp;WEBSITEURL Output |
-|&nbsp;||
 |**Admin Key (Primary)**| &nbsp;&nbsp;ADMINPRIMARYKEY Output |
-|&nbsp;||
 |**Recommender Key** | &nbsp;&nbsp;RECOMMENDPRIMARYKEY Output |
-|&nbsp;||
 |**Recommendations UI**| &nbsp;&nbsp; {WEBSITEURL Output}/ui |
-|&nbsp;||
 |**Swagger**| &nbsp;&nbsp;{WEBSITEURL Output}/swagger |
-|&nbsp;||
 |**Storage Account Connection String** | &nbsp;&nbsp;STORAGECONNECTIONSTRING Output |
 
 &nbsp;
