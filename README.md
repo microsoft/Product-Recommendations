@@ -25,6 +25,7 @@ At a high level, The solution exposes mechanisms to:
 Before you can use the solution, you need to deploy it. 
 
 Click on the following button to be redirected to the deployment instructions page.
+
 <a href="deploy/" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>

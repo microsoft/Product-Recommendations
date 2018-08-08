@@ -218,11 +218,11 @@
       "type": "string",
       "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0])]"
     },
-    "websiteUI": {
+    "recommendationsUI": {
       "type": "string",
       "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0], '/ui')]"
     },
-    "websiteSwagger": {
+    "recommendationsSwagger": {
       "type": "string",
       "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0], '/swagger')]"
     },
