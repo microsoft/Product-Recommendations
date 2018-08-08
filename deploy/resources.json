@@ -218,6 +218,14 @@
       "type": "string",
       "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0])]"
     },
+    "websiteUI": {
+      "type": "string",
+      "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0], '/ui')]"
+    },
+    "websiteSwagger": {
+      "type": "string",
+      "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0], '/swagger')]"
+    },
     "adminPrimaryKey": {
       "value": "[variables('adminPrimaryKey')]",
       "type": "string"

@@ -24,7 +24,10 @@ At a high level, The solution exposes mechanisms to:
 
 Before you can use the solution, you need to deploy it. 
 
-The [Deployment Instructions](doc/deployment-instructions.md) document explains the steps to follow to deploy the solution to your own Azure subscription. 
+Click on the following button to be redirected to the deployment instructions page.
+<a href="deploy/" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
 
 ## Training your first model
 
