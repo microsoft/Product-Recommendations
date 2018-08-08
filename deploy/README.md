@@ -26,7 +26,7 @@ To get the following values, you must go to the Deployment page for the deployme
 
 Once here, please click on Outputs to see the deployments outputs which you'll need to get the values in the table below. This screenshot should help you find the deployment outputs.
 
-![Diagram](deploymentOutputs.png)
+![Diagram](deploymentOutputs.PNG)
 
 |*Output Description* |*Output parameter in Deployment Outputs*|
 |-----------|----------|
