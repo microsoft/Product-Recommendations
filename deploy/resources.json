@@ -1,0 +1,242 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+
+  "parameters": {
+    "accountType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS"
+      ],
+      "metadata": {
+        "description": "Choose a Storage Account replication strategy:"
+      }
+    },
+    "hostingPlanSku": {
+      "type": "string",
+      "allowedValues": [
+        "B1",
+        "B2",
+        "B3",
+        "S1",
+        "S2",
+        "S3",
+        "P1",
+        "P2",
+        "P3",
+        "P1v2",
+        "P2v2",
+        "P3v2"
+      ],
+      "defaultValue": "S2",
+      "metadata": {
+        "description": "Choose an App Service plan (pricing tier):"
+      }
+    },
+    "appInsightsLocation": {
+      "type": "string",
+      "allowedValues": [
+        "East US",
+        "North Europe",
+        "West Europe",
+        "South Central US"
+      ],
+      "defaultValue": "East US",
+      "metadata": {
+        "description": "Choose an Application Insights supported deployment regions:"
+      }
+    },
+    "deployPackageUri": {
+      "type": "string",
+      "defaultValue": "https://github.com/Microsoft/Product-Recommendations/blob/master/deploy/Recommendations.WebApp.zip?raw=true",
+      "metadata": {
+        "description": "Uri of the WebApp zip file. The default value should properly work. If it does not, go to the github repo where you hit deploy. Navigate to Recommendations.WebApp.zip under the deploy folder and copy the file url. Append ?raw=true to the end of the url."
+      }
+    }
+  },
+
+  "variables": {
+    "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId, resourceGroup().name)))]",
+    "location": "[resourceGroup().location]",
+    "storageAccountName": "[concat(variables('uniqueNamePrefix'), 'st')]",
+    "webSiteName": "[concat(variables('uniqueNamePrefix'), 'ws')]",
+    "appInsightsName": "[concat(variables('uniqueNamePrefix'), 'appInsights')]",
+    "hostingPlanName": "[concat(variables('uniqueNamePrefix'), 'hostingplan')]",
+    "adminPrimaryKey": "[base64(uniqueString(resourceGroup().id, deployment().name, 'adminPrimaryKey'))]",
+    "adminSecondaryKey": "[base64(uniqueString(resourceGroup().id, deployment().name, 'adminSecondaryKey'))]",
+    "recommendPrimaryKey": "[base64(uniqueString(resourceGroup().id, deployment().name, 'recommendPrimaryKey'))]",
+    "recommendSecondaryKey": "[base64(uniqueString(resourceGroup().id, deployment().name, 'recommendSecondaryKey'))]"
+  },
+
+  "resources": [
+    {
+      "name": "[variables('storageAccountName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[variables('location')]",
+      "apiVersion": "2016-01-01",
+      "sku": {
+        "name": "[parameters('accountType')]"
+      },
+      "kind": "Storage",
+      "properties": {
+        "encryption": {
+          "keySource": "Microsoft.Storage",
+          "services": {
+            "blob": {
+              "enabled": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "[variables('hostingPlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[variables('location')]",
+      "apiVersion": "2015-08-01",
+      "properties": {
+        "name": "[variables('hostingPlanName')]"
+      },
+      "sku": {
+        "name": "[parameters('hostingPlanSku')]"
+      }
+    },
+    {
+      "name": "[variables('webSiteName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[variables('location')]",
+      "apiVersion": "2015-08-01",
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('hostingPlanName'))]": "Resource",
+        "displayName": "WebApp"
+      },
+      "properties": {
+        "name": "[variables('webSiteName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]"
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "config",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'))]",
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'), '/extensions/MSDeploy')]"
+          ],
+          "tags": {
+            "displayName": "WebAppConfig"
+          },
+          "properties": {
+            "phpVersion": "5.6",
+            "netFrameworkVersion": "v4.6",
+            "use32BitWorkerProcess": false,
+            "webSocketsEnabled": true,
+            "alwaysOn": true,
+            "remoteDebuggingEnabled": false,
+            "remoteDebuggingVersion": "VS2015"
+          }
+        },
+        {
+          "apiVersion": "2014-04-01",
+          "name": "[variables('appInsightsName')]",
+          "type": "Microsoft.Insights/components",
+          "location": "[parameters('appInsightsLocation')]",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'))]"
+          ],
+          "tags": {
+            "displayName": "AppInsightsComponent"
+          },
+          "properties": {
+            "applicationId": "[variables('appInsightsName')]"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "appsettings",
+          "type": "config",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'))]",
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'), '/extensions/MSDeploy')]"
+          ],
+          "tags": {
+            "displayName": "WebAppSettings"
+          },
+          "properties": {
+            "AdminPrimaryKey": "[variables('adminPrimaryKey')]",
+            "AdminSecondaryKey": "[variables('adminSecondaryKey')]",
+            "RecommendPrimaryKey": "[variables('recommendPrimaryKey')]",
+            "RecommendSecondaryKey": "[variables('recommendSecondaryKey')]",
+            "ApplicationInsightsInstrumentationKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "connectionstrings",
+          "type": "config",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'))]",
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'), '/extensions/MSDeploy')]",
+            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+          ],
+          "properties": {
+            "AzureWebJobsDashboard": {
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]",
+              "type": "Custom"
+            },
+            "AzureWebJobsStorage": {
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]",
+              "type": "Custom"
+            }
+          }
+        },
+        {
+          "name": "MSDeploy",
+          "type": "extensions",
+          "location": "[variables('location')]",
+          "apiVersion": "2015-08-01",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'))]"
+          ],
+          "tags": {
+            "displayName": "WebAppMSDeploy"
+          },
+          "properties": {
+            "packageUri": "[parameters('deployPackageUri')]"
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": {
+    "websiteUrl": {
+      "type": "string",
+      "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0])]"
+    },
+    "recommendationsUI": {
+      "type": "string",
+      "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0], '/ui')]"
+    },
+    "recommendationsSwagger": {
+      "type": "string",
+      "value": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0], '/swagger')]"
+    },
+    "adminPrimaryKey": {
+      "value": "[variables('adminPrimaryKey')]",
+      "type": "string"
+    },
+    "recommendPrimaryKey": {
+      "value": "[variables('recommendPrimaryKey')]",
+      "type": "string"
+    },
+    "storageConnectionString": {
+      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]",
+      "type": "string"
+    }
+  }
+}
