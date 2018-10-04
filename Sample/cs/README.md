@@ -14,7 +14,7 @@ The sample demonstrates how to:
 ## Pre-Requirements
 The steps below are explained in more detail in the [Getting Started Guide](../../getting-started.md)
  
-1. Before you can run the application you need to deploy the Recommendations Template. See [Deployment Instructions](../../doc/deployment-instructions.md) for more detail
+1. Before you can run the application you need to deploy the Recommendations Template. See [Deployment Instructions](../../deploy#product-recommendation-solutions-deployment-via-arm) for more detail
  
 2. You will get an API Key as part of the deployment process and the url of your solution. 
 Set the *apiAdminKey* and *recommendationsEndPointUri* variables in *Recommendations.Sample/Program.cs* file based on those values
