@@ -3,7 +3,7 @@
 ## Step 1: Deploy the product recommendations solution
 
 If you have not done so already, please deploy the solution to your Azure subscription
-by following the [Deployment Instructions](doc/deployment-instructions.md).
+by following the [Deployment Instructions](deploy#product-recommendation-solutions-deployment-via-arm).
 
 ## Step 2: Collect Data to Train your Model
 The solution allows you to create recommendations models by learning 
