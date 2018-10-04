@@ -92,7 +92,7 @@ If desired, these values can be over-written by adding the above parameter in *A
 There are two possible scenarios where scoring latency could be degraded.
 1. Degradation on first call - When a model is not in cache (see [Architecture](architecture.md)), on a scoring call, it is downloaded from blob storage and loaded in memory. This results in a longer latency (we have seen 0.5-2 seconds), however once this is in the cache, subsequent scoring calls are much faster (<500 msec).
 2. Model training is in progress - Since training happens on the same machine, CPU and memory resources are shared. This results in more processing time of a request. Although increasing the number of instannces by Scaling out can help here, requests going to the machine where training is in progress will still be affected.
-One idea is to [deploy](deployment-instructions.md) two instances  of the service, reconfigure the second service to have the same  *Application Settings*, specifically the two *Connection Strings* - *AzureWebJobsDashboard* and *AzureWebJobsStorage*. Use first deployment exclusively for training and second exclusively for scoring. This would ensure that training doesn't effect scoring.
+One idea is to [deploy](../deploy#product-recommendation-solutions-deployment-via-arm) two instances  of the service, reconfigure the second service to have the same  *Application Settings*, specifically the two *Connection Strings* - *AzureWebJobsDashboard* and *AzureWebJobsStorage*. Use first deployment exclusively for training and second exclusively for scoring. This would ensure that training doesn't effect scoring.
 ![App Settings Connectionstrings](../images/app-settings-connectionstrings.png)
 
 #### 9. Cannot open UI when running locally - HTTP Error 500.19 - Internal Server Error
@@ -128,7 +128,7 @@ Application Insights can simply be disabled by removing the key/value - *Applica
 
 #### Q. How can I deploy a code change?
 
-See [Post Deployments](deployment-instructions.md#post-deployments).
+See [Post Deployments](../deploy#re-deploying-new-code-to-the-deployed-solution).
 
 #### Q. How can I access the recommendations UI/Portal?
 
