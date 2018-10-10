@@ -35,11 +35,6 @@ namespace Recommendations.Core.Parsing
         ItemIdTooLong = 5,
 
         /// <summary>
-        /// The item id string contains invalid characters.
-        /// </summary>
-        IllegalCharactersInItemId = 6,
-
-        /// <summary>
         /// The user id string is longer than the maximum allowed
         /// </summary>
         UserIdTooLong = 7,
