@@ -207,13 +207,6 @@ namespace Recommendations.Core.Parsing
                 return null;
             }
 
-            // check for illegal characters in the item id
-            if (!itemId.All(IsAlphanumericDashOrUnderscoreCharacter))
-            {
-                parsingError = ParsingErrorReason.IllegalCharactersInItemId;
-                return null;
-            }
-
             // check if to ignore the item
             if (_ignoreUnknownItemIds && !ItemIdsIndex.ContainsKey(itemId))
             {

@@ -188,13 +188,6 @@ namespace Recommendations.Core.Parsing
                 return null;
             }
 
-            // check for illegal characters in the item id
-            if (!itemId.All(UsageEventsFilesParser.IsAlphanumericDashOrUnderscoreCharacter))
-            {
-                parsingError = ParsingErrorReason.IllegalCharactersInItemId;
-                return null;
-            }
-
             // check for duplicate item id
             if(ItemIdsIndex.ContainsKey(itemId))
             {

@@ -41,7 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ManagedBlingSigned, Version=0.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\lib\net40\ManagedBlingSigned.dll</HintPath>
+      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\lib\net40\ManagedBlingSigned.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -106,7 +106,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="microsoft.naturallanguage.runtime.managed, Version=16.0.0.0, Culture=neutral, PublicKeyToken=94de0004b6e3fcc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\lib\net40\microsoft.naturallanguage.runtime.managed.dll</HintPath>
+      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\lib\net40\microsoft.naturallanguage.runtime.managed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -154,8 +154,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="TLCRecommendations, Version=3.8.51.1475, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\lib\net40\TLCRecommendations.dll</HintPath>
+    <Reference Include="TLCRecommendations, Version=3.8.51.1476, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\lib\net40\TLCRecommendations.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
@@ -178,13 +178,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\x64\CpuMathNative.dll">
+    <Content Include="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\x64\CpuMathNative.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\x64\LdaNative.dll">
+    <Content Include="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\x64\LdaNative.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\x64\zlib.dll">
+    <Content Include="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\x64\zlib.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
@@ -293,12 +293,12 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.1.0.13\tools\webjobs.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.1.0.13\tools\webjobs.targets')" />
-  <Import Project="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\Microsoft.MachineLearning.TLCRecommendations.targets" Condition="Exists('..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\Microsoft.MachineLearning.TLCRecommendations.targets')" />
+  <Import Project="..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\Microsoft.MachineLearning.TLCRecommendations.targets" Condition="Exists('..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\Microsoft.MachineLearning.TLCRecommendations.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\Microsoft.MachineLearning.TLCRecommendations.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1475\build\Microsoft.MachineLearning.TLCRecommendations.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\Microsoft.MachineLearning.TLCRecommendations.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.MachineLearning.TLCRecommendations.3.8.51.1476\build\Microsoft.MachineLearning.TLCRecommendations.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
