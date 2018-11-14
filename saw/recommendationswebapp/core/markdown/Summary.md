@@ -19,6 +19,6 @@ This solution creates the Azure resources necessary and connects them to generat
 2. An Azure Storage subscription that is used for storing models, model metadata as well as for WebApp to WebJob communication.
 
 
-![Diagram]({PatternAssetBaseUrl}/highlevelarch.png)
+![Diagram](/saw/recommendationswebapp/assets/highlevelarch.png)
 
 Learn more about the Recommendations Solution [here](http://github.com/Microsoft/Product-Recommendations).
