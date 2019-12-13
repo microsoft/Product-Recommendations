@@ -58,10 +58,10 @@
   },
 
   "variables": {
-    "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId, resourceGroup().name)))]",
+    "uniqueNamePrefix": "[toLower(uniqueString(subscription().subscriptionId, resourceGroup().name))]",
     "location": "[resourceGroup().location]",
     "storageAccountName": "[concat(variables('uniqueNamePrefix'), 'st')]",
-    "webSiteName": "[concat(variables('uniqueNamePrefix'), 'ws')]",
+    "webSiteName": "[concat(toLower(resourceGroup().name), variables('uniqueNamePrefix'), 'ws')]",
     "appInsightsName": "[concat(variables('uniqueNamePrefix'), 'appInsights')]",
     "hostingPlanName": "[concat(variables('uniqueNamePrefix'), 'hostingplan')]",
     "adminPrimaryKey": "[base64(uniqueString(resourceGroup().id, deployment().name, 'adminPrimaryKey'))]",
@@ -137,8 +137,7 @@
             "use32BitWorkerProcess": false,
             "webSocketsEnabled": true,
             "alwaysOn": true,
-            "remoteDebuggingEnabled": false,
-            "remoteDebuggingVersion": "VS2015"
+            "remoteDebuggingEnabled": false
           }
         },
         {
